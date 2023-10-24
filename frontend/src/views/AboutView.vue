@@ -1,5 +1,8 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <header-component></header-component>
+  <v-tooltip text="Tooltip">
+  <template v-slot:activator="{ props }">
+    <v-btn v-bind="props">Tooltip</v-btn>
+  </template>
+</v-tooltip>
 </template>
