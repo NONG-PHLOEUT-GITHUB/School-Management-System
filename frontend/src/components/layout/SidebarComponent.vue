@@ -3,15 +3,15 @@
     <div class="logo">
       <img :src="logo" alt="" :width="130">
     </div>
-      <v-list>
+      <!-- <v-list>
         <v-list-item>
         <router-link to="/about">Forgot login password?</router-link>
         <router-link to="/home">Forgot login password?</router-link>
         </v-list-item>
-      </v-list>
+      </v-list> -->
         <v-list density="compact" nav>
-          <v-list-item prepend-icon="mdi-widgets" title="Dashboard" value="home"></v-list-item>
-          <v-list-item prepend-icon="mdi-account" title="My Account" value="account"></v-list-item>
+          <v-list-item prepend-icon="mdi-widgets" title="Dashboard" value="home" :to="{ name: 'home' }"></v-list-item>
+          <v-list-item prepend-icon="mdi-account" title="My Account" value="account" :to="{name:'about'}"></v-list-item>
           <v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
         </v-list>
   </v-navigation-drawer>
@@ -25,22 +25,17 @@
 
   data() {
     return {
-      // drawer: null,
       logo: require('@/assets/images/logo.png'),
     };
   },
   methods:{
-    drawer: {
-      get() {
+      drawer(){
         return this.value
       },
       set(val) {
         this.$emit('input', val)
       },
     },
-
-
-  }
 };
 </script>
 
@@ -49,5 +44,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+v-list-item{
+  font-size: 30px;
+  color: red;
 }
 </style>

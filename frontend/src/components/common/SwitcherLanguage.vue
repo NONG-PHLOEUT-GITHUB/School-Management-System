@@ -6,6 +6,7 @@
             <v-avatar color="brown" size="small">
               <v-img :src="getSelectedFlag" alt="Selected Flag" cover>
                 </v-img>
+                <!-- <img :src="getSelectedFlag" alt="" cover> -->
             </v-avatar>
           </v-btn>
         </template>

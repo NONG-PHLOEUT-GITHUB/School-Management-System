@@ -13,16 +13,16 @@ const routes = [
     name: 'login',
     component: LoginPage
   },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/HomeView.vue')
-  },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   component: () => import('../views/AboutView.vue')
+  // },
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   component: () => import('../views/HomeView.vue')
+  // },
   {
     path: '/dashboard/user',
     name: 'dashboard',
