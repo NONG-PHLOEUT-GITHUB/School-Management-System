@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import LoginPage from '@/pages/auth/LoginPage'
+import LoginPage from '@/views/auth/LoginPage'
 
 const routes = [
   // {
@@ -26,23 +26,23 @@ const routes = [
   {
     path: '/dashboard/user',
     name: 'dashboard',
-    component: () => import('../pages/admin/UserManagement.vue')
+    component: () => import('../views/admin/UserManagement.vue')
   },
   {
     path: '/reset-password',
     name: 'reset-password',
-    component: () => import('../pages/auth/ResetPasswordPage.vue')
+    component: () => import('../views/auth/ResetPasswordPage.vue')
   },
   {
     path: '/class-component',
     name: 'class-component',
     component: () => import('../components/classManagement/ClassComponent')
-  }
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 })
 
 export default router

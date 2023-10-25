@@ -5,8 +5,14 @@
     <!-- app bar -->
     <app-bar :width="appBarWidth" @toggle="toggleNav"></app-bar>
 
-    <v-main class="d-flex align-center justify-center" style="min-height: 300px">
+    <!-- <v-main class="d-flex align-center justify-center" style="min-height: 300px">
       <router-view />
+    </v-main> -->
+    <!-- main body -->
+    <v-main ref="vMain">
+      <v-container class="px-6" fluid>
+        <router-view :key="$route.fullPath" />
+      </v-container>
     </v-main>
   </v-layout>
 </template>

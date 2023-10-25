@@ -13,10 +13,10 @@ const vuetify = createVuetify({
   })
 const app = createApp(App)
 
-import HeaderComponent from "@/components/layout/HeaderComponent"
+// import HeaderComponent from "@/components/layout/HeaderComponent"
 import LayoutComponent from "@/components/layout/LayoutComponent"
 
-app.component('header-component',HeaderComponent)
+// app.component('header-component',HeaderComponent)
 app.component('layout-component',LayoutComponent)
 
 app.use(router)
