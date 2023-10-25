@@ -1,11 +1,15 @@
 <template>
-    <AlertNotification :value="toastData"/>
-
+  <AlertNotification :value="toastData" />
+  <!-- <v-title>{{ this.selectedLanguage }}</v-title> -->
+  <div :key="selectedLanguage">
+    <!-- Your component code -->
+    <p>{{ selectedLanguage }}</p>
+  </div>
+  <SwitcherLanguage /> 
   <div
-  class="container d-flex align-center justify-center"
-  style="height: 100vh"
+    class="container d-flex align-center justify-center"
+    style="height: 100vh"
   >
-
     <div class="ma-4">
       <h2>SCHOOL MANAGEMENT</h2>
       <v-img
@@ -69,14 +73,15 @@
 </template>
 
 <script>
-import AlertNotification from '@/components/common/AlertNotification'
-
+import AlertNotification from "@/components/common/AlertNotification";
+import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 export default {
-  components:{
-        AlertNotification,
-   },
+  components: {
+    AlertNotification,
+    SwitcherLanguage,
+  },
   data: () => ({
-    toastData: [], 
+    toastData: [],
     loginSuccess: false,
     visible: false,
     loading: false,
@@ -92,7 +97,23 @@ export default {
       (v) => !!v || "Password is required",
       (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
     ],
+    selectedLanguage: "",
   }),
+  mounted() {
+    this.selectLanguage(); // Call selectLanguage method when the component is mounted
+  },
+
+  watch: {
+    selectedLanguage: function (newLanguage) {
+      localStorage.setItem("selectedLanguage", newLanguage);
+    },
+  },
+  methods: {
+    selectLanguage() {
+       this.selectedLanguage = localStorage.getItem("selectedLanguage");
+      console.log("fff",this.selectedLanguage);
+    },
+  },
 
   // methods: {
   //   login() {
@@ -146,9 +167,4 @@ export default {
 };
 </script>
 
-
-<style scoped>
-
-
-</style>
-
+<style scoped></style>

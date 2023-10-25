@@ -9,6 +9,11 @@
         <router-link to="/home">Forgot login password?</router-link>
         </v-list-item>
       </v-list>
+        <v-list density="compact" nav>
+          <v-list-item prepend-icon="mdi-widgets" title="Dashboard" value="home"></v-list-item>
+          <v-list-item prepend-icon="mdi-account" title="My Account" value="account"></v-list-item>
+          <v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
+        </v-list>
   </v-navigation-drawer>
 </template> 
 

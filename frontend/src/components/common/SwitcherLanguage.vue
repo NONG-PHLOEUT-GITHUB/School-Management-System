@@ -3,7 +3,7 @@
       <v-menu min-width="200px" rounded>
         <template v-slot:activator="{ props }">
           <v-btn icon v-bind="props">
-            <v-avatar color="brown">
+            <v-avatar color="brown" size="small">
               <v-img :src="getSelectedFlag" alt="Selected Flag" cover>
                 </v-img>
             </v-avatar>
@@ -18,7 +18,7 @@
               </v-btn>
               <br>
               <v-btn rounded variant="text" @click="selectLanguage('english')">
-                <img src="../assets/images/England.webp" alt="English Flag" :width="30"/>
+                <img src="../assets/images/England.png" alt="English Flag" :width="30"/>
                 English
               </v-btn>
             </div>
@@ -53,9 +53,9 @@ export default {
       if (this.flag.selectedLanguage === 'khmer') {
         return "../assets/images/khmer.webp";
       } else if (this.flag.selectedLanguage === 'english') {
-        return "../assets/images/England.webp";
+        return "../assets/images/England.png";
       } else {
-        return '../assets/images/England.webp';
+        return '../assets/images/England.png';
       }
     },
   },
