@@ -1,15 +1,22 @@
 <template>
-    <title-component></title-component>
+  <custom-title title="Dashboard"
+  icon="mdi-chart-pie"/>
+  <card-dashboard/>
 </template>
 
 <script>
-import TitleComponent from "src/components/common/TitleComponent.vue";
-
+import CustomTitle from '@/components/common/CustomTitle.vue';
+import CardDashboard from '@/components/admin/CardDashboard.vue'
 export default {
-    name:'AdminDashboard',
+  name: "AdminDashboard",
 
-    components:{
-        TitleComponent
-    }
-}
+  components:{
+    CustomTitle,
+    CardDashboard
+  }
+};
 </script>
+
+<style scoped>
+
+</style>

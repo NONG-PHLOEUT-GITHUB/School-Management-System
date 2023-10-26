@@ -40,7 +40,7 @@
             </v-list-item>
 
             <v-col cols="auto">
-              <v-btn size="small" block variant="outlined">View Profile</v-btn>
+              <v-btn size="small" block variant="outlined" color="primary" :to="{name: 'profile-user'}">View Profile</v-btn>
             </v-col>
             <v-divider></v-divider>
             <v-list-item
@@ -52,7 +52,7 @@
               <template v-slot:prepend>
                 <v-icon :icon="item.icon"></v-icon>
               </template>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title v-text="item.text" :to=item.path></v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -76,7 +76,11 @@ export default {
       drawer: false,
       tooltipVisible: false,
       menus: [
-        { text: "Change password", icon: "mdi-lock-reset" },
+        { 
+          text: "Change password",
+          path: '/profile/user',
+          icon: "mdi-lock-reset"
+        },
         { text: "Logout", icon: "mdi-logout" },
       ],
     };

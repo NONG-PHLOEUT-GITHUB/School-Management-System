@@ -1,10 +1,8 @@
 <template>
-  <AlertNotification :value="toastData" />
-  <!-- <v-title>{{ this.selectedLanguage }}</v-title> -->
+  <!-- <AlertNotification :value="toastData" />
   <div :key="selectedLanguage">
-    <!-- Your component code -->
-    <p>{{ selectedLanguage }}</p>
-  </div>
+  <v-title>Language</v-title>  <p>{{ selectedLanguage }}</p>
+  </div> -->
   <SwitcherLanguage /> 
   <div
     class="container d-flex align-center justify-center"
@@ -14,18 +12,19 @@
       <h2>SCHOOL MANAGEMENT</h2>
       <v-img
         class="bg-white"
-        width="300"
+        width="600"
         :aspect-ratio="1"
-        src="https://media.istockphoto.com/id/1281150061/vector/register-account-submit-access-login-password-username-internet-online-website-concept.jpg?s=612x612&w=0&k=20&c=9HWSuA9IaU4o-CK6fALBS5eaO1ubnsM08EOYwgbwGBo="
+        src="../../../public/assets/images/login.avif"
         cover
       ></v-img>
     </div>
     <v-card
       width="500"
       class="mx-auto border--5 mx-auto pa-12 pb-8"
-      elevation="10"
-      max-width="448"
+      elevation="0"
+      max-width="500"
       rounded="lg"
+      
     >
       <v-form ref="form" @submit.prevent="login">
         <v-title>
@@ -73,11 +72,11 @@
 </template>
 
 <script>
-import AlertNotification from "@/components/common/AlertNotification";
+// import AlertNotification from "@/components/common/AlertNotification";
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 export default {
   components: {
-    AlertNotification,
+    // AlertNotification,
     SwitcherLanguage,
   },
   data: () => ({
