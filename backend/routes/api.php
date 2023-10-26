@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\UserController;
+use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +20,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// user routes //
+Route::post('/user', [UserController::class,'store']);
+
+
+Route::prefix('v2')->group(function () {
+    Route::prefix('auth')->group(function () {
+
+        // Login User
+        Route::post('login',[AuthController::class,'login']);
+        
+        // Refresh the JWT Token
+        Route::get('refresh', 'AuthController@refresh');
+        
+        // Below mention routes are available only for the authenticated users.
+        Route::middleware('auth:api')->group(function () {
+            // Get user info
+            Route::get('user', 'AuthController@user');
+
+            // Logout user from application
+            Route::post('logout', 'AuthController@logout');
+        });
+    });
 });
