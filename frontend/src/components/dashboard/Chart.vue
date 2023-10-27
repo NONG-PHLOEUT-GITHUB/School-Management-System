@@ -1,32 +1,48 @@
 <template>
-    <div>
-      <my-chart :chartData="chartData" :options="chartOptions" />
-      ff
-    </div>
-  </template>
-  
-  <script>
+    <v-card>
+      <canvas id="myChart" width="500" height="510"></canvas>
+    </v-card>
+</template>
 
-  export default {
+<script setup>
+import { onMounted } from "vue";
+import { Chart, CategoryScale, Title, Tooltip } from "chart.js/auto";
 
-    data() {
-      return {
-        chartData: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-            {
-              label: 'My First Dataset',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              data: [65, 59, 80, 81, 56, 55, 40],
-            },
-          ],
-        },
-        chartOptions: {
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      };
+onMounted(() => {
+  Chart.register(CategoryScale, Title, Tooltip);
+
+  let ctx = document.getElementById("myChart").getContext("2d");
+
+  let data = {
+    labels: ["Label 1", "Label 2", "Label 3","Label 4"],
+    datasets: [
+      {
+        data: [5, 3, 6, 19],
+        backgroundColor: ["blue", "red", "green","yellow"],
+      },
+    ],
+  };
+
+  let options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: "Polar Area Chart",
+      },
+      legend: {
+        display: true,
+      },
     },
   };
-  </script>
-  
+
+  let config = {
+    type: "polarArea",
+    data: data,
+    options: options,
+  };
+
+  new Chart(ctx, config);
+});
+</script>

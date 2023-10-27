@@ -1,65 +1,88 @@
 <template>
-    <v-container fluid style="background: red" class="pa-1">
-      <v-img
-        width="100%"
-        aspect-ratio="3.9"
-        cover
-        src="../../../public/assets/images/jsconfig.jpeg"
-      >
-        <!-- Camera button for changing cover photo -->
-        <v-btn icon class="camera-button">
-          <v-icon>mdi-camera</v-icon>
-        </v-btn>
-      </v-img>
-      <div class="profile-avatar">
-        <v-avatar color="grey" size="300" rounded="10">
+  <v-container fluid>
+    <v-row style="background: #efe8e8;">
+      <v-col class="profile-container">
+        <v-card class="profile-card">
           <v-img
-            cover
-            src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+            class="profile-cover"
+            aspect-ratio="0"
+            src="https://i.pinimg.com/originals/93/46/b9/9346b9be943e1bae0acd662bba9c5db9.jpg"
           >
-            <!-- Camera button for changing profile photo -->
-            <v-btn icon class="camera-button-profile">
+            <!-- Camera button for changing cover photo -->
+            <v-btn icon class="camera-button">
               <v-icon>mdi-camera</v-icon>
             </v-btn>
           </v-img>
-        </v-avatar>
-        <!-- User Name -->
-        <div class="user-name">
-          <h2>John Doe</h2>
-        </div>
-      </div>
-    </v-container>
-  </template>
-  
-  <style scoped>
-  .profile-avatar {
-    position: absolute;
-    top: 50%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    border: solid 3px white;
-    border-radius: 100%;
-  }
-  
-  .camera-button, .camera-button-profile {
-    position: absolute;
-    bottom: 35px;
-    right: 50px;
-    z-index: 2;
-  }
-  
-  .user-name {
-    /* background: #000; */
-    width: 90%;
-    position: absolute;
-    top: 120%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    text-align: center;
-    color: rgb(150, 30, 30);
-    font-size: 24px;
-  }
-  </style>
-  
+          <v-card-text>
+            <v-avatar size="150">
+              <v-img
+                class="profile-avatar"
+                cover
+                src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+              >
+                <!-- Camera button for changing profile photo -->
+                <v-btn icon class="camera-button-profile">
+                  <v-icon>mdi-camera</v-icon>
+                </v-btn>
+              </v-img>
+            </v-avatar>
+            <!-- User Name -->
+            <div class="user-name text-h4">
+              John Doe
+            </div>
+            <!-- User Information -->
+            <v-divider></v-divider>
+            <v-row class="user-info">
+              <v-col cols="12" md="4">
+                <v-icon>mdi-email</v-icon> johndoe@example.com
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-icon>mdi-phone</v-icon> (123) 456-7890
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-icon>mdi-map-marker</v-icon> 123 Main St, City
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<style scoped>
+.profile-container{
+  width: 10%;
+}
+.profile-card {
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.profile-cover {
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-avatar {
+  border-radius: 10px;
+}
+
+.camera-button, .camera-button-profile {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  z-index: 2;
+}
+
+.user-name {
+  text-align: center;
+  color: #333;
+}
+
+.user-info {
+  padding: 16px 0;
+  color: #555;
+  text-align: center;
+}
+</style>

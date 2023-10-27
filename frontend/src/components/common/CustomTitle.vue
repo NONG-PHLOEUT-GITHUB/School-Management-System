@@ -5,7 +5,7 @@
     class="customer-title d-flex justify-space-between py-0"
   >
     <div class="d-flex align-center">
-      <v-icon size="x-large" color="cyan-darken-3">{{ icon }}</v-icon>
+      <v-icon size="40" color="cyan-darken-3">{{ icon }}</v-icon>
       <v-title class="text-h5 text-md-h5 text-lg-h5 font-weight-bold ma-3 mt-4"
         >{{ title }}</v-title
       >
