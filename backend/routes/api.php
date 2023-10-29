@@ -24,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // user routes //
 Route::post('/user', [UserController::class,'store']);
+Route::get('/users', [UserController::class,'index']);
+Route::get('count', [UserController::class,'getTotalStudent']);
+Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
+Route::post('login',[AuthController::class,'login']);
 
 
 Route::prefix('v2')->group(function () {
@@ -42,6 +46,9 @@ Route::prefix('v2')->group(function () {
 
             // Logout user from application
             Route::post('logout', 'AuthController@logout');
+
+            // count students
+            Route::get('count', [UserController::class,'getTotalStudent']);
         });
     });
 });

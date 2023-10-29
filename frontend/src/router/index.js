@@ -36,6 +36,11 @@ const routes = [
     component: () => import("../views/auth/ResetPasswordPage.vue"),
   },
   {
+    path: "/forget-password",
+    name: "forget-password",
+    component: () => import("../views/auth/ForgetPassword.vue"),
+  },
+  {
     path: "/class-component",
     name: "class-component",
     component: () => import("../components/classManagement/ClassComponent"),

@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-           $user = User::find($id);
+        $user = User::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'The record with ID ' . $id . ' was not found.'], 404);
@@ -62,5 +62,20 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['success' => true, 'message' => 'User deleted successfully'], 200);
+    }
+
+    /**
+     * get total student.
+     */
+    public function getTotalStudent(){
+        $totalStudents = User::where('role', 3)->count();
+        return $totalStudents;
+    }
+     /**
+     * get total teacher.
+     */
+    public function getTotalTeacher(){
+        $totalTeachers = User::where('role', 1)->count();
+        return $totalTeachers;
     }
 }

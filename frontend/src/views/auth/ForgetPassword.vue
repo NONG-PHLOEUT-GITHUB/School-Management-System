@@ -9,14 +9,15 @@
         <h1 class="logo">SCHOOL MANAGEMENT</h1>
         <v-img
           class="login-image"
-          src="../../../public/assets/images/Mobilelogin.png"
+          src="../../../public/assets/images/Forgotpassword.png"
           aspect-ratio="1"
           cover
         ></v-img>
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="login">
-          <h1 class="login-title">Login</h1>
+          <h1 class="login-title">Forgot Password</h1>
+          <span>Remember to check your email for a password reset link.</span>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
@@ -32,59 +33,23 @@
               :rules="emailRules"
               variant="outlined"
               no-validation
+              :hint="helperText"
             ></v-text-field>
             <span :rules="emailRules"></span>
           </div>
-          <div class="input-group">
-            <div
-              class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-            >
-              Password
-            </div>
-            <v-text-field
-              :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-              :type="visible ? 'text' : 'password'"
-              density="compact"
-              placeholder="Enter your password"
-              prepend-inner-icon="mdi-lock-outline"
-              v-model="password"
-              :rules="passwordRules"
-              variant="outlined"
-              @click:append-inner="visible = !visible"
-            ></v-text-field>
-          </div>
-          <router-link to="/forget-password" class="forgot-password-link"
-            >Forgot login password?</router-link
-          >
           <v-btn type="submit" color="teal darken-4" block class="login-button"
-            >Login</v-btn
+            >Reset Password</v-btn
           >
+          <div class="center-text text-center mt-4">
+            <!-- <span :to="{name:'login' }">Back to Login</span> -->
+            <router-link to="/login">Back to Login</router-link>
+          </div>
         </v-form>
       </v-card>
     </div>
   </div>
 </template>
-
-<script setup>
-import { useAuthStore } from '@/stores/auth.js'; // Replace with the correct path
-
-const authStore = useAuthStore();
-const email = 'di1@gmail.com'; // Replace with your actual email input value
-const password = '123456789'; // Replace with your actual password input value
-
-const login = async () => {
-  await authStore.login({ email, password });
-};
-
-// const logout = () => {
-//   authStore.logout();
-// };
-</script>
-
-
-<!-- 
 <script>
-import http from "@/services/api.js";
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 
 export default {
@@ -93,6 +58,7 @@ export default {
     SwitcherLanguage,
   },
   data: () => ({
+    helperText: "We'll send a password reset link to this email address.",
     toastData: [],
     loginSuccess: false,
     visible: false,
@@ -125,38 +91,9 @@ export default {
       this.selectedLanguage = localStorage.getItem("selectedLanguage");
       console.log("fff", this.selectedLanguage);
     },
-    login() {
-      if (this.$refs.form.validate()) {
-        http
-          .get("/users", {
-            email: this.email,
-            password: this.password,
-          })
-          .then((response) => {
-            console.log('user data',response);
-          })
-
-          .catch((error) => {
-            if (error.response && error.response.status === 401) {
-              if (
-                this.email != "" &&
-                this.password != "" &&
-                this.emailRules != "" &&
-                this.passwordRules != ""
-              ) {
-                this.emailRules = [""];
-                this.passwordRules = ["Email or password is incorrect"];
-                console.log("email role", this.emailRules);
-              }
-            } else {
-              console.log(error);
-            }
-          });
-      }
-    },
   },
 };
-</script> -->
+</script>
 <style scoped>
 .login-page {
   background: #f4f4f4;

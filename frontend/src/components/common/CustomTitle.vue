@@ -6,8 +6,8 @@
   >
     <div class="d-flex align-center">
       <v-icon size="40" color="cyan-darken-3">{{ icon }}</v-icon>
-      <v-title class="text-h5 text-md-h5 text-lg-h5 font-weight-bold ma-3 mt-4"
-        >{{ title }}</v-title
+      <div class="text-h5 text-md-h5 text-lg-h5 font-weight-bold ma-3 mt-4"
+        >{{ title }}</div
       >
     </div>
     <!-- <div>
