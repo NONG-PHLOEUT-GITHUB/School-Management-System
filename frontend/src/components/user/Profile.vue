@@ -3,7 +3,8 @@
     <v-row class="pa-0">
       <v-col class="profile-container" cols="7">
         <v-card class="profile-card">
-          <v-img
+          <v-img 
+           elevation-5
             class="profile-cover"
             aspect-ratio="0"
             src="https://i.pinimg.com/originals/93/46/b9/9346b9be943e1bae0acd662bba9c5db9.jpg"

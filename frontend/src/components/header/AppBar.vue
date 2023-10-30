@@ -40,7 +40,14 @@
             </v-list-item>
 
             <v-col cols="auto">
-              <v-btn size="small" block variant="outlined" color="primary" :to="{name: 'profile-user'}">View Profile</v-btn>
+              <v-btn
+                size="small"
+                block
+                variant="outlined"
+                color="primary"
+                :to="{ name: 'profile-user' }"
+                >View Profile</v-btn
+              >
             </v-col>
             <v-divider></v-divider>
             <v-list-item
@@ -52,7 +59,7 @@
               <template v-slot:prepend>
                 <v-icon :icon="item.icon"></v-icon>
               </template>
-              <v-list-item-title v-text="item.text" :to=item.path></v-list-item-title>
+              <v-list-item-title v-text="item.text" :to="item.path"></v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -62,26 +69,28 @@
 </template>
 
 <script>
-
-import Language from '../common/SwitcherLanguage.vue';
+import Language from "../common/SwitcherLanguage.vue";
 export default {
   props: {
     width: { type: [Number, String] },
   },
-  components:{
-    Language
+  components: {
+    Language,
   },
   data() {
     return {
       drawer: false,
       tooltipVisible: false,
       menus: [
-        { 
+        {
           text: "Change password",
-          path: '/profile/user',
-          icon: "mdi-lock-reset"
+          path: "/chnage-password",
+          icon: "mdi-lock-reset",
         },
-        { text: "Logout", icon: "mdi-logout" },
+        {
+          text: "Logout",
+          icon: "mdi-logout",
+        },
       ],
     };
   },
@@ -106,8 +115,7 @@ export default {
 </script>
 
 <style scoped>
-
-.switcher{
+.switcher {
   margin-right: 50px;
 }
 </style>

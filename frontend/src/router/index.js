@@ -28,6 +28,11 @@ const routes = [
         name: "user-management",
         component: () => import("../views/admin/UserManagement.vue"),
       },
+      {
+        path: "/chnage-password",
+        name: "change-password",
+        component: () => import("../views/auth/ChangePassword.vue"),
+      },
     ],
   },
   {
