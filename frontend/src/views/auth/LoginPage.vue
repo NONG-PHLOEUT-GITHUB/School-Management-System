@@ -16,12 +16,12 @@
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="login">
-          <h1 class="login-title">Login</h1>
+          <h1 class="login-title">{{ $t("login.title") }}</h1>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              Email
+              {{$t("login.form.email")}}
             </div>
             <v-text-field
               ref="emailField"
@@ -39,7 +39,7 @@
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              Password
+            {{$t("login.form.password")}}
             </div>
             <v-text-field
               :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -54,10 +54,10 @@
             ></v-text-field>
           </div>
           <router-link to="/forget-password" class="forgot-password-link"
-            >Forgot login password?</router-link
+            >{{$t("login.form.forgot-pass")}}</router-link
           >
           <v-btn type="submit" color="teal darken-4" block class="login-button"
-            >Login</v-btn
+            >{{ $t("login.title") }}</v-btn
           >
         </v-form>
       </v-card>
@@ -66,6 +66,8 @@
 </template>
 
 <script setup>
+import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
+
 import { useAuthStore } from '@/stores/auth.js'; // Replace with the correct path
 
 const authStore = useAuthStore();

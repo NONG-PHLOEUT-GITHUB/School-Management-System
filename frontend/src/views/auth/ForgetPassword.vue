@@ -16,13 +16,14 @@
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="login">
-          <h1 class="login-title">Forgot Password</h1>
-          <span>Remember to check your email for a password reset link.</span>
+          <h1 class="login-title">{{$t("login.form.forgot-pass")}}</h1>
+          <span>{{$t("forgot-pass.message-forgot-pass")}}</span>
+          <!-- <span>Remember to check your email for a password reset link.</span> -->
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              Email
+              {{ $t("login.form.email") }}
             </div>
             <v-text-field
               ref="emailField"
@@ -42,7 +43,7 @@
           >
           <div class="center-text text-center mt-4">
             <!-- <span :to="{name:'login' }">Back to Login</span> -->
-            <router-link to="/login">Back to Login</router-link>
+            <router-link to="/login">{{$t('forgot-pass.back-login')}}</router-link>
           </div>
         </v-form>
       </v-card>
