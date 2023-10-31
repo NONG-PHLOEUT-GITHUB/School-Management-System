@@ -26,6 +26,7 @@ const refreshToken = async () => {
   try {
     const response = await axios.post('/api/refresh-token', { refresh_token: refreshToken });
     const token = response.data.access_token;
+    console.log(response);
     Cookies.set('access_token', token, { expires: 14 });
     return token;
   } catch (error) {

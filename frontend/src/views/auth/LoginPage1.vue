@@ -96,23 +96,7 @@ export default {
       (v) => !!v || "Password is required",
       (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
     ],
-    selectedLanguage: "",
   }),
-  mounted() {
-    this.selectLanguage(); // Call selectLanguage method when the component is mounted
-  },
-
-  watch: {
-    selectedLanguage: function (newLanguage) {
-      localStorage.setItem("selectedLanguage", newLanguage);
-    },
-  },
-  methods: {
-    selectLanguage() {
-       this.selectedLanguage = localStorage.getItem("selectedLanguage");
-      console.log("fff",this.selectedLanguage);
-    },
-  },
 
   // methods: {
   //   login() {

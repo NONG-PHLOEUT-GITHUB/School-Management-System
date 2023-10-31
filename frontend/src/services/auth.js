@@ -1,9 +1,21 @@
-import http from './api'
+import http from "./api";
 
-export function fetchAllUsers() {
-    return http.get('/users');
+// Authentication
+/**
+ * login
+ * @param {string} email
+ * @param {string} password
+ * @returns
+ */
+
+export function userLogin(email, password) {
+  const user = {
+    email,
+    password,
+  };
+  return http.post("/v2/auth/login", user);
 }
 
-export function userLogin() {
-    return http.post('/v2/auth/login');
+export function fetchAllUsers() {
+  return http.get("/users");
 }

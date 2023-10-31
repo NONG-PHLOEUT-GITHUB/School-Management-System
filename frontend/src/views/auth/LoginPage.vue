@@ -20,7 +20,7 @@
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{$t("login.form.email")}}
+              {{ $t("login.form.email") }}
             </div>
             <v-text-field
               ref="emailField"
@@ -38,7 +38,7 @@
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-            {{$t("login.form.password")}}
+              {{ $t("login.form.password") }}
             </div>
             <v-text-field
               :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -52,10 +52,14 @@
               @click:append-inner="toggleVisible"
             ></v-text-field>
           </div>
-          <router-link to="/forget-password" class="forgot-password-link"
-            >{{$t("login.form.forgot-pass")}}</router-link
-          >
-          <v-btn type="submit" color="teal darken-4" block class="login-button"
+          <router-link to="/forget-password" class="forgot-password-link">{{
+            $t("login.form.forgot-pass")
+          }}</router-link>
+          <v-btn
+            type="submit"
+            color="teal darken-4"
+            block
+            class="login-button"
             >{{ $t("login.title") }}</v-btn
           >
         </v-form>
@@ -66,16 +70,19 @@
 
 <script setup>
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-import { useAuthStore } from '@/stores/auth.js';
+import { useAuthStore } from "@/stores/auth.js";
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
-const email = 'di1@gmail.com'; 
-const password = '123456789'; 
+const email = "di1@gmail.com";
+const password = "123456789";
 
 const login = async () => {
   await authStore.login({ email, password });
+  const router = useRouter();
+  await router.push({ path: '/dashboard/user' });
 };
-
+// Push to the router path
 // const logout = () => {
 //   authStore.logout();
 // };
@@ -83,65 +90,6 @@ const login = async () => {
 const { visible, toggleVisible } = authStore;
 </script>
 
-
-<!-- 
-<script>
-import http from "@/services/api.js";
-export default {
-  components: {
-    // AlertNotification,
-  },
-  data: () => ({
-    toastData: [],
-    loginSuccess: false,
-    visible: false,
-    loading: false,
-    snackbar: false,
-    passwordShow: false,
-    email: "",
-    password: "",
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
-    ],
-  }),
-  methods: {
-    login() {
-      if (this.$refs.form.validate()) {
-        http
-          .get("/users", {
-            email: this.email,
-            password: this.password,
-          })
-          .then((response) => {
-            console.log('user data',response);
-          })
-
-          .catch((error) => {
-            if (error.response && error.response.status === 401) {
-              if (
-                this.email != "" &&
-                this.password != "" &&
-                this.emailRules != "" &&
-                this.passwordRules != ""
-              ) {
-                this.emailRules = [""];
-                this.passwordRules = ["Email or password is incorrect"];
-                console.log("email role", this.emailRules);
-              }
-            } else {
-              console.log(error);
-            }
-          });
-      }
-    },
-  },
-};
-</script> -->
 <style scoped>
 .login-page {
   background: #f4f4f4;
