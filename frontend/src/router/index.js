@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/auth/LoginPage";
-import UserProfile from "@/views/user-infor/UserProfile.vue";
+import UserProfile from "@/views/userInfor/UserProfile.vue";
 import MainLayout from "@/components/layout/LayoutComponent.vue";
 const routes = [
+  {
+    path: "/",
+    redirect: "/login", // Redirect to the login route by default
+  },
   {
     path: "/login",
     name: "login",

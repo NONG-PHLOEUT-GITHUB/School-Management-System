@@ -1,8 +1,31 @@
 {
-    "login": {
-      "title": "login"
-    },
-    "title": {
-      "config": "login"
+  "common":{
+    "ff":"hrllo"
+  },
+  "login": {
+    "title": "Login",
+    "form": {
+      "email": "Email",
+      "password": "Password",
+      "forgot-pass": "Fogot Password ?"
     }
+  },
+  "forgot-pass": {
+    "message-forgot-pass": "Remember to check your email for a password reset link.",
+    "back-login": "Back To Login"
+  },
+  "lang": {
+    "en": "English",
+    "kh": "Khner"
+  },
+  "btn": {
+    "resetPassword": "Reset Password"
+  },
+  "alert": {
+    "resetPassword": "Reset Password"
+  },
+  "errors": {},
+  "title": {
+  
   }
+}

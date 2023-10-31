@@ -18,7 +18,14 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     isAuthenticated: false,
+    visible: false,
   }),
+  getters: {
+    // Create a computed property to get the 'visible' state
+    isVisible() {
+      return this.visible;
+    },
+  },
   actions: {
     async login({ email, password }) {
       try {
@@ -46,6 +53,10 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     // Add your logout action here if needed
+    // Create a mutation to toggle the 'visible' state
+    toggleVisible() {
+      this.visible = !this.visible;
+    },
   },
 });
 

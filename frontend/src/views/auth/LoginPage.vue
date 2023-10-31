@@ -1,7 +1,6 @@
 <template>
   <v-app-bar collapse :elevation="2">
     <switcher-language />
-    <!-- <div>Language</div> -->
   </v-app-bar>
   <div class="login-page">
     <div class="login-container">
@@ -50,7 +49,7 @@
               v-model="password"
               :rules="passwordRules"
               variant="outlined"
-              @click:append-inner="visible = !visible"
+              @click:append-inner="toggleVisible"
             ></v-text-field>
           </div>
           <router-link to="/forget-password" class="forgot-password-link"
@@ -67,12 +66,11 @@
 
 <script setup>
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-
-import { useAuthStore } from '@/stores/auth.js'; // Replace with the correct path
+import { useAuthStore } from '@/stores/auth.js';
 
 const authStore = useAuthStore();
-const email = 'di1@gmail.com'; // Replace with your actual email input value
-const password = '123456789'; // Replace with your actual password input value
+const email = 'di1@gmail.com'; 
+const password = '123456789'; 
 
 const login = async () => {
   await authStore.login({ email, password });
@@ -81,18 +79,17 @@ const login = async () => {
 // const logout = () => {
 //   authStore.logout();
 // };
+
+const { visible, toggleVisible } = authStore;
 </script>
 
 
 <!-- 
 <script>
 import http from "@/services/api.js";
-import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-
 export default {
   components: {
     // AlertNotification,
-    SwitcherLanguage,
   },
   data: () => ({
     toastData: [],
@@ -111,22 +108,8 @@ export default {
       (v) => !!v || "Password is required",
       (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
     ],
-    selectedLanguage: "",
   }),
-  mounted() {
-    this.selectLanguage(); // Call selectLanguage method when the component is mounted
-  },
-
-  watch: {
-    selectedLanguage: function (newLanguage) {
-      localStorage.setItem("selectedLanguage", newLanguage);
-    },
-  },
   methods: {
-    selectLanguage() {
-      this.selectedLanguage = localStorage.getItem("selectedLanguage");
-      console.log("fff", this.selectedLanguage);
-    },
     login() {
       if (this.$refs.form.validate()) {
         http

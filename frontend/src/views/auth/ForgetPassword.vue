@@ -18,7 +18,6 @@
         <v-form ref="form" @submit.prevent="login">
           <h1 class="login-title">{{$t("login.form.forgot-pass")}}</h1>
           <span>{{$t("forgot-pass.message-forgot-pass")}}</span>
-          <!-- <span>Remember to check your email for a password reset link.</span> -->
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
@@ -39,7 +38,7 @@
             <span :rules="emailRules"></span>
           </div>
           <v-btn type="submit" color="teal darken-4" block class="login-button"
-            >Reset Password</v-btn
+            >{{ $t("btn.resetPassword") }}</v-btn
           >
           <div class="center-text text-center mt-4">
             <!-- <span :to="{name:'login' }">Back to Login</span> -->
@@ -76,23 +75,7 @@ export default {
       (v) => !!v || "Password is required",
       (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
     ],
-    selectedLanguage: "",
   }),
-  mounted() {
-    this.selectLanguage(); // Call selectLanguage method when the component is mounted
-  },
-
-  watch: {
-    selectedLanguage: function (newLanguage) {
-      localStorage.setItem("selectedLanguage", newLanguage);
-    },
-  },
-  methods: {
-    selectLanguage() {
-      this.selectedLanguage = localStorage.getItem("selectedLanguage");
-      console.log("fff", this.selectedLanguage);
-    },
-  },
 };
 </script>
 <style scoped>

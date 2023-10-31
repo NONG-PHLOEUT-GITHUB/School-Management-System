@@ -13,12 +13,12 @@
           <div class="mx-auto">
             <v-btn rounded variant="text" @click="selectLanguage('kh')">
               <img :src="getFlagImage('kh')" alt="Khmer Flag" :width="30" />
-              {{ $t('khmer') }}
+              {{ $t("lang.kh") }}
             </v-btn>
             <br>
             <v-btn rounded variant="text" @click="selectLanguage('en')">
               <img :src="getFlagImage('en')" alt="English Flag" :width="30" />
-              {{ $t('english') }}
+              {{ $t("lang.en") }}
             </v-btn>
           </div>
         </v-card-text>
@@ -31,15 +31,17 @@
 
 import { useI18n } from "vue-i18n";
 import { setI18nLanguage } from "../../plugins/i18n";
+import { computed } from 'vue';
 
 const { locale } = useI18n({ useScope: "global" });
 
-const getSelectedFlag = () => {
+const getSelectedFlag = computed(() => {
   return getFlagImage(locale.value);
-};
+});
+
 
 const getFlagImage = (language) => {
-  return `../assets/images/${language}.png`;
+  return require(`@/assets/images/${language}.png`);
 };
 
 const selectLanguage = (language) => {
@@ -47,4 +49,10 @@ const selectLanguage = (language) => {
 };
 </script>
 
+<style scoped>
+img{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+</style>
 

@@ -7,7 +7,7 @@
             <div class="d-flex justify-center align-center">
               <v-icon size="48" class="mr-2">mdi-account-group</v-icon>
               <div>
-                <div class="text-h6">Total Students</div>
+                <div class="text-h6">{{ $t("dashboard.studentTotal") }}</div>
                 <div class="text-h3 font-weight-bold">{{ totalStudents }}</div>
               </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="d-flex justify-center align-center">
               <v-icon size="48" class="mr-2">mdi-account-tie</v-icon>
               <div>
-                <div class="text-h6">Total Teacher</div>
+                <div class="text-h6">{{ $t("dashboard.teacherTotal") }}</div>
                 <div class="text-h3 font-weight-bold">{{ totalTeachers }}</div>
               </div>
             </div>
