@@ -95,17 +95,19 @@
   --warning: #E9BD0C;
   --info: #3498DB;
 }
-body {
+/* body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: var(--dark);
-}
+} */
 .notifications {
+  position: absolute;
   position: fixed;
   top: 30px;
   right: 20px;
+  z-index: 1000;
 }
 .notifications :where(.toast, .column) {
   display: flex;

@@ -1,4 +1,7 @@
 {
+  "common":{
+    "viewProfile":"មើលប្រវត្តិរូប"
+  },
   "login": {
     "title": "ចូលគណនី",
     "form": {

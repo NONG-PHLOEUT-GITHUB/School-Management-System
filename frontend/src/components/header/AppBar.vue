@@ -25,18 +25,24 @@
             <!-- <v-title class="me-8">Nong Phloeut</v-title> -->
             <v-btn icon v-bind="props" class="me-5">
               <v-avatar color="" size="large">
-                <v-img src="../../assets/images/profile.png" alt="Avatar" cover>
+                <v-img src="../../assets/images/avatar1.png" alt="Avatar" cover>
                 </v-img>
               </v-avatar>
             </v-btn>
           </template>
 
           <v-list>
-            <v-list-item
-              prepend-avatar="https://t3.ftcdn.net/jpg/02/30/60/82/360_F_230608264_fhoqBuEyiCPwT0h9RtnsuNAId3hWungP.webp"
-              title="John Leider"
-              subtitle="john@google.com"
-            >
+            <v-list-item>
+              <div class="profile">
+              <v-avatar color="" size="large">
+                <v-img src="../../assets/images/avatar1.png" alt="Avatar" cover>
+                </v-img>
+              </v-avatar>
+              <div class="subtitle">
+                <span class="font-weight-black">Nong Phloeut</span> <br/>
+                <span class="email">phloeutnong@gmail.com</span>
+              </div>
+            </div>
             </v-list-item>
 
             <v-col cols="auto">
@@ -46,7 +52,7 @@
                 variant="outlined"
                 color="primary"
                 :to="{ name: 'profile-user' }"
-                >View Profile</v-btn
+                >{{ $t("common.viewProfile") }}</v-btn
               >
             </v-col>
             <v-divider></v-divider>
@@ -57,9 +63,12 @@
               color="primary"
             >
               <template v-slot:prepend>
-                <v-icon :icon="item.icon"></v-icon>
+                <v-icon size="large" class="icon-setting" :icon="item.icon"></v-icon>
+                <v-list-item-title
+                  v-text="item.text"
+                  :to="item.path"
+                ></v-list-item-title>
               </template>
-              <v-list-item-title v-text="item.text" :to="item.path"></v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -117,5 +126,22 @@ export default {
 <style scoped>
 .switcher {
   margin-right: 50px;
+}
+.icon-setting {
+  margin-right: 10px;
+  margin-bottom: 3px;
+}
+.profile{
+  display: flex;
+}
+.subtitle{
+  margin-left: 9px;
+}
+.email {
+  display: inline-block;
+  max-width: 150px; /* Adjust the max width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
