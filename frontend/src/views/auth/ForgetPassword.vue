@@ -1,7 +1,6 @@
 <template>
   <v-app-bar collapse :elevation="2">
     <switcher-language />
-    <!-- <div>Language</div> -->
   </v-app-bar>
   <div class="login-page">
     <div class="login-container">
@@ -27,7 +26,7 @@
             <v-text-field
               ref="emailField"
               density="compact"
-              placeholder="Email address"
+              :placeholder="$t('common.emailAddress')"
               prepend-inner-icon="mdi-email-outline"
               v-model="email"
               :rules="emailRules"
@@ -41,7 +40,6 @@
             >{{ $t("btn.resetPassword") }}</v-btn
           >
           <div class="center-text text-center mt-4">
-            <!-- <span :to="{name:'login' }">Back to Login</span> -->
             <router-link to="/login">{{$t('forgot-pass.back-login')}}</router-link>
           </div>
         </v-form>
@@ -49,34 +47,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 
-export default {
-  components: {
-    // AlertNotification,
-    SwitcherLanguage,
-  },
-  data: () => ({
-    helperText: "We'll send a password reset link to this email address.",
-    toastData: [],
-    loginSuccess: false,
-    visible: false,
-    loading: false,
-    snackbar: false,
-    passwordShow: false,
-    email: "",
-    password: "",
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
-    ],
-  }),
-};
+import { ref } from 'vue';
+
+const helperText = "We'll send a password reset link to this email address.";
+const email = ref('');
+const emailRules = [
+  (v) => !!v || 'common.passReuire',
+  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+];
 </script>
 <style scoped>
 .login-page {

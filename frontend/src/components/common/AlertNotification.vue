@@ -96,13 +96,6 @@
   --warning: #E9BD0C;
   --info: #3498DB;
 }
-/* body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: var(--dark);
-} */
 .notifications {
   position: absolute;
   position: fixed;
@@ -221,21 +214,7 @@
   border-radius: 4px;
 }
 
-@media screen and (max-width: 530px) {
-  .notifications {
-    width: 95%;
-  }
-  .notifications .toast {
-    width: 100%;
-    font-size: 1rem;
-    margin-left: 20px;
-  }
-  .buttons .btn {
-    margin: 0 1px;
-    font-size: 1.1rem;
-    padding: 8px 15px;
-  }
-}
+/*  */
 span{
   color: white;
 }

@@ -1,4 +1,6 @@
 <template>
+  <LogoutConfirmation @logout="logoutUser" ref="logoutDialog" />
+
   <v-app-bar ref="appBar" app color="white">
     <v-app-bar-nav-icon @click="togglerDrawer">
       <v-icon>mdi-menu</v-icon>
@@ -32,15 +34,19 @@
           <v-list>
             <v-list-item>
               <div class="profile">
-              <v-avatar color="" size="large">
-                <v-img src="../../assets/images/avatar1.png" alt="Avatar" cover>
-                </v-img>
-              </v-avatar>
-              <div class="subtitle">
-                <span class="font-weight-black">Nong Phloeut</span> <br/>
-                <span class="email">phloeutnong@gmail.com</span>
+                <v-avatar color="" size="large">
+                  <v-img
+                    src="../../assets/images/avatar1.png"
+                    alt="Avatar"
+                    cover
+                  >
+                  </v-img>
+                </v-avatar>
+                <div class="subtitle">
+                  <span class="font-weight-black">Nong Phloeut</span> <br />
+                  <span class="email">phloeutnong@gmail.com</span>
+                </div>
               </div>
-            </div>
             </v-list-item>
 
             <v-col cols="auto">
@@ -61,10 +67,15 @@
               color="primary"
             >
               <template v-slot:prepend>
-                <v-icon size="large" class="icon-setting" :icon="item.icon"></v-icon>
+                <v-icon
+                  size="large"
+                  class="icon-setting"
+                  :icon="item.icon"
+                ></v-icon>
                 <v-list-item-title
-                  v-text="item.text"
+                  v-text="item.title"
                   :to="item.path"
+                  @click="onMenuClick(item.action)"
                 ></v-list-item-title>
               </template>
             </v-list-item>
@@ -77,14 +88,17 @@
 
 <script>
 import Language from "../common/SwitcherLanguage.vue";
-import Notification from "../common/components/Notification.vue";
+import LogoutConfirmation from "../common/LogoutConfirmation.vue";
+import { useAuthStore } from "@/stores/auth.js";
+// import { useRouter } from 'vue-router';
+
 export default {
   props: {
     width: { type: [Number, String] },
   },
   components: {
     Language,
-    Notification
+    LogoutConfirmation
   },
   data() {
     return {
@@ -92,13 +106,14 @@ export default {
       tooltipVisible: false,
       menus: [
         {
-          text: "Change password",
+          title: this.$t("header.menuChangePass"),
           path: "/chnage-password",
           icon: "mdi-lock-reset",
         },
         {
-          text: "Logout",
+          title: this.$t("header.menuLogout"),
           icon: "mdi-logout",
+          action: "logout",
         },
       ],
     };
@@ -119,6 +134,22 @@ export default {
     toggleTooltip() {
       this.tooltipVisible = !this.tooltipVisible;
     },
+    async logoutUser() {
+      const authStore = useAuthStore(); // Get the authentication store
+      await authStore.logout(); // Call a logout action in your store
+      this.$router.push({ name: "login" }); // Navigate to the logout route
+      console.log('Logout confirmed');
+    },
+    onMenuClick(action) {
+      this.$refs.logoutDialog.openDialog();
+      switch (action) {
+        case "logout":
+          this.logoutUser();
+          break;
+        default:
+          break;
+      }
+    },
   },
 };
 </script>
@@ -131,10 +162,10 @@ export default {
   margin-right: 10px;
   margin-bottom: 3px;
 }
-.profile{
+.profile {
   display: flex;
 }
-.subtitle{
+.subtitle {
   margin-left: 9px;
 }
 .email {

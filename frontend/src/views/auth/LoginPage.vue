@@ -25,7 +25,7 @@
             <v-text-field
               ref="emailField"
               density="compact"
-              placeholder="Email address"
+              :placeholder="$t('common.emailAddress')"
               prepend-inner-icon="mdi-email-outline"
               v-model="email"
               :rules="emailRules"
@@ -41,10 +41,10 @@
               {{ $t("login.form.password") }}
             </div>
             <v-text-field
-              :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-              :type="visible ? 'text' : 'password'"
+              :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="isPasswordVisible ? 'text' : 'password'"
               density="compact"
-              placeholder="Enter your password"
+              :placeholder="$t('common.password')"
               prepend-inner-icon="mdi-lock-outline"
               v-model="password"
               :rules="passwordRules"
@@ -69,26 +69,56 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth.js";
 import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const authStore = useAuthStore();
-const email = "di1@gmail.com";
-const password = "123456789";
+// const email = "di1@gmail.com";
+// const password = "123456789";
+
+const email = ref('');
+const password = ref('');
+
+const isPasswordVisible = ref(false);
+
+const toggleVisible = () => {
+  isPasswordVisible.value = !isPasswordVisible.value;
+};
+
+const emailRules = [
+  (v) => !!v || 'E-mail is required',
+  (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+];
+
+const passwordRules = [
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!',
+];
+
+const validateForm = () => {
+  const emailValid = emailRules.every(rule => rule(email.value) === true);
+  const passwordValid = passwordRules.every(rule => rule(password.value) === true);
+
+  if (!emailValid || !passwordValid) {
+    return false;
+  }
+
+  return true;
+};
 
 const login = async () => {
+  if (!validateForm()) {
+    return;
+  }
   await authStore.login({ email, password });
-  const router = useRouter();
   await router.push({ path: '/dashboard/user' });
 };
-// Push to the router path
-// const logout = () => {
-//   authStore.logout();
-// };
 
-const { visible, toggleVisible } = authStore;
 </script>
+
 
 <style scoped>
 .login-page {

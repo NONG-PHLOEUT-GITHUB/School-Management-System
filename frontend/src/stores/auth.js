@@ -6,14 +6,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     isAuthenticated: false,
-    visible: false,
   }),
-  getters: {
-
-    isVisible() {
-      return this.visible;
-    },
-  },
   actions: {
     async login({ email, password }) {
       try {
@@ -32,8 +25,10 @@ export const useAuthStore = defineStore('auth', {
         console.error('An error occurred:', error);
       }
     },
-    toggleVisible() {
-      this.visible = !this.visible;
+    logout() {
+      localStorage.removeItem('access_token');
+      // Reset the authentication state
+      this.isAuthenticated = false;
     },
   },
 });

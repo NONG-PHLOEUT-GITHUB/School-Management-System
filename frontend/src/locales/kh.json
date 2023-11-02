@@ -1,6 +1,9 @@
 {
   "common":{
-    "viewProfile":"មើលប្រវត្តិរូប"
+    "viewProfile":"មើលប្រវត្តិរូប",
+    "emailAddress":"បញ្ជូលអាស័យដ្ឋានអ៊ីមែលរបស់អ្នក",
+    "password":"បញ្ជូលលេខសម្ងាត់",
+    "passReuire":"ទាមទាបញ្ចូលលេខសម្ងាត់"
   },
   "login": {
     "title": "ចូលគណនី",
@@ -30,5 +33,12 @@
   },
   "menu":{
     "dashboard":"ផ្ទាំងគ្រប់គ្រង"
+  },
+  "header":{
+    "menuLogout":"ចាកចេញ",
+    "menuChangePass":"ប្តូរលេខសម្ងាត់"
+  },
+  "validation": {
+
   }
 }
