@@ -12,9 +12,7 @@
 
     <!-- notification magnify-->
     <v-app-bar-nav-icon class="me-10">
-      <v-badge content="2" color="error">
-        <v-icon class="cursor-pointer">mdi-bell-outline</v-icon>
-      </v-badge>
+      <Notification/>
     </v-app-bar-nav-icon>
 
     <!-- logged in user menu -->
@@ -79,12 +77,14 @@
 
 <script>
 import Language from "../common/SwitcherLanguage.vue";
+import Notification from "../common/components/Notification.vue";
 export default {
   props: {
     width: { type: [Number, String] },
   },
   components: {
     Language,
+    Notification
   },
   data() {
     return {

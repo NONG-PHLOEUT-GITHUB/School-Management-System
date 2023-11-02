@@ -10,6 +10,9 @@ import "vuetify/styles"
 import "vuetify/dist/vuetify.min.css"
 import "@mdi/font/css/materialdesignicons.css"
 
+import CustomTitle from "@/components/common/CustomTitle.vue"
+import { VDataTable } from "vuetify/labs/VDataTable";
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -17,6 +20,10 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 const pinia = createPinia()
+
+app.component('custom-title',CustomTitle) // call to use without i
+app.component('v-data-table',VDataTable)
+
 app.use(pinia)
 app.use(i18n())
 app.use(router)

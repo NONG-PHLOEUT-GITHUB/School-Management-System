@@ -2,18 +2,18 @@
   <v-app>
     <LaunchApp />
     <router-view />
-    <AlertNotification :value="toastNotifications"/>
+    <!-- <AlertNotification :value="toastNotifications"/> -->
   </v-app>
 </template>
 
 <script>
 import LaunchApp from "./components/common/components/LaunchApp.vue";
-import AlertNotification from "./components/common/AlertNotification.vue";
+// import AlertNotification from "./components/common/AlertNotification.vue";
 export default {
   name: "App",
   components: {
     LaunchApp,
-    AlertNotification
+    // AlertNotification
   },
   data() {
     return {
