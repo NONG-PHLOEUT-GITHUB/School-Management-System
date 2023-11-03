@@ -37,6 +37,16 @@ const routes = [
         name: "change-password",
         component: () => import("../views/auth/ChangePassword.vue"),
       },
+      {
+        path: "/class-management",
+        name: "ClassManagement",
+        component: () => import("../views/admin/ClassManagement.vue"),
+      },
+      {
+        path: "/comment",
+        name: "comment",
+        component: () => import("../views/comment/Comment.vue"),
+      },
     ],
   },
   {
@@ -48,11 +58,6 @@ const routes = [
     path: "/forget-password",
     name: "forget-password",
     component: () => import("../views/auth/ForgetPassword.vue"),
-  },
-  {
-    path: "/class-component",
-    name: "class-component",
-    component: () => import("../components/classManagement/ClassComponent"),
   },
 ];
 

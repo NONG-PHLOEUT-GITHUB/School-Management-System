@@ -23,12 +23,18 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./sass/app.scss">
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
-#app{
-  font-family: 'Poppins', sans-serif;
+<!-- <style lang="scss" src="./sass/app.scss">
   
+</style> -->
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body{
+  background: red;
+  font-family: "Poppins", sans-serif;
 }
 </style>
-

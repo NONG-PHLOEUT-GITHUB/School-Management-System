@@ -1,5 +1,7 @@
 <template>
-  <custom-title title="Dashboard" icon="mdi-chart-pie" />
+  <custom-title icon="mdi-chart-pie">
+    <span class="d-inline-block capitalize-first-letter">Dashboard</span>
+  </custom-title>
   <card-dashboard />
   <v-row>
     <v-col cols="12" md="3">

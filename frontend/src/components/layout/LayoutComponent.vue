@@ -40,5 +40,7 @@ export default {
 </script>
 
 <style scoped>
-
+::v-main{
+  background: #a74242;
+}
 </style>

@@ -1,6 +1,6 @@
 {
   "common":{
-    "ff":"hrllo"
+    "viewProfile":"View profile"
   },
   "login": {
     "title": "Login",

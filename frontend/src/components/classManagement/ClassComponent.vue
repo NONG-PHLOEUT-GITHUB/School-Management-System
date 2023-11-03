@@ -1,5 +1,4 @@
 <template>
-  <header-component></header-component>
   <v-row class="py-12 elevation-4" justify="space-around">
     <v-btn color="primary"> With ripple (default) </v-btn>
     <v-btn :ripple="false" color="primary"> Without ripple </v-btn>
