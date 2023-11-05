@@ -89,6 +89,7 @@
 <script>
 import Language from "../common/SwitcherLanguage.vue";
 import LogoutConfirmation from "../common/LogoutConfirmation.vue";
+import Notification from "../common/components/Notification.vue";
 import { useAuthStore } from "@/stores/auth.js";
 // import { useRouter } from 'vue-router';
 
@@ -98,7 +99,8 @@ export default {
   },
   components: {
     Language,
-    LogoutConfirmation
+    LogoutConfirmation,
+    Notification
   },
   data() {
     return {
@@ -141,7 +143,6 @@ export default {
       console.log('Logout confirmed');
     },
     onMenuClick(action) {
-      this.$refs.logoutDialog.openDialog();
       switch (action) {
         case "logout":
           this.logoutUser();
@@ -150,6 +151,7 @@ export default {
           break;
       }
     },
+    
   },
 };
 </script>

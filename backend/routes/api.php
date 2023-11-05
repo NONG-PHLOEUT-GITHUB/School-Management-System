@@ -42,10 +42,10 @@ Route::prefix('v2')->group(function () {
         // Below mention routes are available only for the authenticated users.
         Route::middleware('auth:api')->group(function () {
             // Get user info
-            Route::get('user', 'AuthController@user');
+            Route::get('user', [AuthController::class,'user']);
 
             // Logout user from application
-            Route::post('logout', 'AuthController@logout');
+            Route::post('logout', [AuthController::class,'logout']);
 
             // count students
             Route::get('count', [UserController::class,'getTotalStudent']);

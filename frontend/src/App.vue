@@ -34,7 +34,7 @@ export default {
 }
 
 body{
-  background: red;
+  /* background: red; */
   font-family: "Poppins", sans-serif;
 }
 </style>

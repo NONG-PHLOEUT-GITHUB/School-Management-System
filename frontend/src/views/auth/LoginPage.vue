@@ -32,7 +32,7 @@
               variant="outlined"
               no-validation
             ></v-text-field>
-            <span :rules="emailRules"></span>
+            <!-- <span :rules="emailRules"></span> -->
           </div>
           <div class="input-group">
             <div
@@ -52,6 +52,8 @@
               @click:append-inner="toggleVisible"
             ></v-text-field>
           </div>
+          <div v-if="errorText">{{ errorText }}</div>
+
           <router-link to="/forget-password" class="forgot-password-link">{{
             $t("login.form.forgot-pass")
           }}</router-link>
@@ -69,20 +71,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted } from 'vue';
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth.js";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const authStore = useAuthStore();
-// const email = "di1@gmail.com";
-// const password = "123456789";
-
-const email = ref('');
-const password = ref('');
-
+const email = ref('di@gmail.com');
+const password = ref('123456789');
 const isPasswordVisible = ref(false);
+const errorText = ref(''); // Create a ref for error messages
 
 const toggleVisible = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
@@ -113,11 +112,29 @@ const login = async () => {
   if (!validateForm()) {
     return;
   }
-  await authStore.login({ email, password });
-  await router.push({ path: '/dashboard/user' });
-};
+  try {
+    await authStore.login({ email: email.value, password: password.value });
 
+    if (authStore.isAuthenticated) {
+      // console.log(authStore.user);
+      // console.log('Logged in as:', authStore.user);
+      await router.push({ path: '/dashboard/user' });
+    } else {
+      errorText.value = 'Email or password is incorrect'; // Set the error message
+      console.log('Email or password is incorrect');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+};
+onMounted(async () => {
+  
+  // if(authStore.isAuthenticated){
+    // await authStore.fetchUser();
+  // }
+});
 </script>
+
 
 
 <style scoped>

@@ -1,105 +1,85 @@
 <template>
-  <v-row class="pa-0">
-    <v-col class="profile-container" cols="5">
-      <v-card class="profile-card">
-        <v-img
-          elevation-5
-          class="profile-cover"
-          aspect-ratio="0"
-          src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
-          cover
-        >
-          <!-- Camera button for changing cover photo -->
-          <v-btn icon class="camera-button">
+  <v-card variant="tonal">
+    <v-img
+      elevation-5
+      class="profile-cover"
+      aspect-ratio="0"
+      src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+      cover
+    >
+      <v-btn icon class="camera-button">
+        <v-icon>mdi-camera</v-icon>
+      </v-btn>
+    </v-img>
+
+    <v-card-text>
+      <!-- User Name -->
+      <div class="user-infor">
+        <div class="user-name text-h4">John Doe</div>
+      </div>
+      <v-avatar size="200" class="profile-avatar">
+        <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg">
+          <!-- Camera button for changing profile photo -->
+          <v-btn icon class="camera-button-profile">
             <v-icon>mdi-camera</v-icon>
           </v-btn>
         </v-img>
-        <v-card-text>
-          <!-- User Name -->
-          <div class="user-name text-h4">John Doe</div>
-          <v-avatar size="200" class="profile-avatar">
-            <v-img
-              cover
-              src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-            >
-              <!-- Camera button for changing profile photo -->
-              <v-btn icon class="camera-button-profile">
-                <v-icon>mdi-camera</v-icon>
-              </v-btn>
-            </v-img>
-          </v-avatar>
-          <!-- User Information -->
-          <div class="user-information">
-            <v-divider></v-divider>
-            <v-row class="user-info">
-              <v-col cols="12" md="4">
-                <v-icon>mdi-email</v-icon>
-                <div class="ellipsis-text" title="johndoe@example.com">
-                  johndoe@example.com
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="4">
-                <v-icon>mdi-phone</v-icon> (123) 456-7890
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-icon>mdi-map-marker</v-icon> 123 Main St, City
-              </v-col>
-            </v-row>
-            <v-divider></v-divider>
-            <v-row class="user-info">
-              <v-col cols="12" md="4">
-                <v-icon>mdi-email</v-icon> johndoe@example
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-icon>mdi-phone</v-icon> (123) 456-7890
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-icon>mdi-map-marker</v-icon> 123 Main St, City
-              </v-col>
-            </v-row>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col>
+      </v-avatar>
+      <!-- User Information -->
+      
+    </v-card-text>
+    <div class="user-information">
+      <v-divider></v-divider>
+    <v-icon>mdi-email</v-icon>
+    <v-text-field
+      model-value="johndoe@example"
+      variant="outlined"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      model-value="(123) 456-7890"
+      variant="outlined"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      model-value="123 Main St, City"
+      variant="outlined"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      model-value="123 Main St, City"
+      variant="outlined"
+      readonly
+    ></v-text-field>
+  </div>
+  </v-card>
+  <!-- <v-col>
       <pie-charts />
-    </v-col>
-  </v-row>
+    </v-col> -->
 </template>
 <script>
-import PieCharts from "@/components/dashboard/PieCharts.vue";
+// import PieCharts from "@/components/dashboard/PieCharts.vue";
 export default {
   components: {
-    PieCharts,
+    // PieCharts,
   },
 };
 </script>
 
 <style scoped>
-.profile-container {
-  width: 100%;
-}
-
-.profile-card {
-  border-radius: 10px;
-  margin: 0 auto;
-  max-width: 800px;
-  position: relative;
-}
-
 .profile-cover {
   border-radius: 10px 10px 0 0;
-  height: 300px; /* Adjust the height as needed */
+  height: 300px;
 }
 
 .profile-avatar {
   position: absolute;
-  bottom: 300px; /* Adjust the distance from the bottom as needed */
-  left: 35px; /* Adjust the distance from the left as needed */
+  bottom: 330px;
+  left: 35px;
   z-index: 1;
   border: 4px solid rgb(235, 241, 236);
   border-radius: 100px;
+  background: blue;
 }
 
 .camera-button,
@@ -111,7 +91,9 @@ export default {
 }
 
 .user-name {
-  text-align: center;
+  /* background: red; */
+  text-align: start;
+  width: 80%;
   color: #333;
 }
 
@@ -121,8 +103,13 @@ export default {
   text-align: center;
 }
 .user-information {
-  /* background: #000; */
+  /* background: #e2c2c2; */
   margin-top: 30px;
-  padding: 70px;
+  /* padding: 70px; */
+}
+.user-infor {
+  display: flex;
+  justify-content: flex-end;
+  /* background: green; */
 }
 </style>
