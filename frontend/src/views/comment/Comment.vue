@@ -2,6 +2,7 @@
     <custom-title icon="mdi-lightbulb-on">
         <span class="d-inline-block capitalize-first-letter">My Comment</span>
     </custom-title>
+    <custom-filter/>
     <comment/>
 </template>
 <script>

@@ -28,6 +28,7 @@ Transcripts and report card generation. -->
         prepend-icon="mdi-book-open"
         title="Academic Records"
         value="academic"
+        :to="{ name: 'UserDetail' }"
       ></v-list-item>
       <!-- give feed back to student -->
       <v-list-item

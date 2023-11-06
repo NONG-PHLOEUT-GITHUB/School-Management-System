@@ -4,69 +4,59 @@
       elevation-5
       class="profile-cover"
       aspect-ratio="0"
-      src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+      src="../../../public/assets/images/cover.jpg"
       cover
     >
       <v-btn icon class="camera-button">
         <v-icon>mdi-camera</v-icon>
       </v-btn>
     </v-img>
-
     <v-card-text>
-      <!-- User Name -->
       <div class="user-infor">
         <div class="user-name text-h4">John Doe</div>
+        <div>
+          <v-list class="user-menu">
+            <card
+              v-for="(item, i) in items"
+              :key="i"
+              :value="item"
+              color="primary"
+            >
+              <v-btn v-text="item.text" :to="{ name:item.path }"  variant="outlined" class="ms-2"></v-btn>
+            </card>
+          </v-list>
+        </div>
       </div>
       <v-avatar size="200" class="profile-avatar">
         <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg">
-          <!-- Camera button for changing profile photo -->
           <v-btn icon class="camera-button-profile">
             <v-icon>mdi-camera</v-icon>
           </v-btn>
         </v-img>
       </v-avatar>
-      <!-- User Information -->
-      
     </v-card-text>
-    <div class="user-information">
-      <v-divider></v-divider>
-    <v-icon>mdi-email</v-icon>
-    <v-text-field
-      model-value="johndoe@example"
-      variant="outlined"
-      readonly
-    ></v-text-field>
-    <v-text-field
-      model-value="(123) 456-7890"
-      variant="outlined"
-      readonly
-    ></v-text-field>
-    <v-text-field
-      model-value="123 Main St, City"
-      variant="outlined"
-      readonly
-    ></v-text-field>
-    <v-text-field
-      model-value="123 Main St, City"
-      variant="outlined"
-      readonly
-    ></v-text-field>
-  </div>
   </v-card>
-  <!-- <v-col>
-      <pie-charts />
-    </v-col> -->
+  <v-container class="px-0" fluid>
+    <router-view />
+  </v-container>
 </template>
 <script>
-// import PieCharts from "@/components/dashboard/PieCharts.vue";
 export default {
-  components: {
-    // PieCharts,
-  },
+  components: {},
+  data: () => ({
+    items: [
+      { path: "AboutMe", text: "About me", icon: "mdi-clock" },
+      { path: "profileComment", text: "My comment", icon: "mdi-account" },
+      { text: "Conversions", icon: "mdi-flag" },
+    ],
+  }),
 };
 </script>
 
 <style scoped>
+.user-menu {
+  display: flex;
+}
 .profile-cover {
   border-radius: 10px 10px 0 0;
   height: 300px;
@@ -74,12 +64,11 @@ export default {
 
 .profile-avatar {
   position: absolute;
-  bottom: 330px;
+  bottom: 5px;
   left: 35px;
   z-index: 1;
-  border: 4px solid rgb(235, 241, 236);
+  border: 5px solid rgb(149, 165, 119);
   border-radius: 100px;
-  background: blue;
 }
 
 .camera-button,
@@ -93,19 +82,8 @@ export default {
 .user-name {
   /* background: red; */
   text-align: start;
-  width: 80%;
+  width: 50%;
   color: #333;
-}
-
-.user-info {
-  padding: 16px 0;
-  color: #555;
-  text-align: center;
-}
-.user-information {
-  /* background: #e2c2c2; */
-  margin-top: 30px;
-  /* padding: 70px; */
 }
 .user-infor {
   display: flex;

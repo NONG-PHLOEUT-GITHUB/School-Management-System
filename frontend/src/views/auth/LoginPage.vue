@@ -51,8 +51,17 @@
               variant="outlined"
               @click:append-inner="toggleVisible"
             ></v-text-field>
+            <v-card
+              class="mx-auto"
+              v-if="errorText"
+              variant="tonal"
+              color="red"
+            >
+              <v-card-text>
+                <div>{{ errorText }}</div></v-card-text
+              >
+            </v-card>
           </div>
-          <div v-if="errorText">{{ errorText }}</div>
 
           <router-link to="/forget-password" class="forgot-password-link">{{
             $t("login.form.forgot-pass")
@@ -71,35 +80,37 @@
 </template>
 
 <script setup>
-import { ref ,onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth.js";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const authStore = useAuthStore();
-const email = ref('di@gmail.com');
-const password = ref('123456789');
+const email = ref("di@gmail.com");
+const password = ref("123456789");
 const isPasswordVisible = ref(false);
-const errorText = ref(''); // Create a ref for error messages
+const errorText = ref(""); // Create a ref for error messages
 
 const toggleVisible = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
 };
 
 const emailRules = [
-  (v) => !!v || 'E-mail is required',
-  (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+  (v) => !!v || "E-mail is required",
+  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
 ];
 
 const passwordRules = [
-  (v) => !!v || 'Password is required',
-  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!',
+  (v) => !!v || "Password is required",
+  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
 ];
 
 const validateForm = () => {
-  const emailValid = emailRules.every(rule => rule(email.value) === true);
-  const passwordValid = passwordRules.every(rule => rule(password.value) === true);
+  const emailValid = emailRules.every((rule) => rule(email.value) === true);
+  const passwordValid = passwordRules.every(
+    (rule) => rule(password.value) === true
+  );
 
   if (!emailValid || !passwordValid) {
     return false;
@@ -118,24 +129,21 @@ const login = async () => {
     if (authStore.isAuthenticated) {
       // console.log(authStore.user);
       // console.log('Logged in as:', authStore.user);
-      await router.push({ path: '/dashboard/user' });
+      await router.push({ path: "/dashboard/user" });
     } else {
-      errorText.value = 'Email or password is incorrect'; // Set the error message
-      console.log('Email or password is incorrect');
+      errorText.value = "Email or password is incorrect"; // Set the error message
+      console.log("Email or password is incorrect");
     }
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error("An error occurred:", error);
   }
 };
 onMounted(async () => {
-  
   // if(authStore.isAuthenticated){
-    // await authStore.fetchUser();
+  // await authStore.fetchUser();
   // }
 });
 </script>
-
-
 
 <style scoped>
 .login-page {

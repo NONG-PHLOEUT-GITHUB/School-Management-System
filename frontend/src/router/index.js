@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/auth/LoginPage";
 import UserProfile from "@/views/userInfor/UserProfile.vue";
 import MainLayout from "@/components/layout/LayoutComponent.vue";
+import Comment from "@/views/comment/Comment.vue";
+import UserInformation from "@/views/userInfor/UserInformation.vue";
 const routes = [
   {
     path: "/",
@@ -21,6 +23,19 @@ const routes = [
         path: "/profile/user",
         name: "profile-user",
         component: UserProfile,
+        redirect:"/user/about-me",
+        children: [
+          {
+            path: "/profile/comment",
+            name:"profileComment",
+            component:Comment
+          },
+          {
+            path: "/user/about-me",
+            name:"AboutMe",
+            component:UserInformation
+          },
+        ],
       },
       {
         path: "/dashboard/user",
@@ -46,6 +61,11 @@ const routes = [
         path: "/comment",
         name: "comment",
         component: () => import("../views/comment/Comment.vue"),
+      },
+      {
+        path: "/user/detail",
+        name: "UserDetail",
+        component: () => import("../views/userInfor/UserDetail.vue"),
       },
     ],
   },
