@@ -14,19 +14,17 @@
         v-for="(feedback, index) in feedbacks"
         :key="index"
       >
-      
-        <v-card
-          class="card elevation-2"
-          
-        >
+        <v-card class="card elevation-2">
           <v-card-title class="card-title">
             <span class="text-h6 font-weight-black">{{ feedback.title }}</span>
             <v-icon>mdi-school</v-icon>
           </v-card-title>
 
-          <v-card-text class="font-weight-bold mt-1"
-            >Teacher: {{ feedback.description }}</v-card-text
-          >
+          <v-card-text class="font-weight-bold mt-1">
+            <v-icon class="mb-1">mdi-account-tie</v-icon>
+            <span class="ms-2">{{ feedback.description }}</span>
+          </v-card-text>
+
           <v-card-actions class="card-action">
             <v-card-actions>
               <v-icon>mdi-account-group-outline</v-icon>

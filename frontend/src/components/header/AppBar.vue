@@ -14,7 +14,7 @@
 
     <!-- notification magnify-->
     <v-app-bar-nav-icon class="me-10">
-      <Notification/>
+      <Notification />
     </v-app-bar-nav-icon>
 
     <!-- logged in user menu -->
@@ -42,9 +42,12 @@
                   >
                   </v-img>
                 </v-avatar>
-                <div class="subtitle">
-                  <span class="font-weight-black">Nong Phloeut</span> <br />
-                  <span class="email">phloeutnong@gmail.com</span>
+                <div class="subtitle" v-for="(value, key) in authStore.user" :key="key">
+                  <span class="font-weight-black">
+                    {{ value.first_name }}
+                    {{ value.last_name }} 
+                  </span> <br/>
+                  <span class="email">{{ value.email }}</span>
                 </div>
               </div>
             </v-list-item>
@@ -100,7 +103,7 @@ export default {
   components: {
     Language,
     LogoutConfirmation,
-    Notification
+    Notification,
   },
   data() {
     return {
@@ -140,7 +143,7 @@ export default {
       const authStore = useAuthStore(); // Get the authentication store
       await authStore.logout(); // Call a logout action in your store
       this.$router.push({ name: "login" }); // Navigate to the logout route
-      console.log('Logout confirmed');
+      console.log("Logout confirmed");
     },
     onMenuClick(action) {
       switch (action) {
@@ -151,9 +154,22 @@ export default {
           break;
       }
     },
-    
   },
 };
+</script>
+
+<script setup>
+import { onMounted } from "vue";
+
+const authStore = useAuthStore();
+
+onMounted(async () => {
+  try {
+    await authStore.fetchUser();
+  } catch (error) {
+    console.error("Error fetching total students or teachers:", error);
+  }
+});
 </script>
 
 <style scoped>

@@ -1,31 +1,37 @@
 <template>
-    <v-card class="mt-1">
-    <div class="user-information">
-      <!-- <v-divider></v-divider> -->
-      <v-icon>mdi-email</v-icon> Email
-      <v-text-field
-        model-value="johndoe@example"
-        variant="outlined"
-        readonly
-      ></v-text-field>
-      <v-icon>mdi-phone</v-icon> Phone number
-      <v-text-field
-        model-value="(123) 456-7890"
-        variant="outlined"
-        readonly
-      ></v-text-field>
-      <v-icon>mdi-map-marker</v-icon>Address
-      <v-text-field
-        model-value="123 Main St, City"
-        variant="outlined"
-        readonly
-      ></v-text-field>
-      <v-icon>mdi-cake-variant</v-icon>Date of birth
-      <v-text-field
-        model-value="123 Main St, City"
-        variant="outlined"
-        readonly
-      ></v-text-field>
-    </div>
+  <v-card class="mt-1">
+    <v-row class="mt-2">
+      <v-col v-for="property in userProperties" :key="property.key" cols="4">
+        <v-icon>{{ property.icon }}</v-icon> {{ property.label }}
+        <v-text-field
+          v-model="property.value"
+          variant="outlined"
+          readonly
+        ></v-text-field>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
+
+<script setup>
+import { onMounted, computed } from "vue";
+import { useAuthStore } from "@/stores/auth.js";
+
+const authStore = useAuthStore();
+const userProperties = computed(() => [
+  { key: "email", label: "Email", icon: "mdi-email", value: authStore.user?.data?.email },
+  { key: "address", label: "Address", icon: "mdi-map-marker", value: authStore.user?.data?.address },
+  { key: "gender", label: "Gender", icon: "mdi-cake-variant", value: authStore.user?.data?.gender },
+  { key: "phone_number", label: "Phone number", icon: "mdi-phone", value: authStore.user?.data?.phone_number },
+  { key: "date_of_birth", label: "Date of birth", icon: "mdi-cake-variant", value: authStore.user?.data?.date_of_birth },
+  { key: "age", label: "Age", icon: "mdi-cake-variant", value: authStore.user?.data?.age },
+]);
+
+onMounted(async () => {
+  try {
+    await authStore.fetchUser();
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+});
+</script>
