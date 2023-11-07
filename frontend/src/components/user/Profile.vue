@@ -82,7 +82,7 @@ export default {
 .user-name {
   /* background: red; */
   text-align: start;
-  width: 50%;
+  width: 43%;
   color: #333;
 }
 .user-infor {

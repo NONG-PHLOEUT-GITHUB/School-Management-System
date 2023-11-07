@@ -4,6 +4,7 @@ import UserProfile from "@/views/userInfor/UserProfile.vue";
 import MainLayout from "@/components/layout/LayoutComponent.vue";
 import Comment from "@/views/comment/Comment.vue";
 import UserInformation from "@/views/userInfor/UserInformation.vue";
+import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
 const routes = [
   {
     path: "/",
@@ -36,6 +37,19 @@ const routes = [
             component:UserInformation
           },
         ],
+      },
+      {
+        path:"/layout-user-detail",
+        name:"LayourUserDetail",
+        component:LayoutUserDetail,
+        redirect:"/profile/comment",
+        children:[
+          {
+            path: "/profile/comment",
+            name:"profileComment",
+            component:Comment
+          },
+        ]
       },
       {
         path: "/dashboard/user",

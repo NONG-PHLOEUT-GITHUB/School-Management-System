@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-btn>About</v-btn>
     <v-card v-for="section in sections" :key="section.title">
       <custom-title :icon="section.icon">
         <span class="d-inline-block capitalize-first-letter">{{
@@ -53,3 +52,4 @@ export default {
   },
 };
 </script>
+

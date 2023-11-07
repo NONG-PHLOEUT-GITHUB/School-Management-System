@@ -24,8 +24,16 @@
   "alert": {
     "resetPassword": "Reset Password"
   },
+  "dashboard":{
+    "studentTotal":"Student Total",
+    "teacherTotal":"Teacher Total"
+  },
   "errors": {},
   "title": {
   
+  },
+  "header":{
+    "menuLogout":"Logout",
+    "menuChangePass":"Change password"
   }
 }

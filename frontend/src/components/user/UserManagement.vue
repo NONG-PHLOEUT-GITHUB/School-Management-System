@@ -1,7 +1,8 @@
 <template>
+  <!-- <v-card variants="tonal"> -->
   <v-data-table
     v-model="selected"
-    class="elevation-3 text-center"
+    class="elevation-1 text-center"
     :headers="headers"
     :items="desserts"
     items-per-page="10"
@@ -36,9 +37,10 @@
       </tr>
     </template>
   </v-data-table>
-  <v-card class="mt-2 pa-2">
+<!-- </v-card> -->
+  <!-- <v-card class="mt-2 pa-2">
     <pre>{{ selected }}</pre>
-  </v-card>
+  </v-card> -->
 </template>
 
 <script>
