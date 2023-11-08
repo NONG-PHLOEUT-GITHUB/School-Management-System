@@ -2,15 +2,16 @@
     <custom-title icon="mdi-office-building">
         <span class="d-inline-block capitalize-first-letter">Class Management</span>
     </custom-title>
-    <ClassComponent></ClassComponent>
+    <custom-filter />
+    <classroom />
 </template>
 
 <script>
-import ClassComponent from '@/components/classManagement/ClassComponent.vue';
+import Classroom from '@/components/classroomManagement/Classroom.vue';
 export default {
     name: "AdminDashboard",
     components:{
-        ClassComponent
+        Classroom
     }
 }
 </script>

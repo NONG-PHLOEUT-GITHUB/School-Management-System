@@ -2,7 +2,7 @@
   <custom-title icon="mdi-lightbulb-on">
     <span class="d-inline-block capitalize-first-letter">My Comment</span>
   </custom-title>
-  <custom-filter />
+
   <comment />
   <div v-for="(value, key) in authStore.user" :key="key">
     {{ value.email }}
