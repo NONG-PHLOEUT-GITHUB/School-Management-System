@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject 
@@ -30,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
         'profile',
         'email',
         'password',
-        'class_room_id',
+        'classroom_id',
         'guardian_id',
     ];
 
@@ -88,7 +90,7 @@ class User extends Authenticatable implements JWTSubject
             'profile',
             'email',
             'password',
-            // 'class_room_id',
+            'classroom_id',
             // 'guardian_id',
         );
         if ($id) {
@@ -99,20 +101,26 @@ class User extends Authenticatable implements JWTSubject
             $user->update($users);
         } else {
           
-            // $password = Str::random(8);
-            // $users['password'] = bcrypt($password);
+            $password = Str::random(8);
+            $users['password'] = bcrypt($password);
 
             $user = self::create($users);
             $id = $user->$id;
 
             // // Send an email notification to the user
-            // Mail::send('email.new_user', ['user' => $user, 'password' => $password], function ($message) use ($user) {
-            //     $message->to($user->email, $user->first_name)->subject('Welcome to our system!');
-            // });
+            Mail::send('emails.createNewUser', ['user' => $user, 'password' => $password], function ($message) use ($user) {
+                $message->to($user->email, $user->first_name)->subject('Welcome to our system!');
+            });
         }
 
         // ================token user password=================
         return response()->json(['success' => true, 'data' => $user], 201);
+    }
+
+
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class, 'teacher_classroom', 'user_id', 'classroom_id');
     }
 
 }

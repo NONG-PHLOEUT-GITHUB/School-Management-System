@@ -4,11 +4,7 @@
   </custom-title>
 
   <comment />
-  <div v-for="(value, key) in authStore.user" :key="key">
-    {{ value.email }}
-    {{ value.first_name }}
-    {{ value.last_name }}
-  </div>
+  
 </template>
 <script setup>
 import Comment from "@/components/comments/Comment.vue";

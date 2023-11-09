@@ -80,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth.js";
 import { useRouter } from "vue-router";
@@ -127,8 +127,9 @@ const login = async () => {
     await authStore.login({ email: email.value, password: password.value });
 
     if (authStore.isAuthenticated) {
-      // console.log(authStore.user);
-      // console.log('Logged in as:', authStore.user);
+      console.log("in login", authStore.user);
+      // const USER_ROlE = localStorage.getItem("user_role");
+      // console.log('user role:', USER_ROlE);
       await router.push({ path: "/dashboard/user" });
     } else {
       errorText.value = "Email or password is incorrect"; // Set the error message
@@ -138,11 +139,7 @@ const login = async () => {
     console.error("An error occurred:", error);
   }
 };
-onMounted(async () => {
-  // if(authStore.isAuthenticated){
-  // await authStore.fetchUser();
-  // }
-});
+
 </script>
 
 <style scoped>

@@ -1,24 +1,3 @@
-<!-- <template>
-  {{ usersStore }}
-  hello
-</template>
-
-<script setup>
-import { onMounted } from 'vue';
-import {useUsersStore} from '@/stores/users.js';
-
-const usersStore = useUsersStore();
-
-onMounted(async () => {
-  try {
-    await usersStore.fetchAllUsersData();
-  } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
-  }
-});
-</script> -->
-
-
 <template>
   <!-- <v-btn>Create Class</v-btn> -->
   <v-container fluid class="pa-2">
@@ -31,24 +10,23 @@ onMounted(async () => {
         sm="6"
         md="4"
         lg="2"
-        v-for="(feedback, index) in feedbacks"
+        v-for="(classroom, index) in classroomStore.classrooms.data"
         :key="index"
       >
         <v-card class="card elevation-2">
           <v-card-title class="card-title">
-            <span class="text-h6 font-weight-black">{{ feedback.title }}</span>
+            <span class="text-h6 font-weight-black">{{ classroom.classroom_name }}</span>
             <v-icon>mdi-school</v-icon>
           </v-card-title>
 
           <v-card-text class="font-weight-bold mt-1">
             <v-icon class="mb-1">mdi-account-tie</v-icon>
-            <span class="ms-2">{{ feedback.description }}</span>
+            <span class="ms-2">{{ classroom.teacher_first_name }} {{ classroom.teacher_last_name }}</span>
           </v-card-text>
-
           <v-card-actions class="card-action">
             <v-card-actions>
               <v-icon>mdi-account-group-outline</v-icon>
-              <span class="text-h6 font-weight-black ms-3">50</span>
+              <span class="text-h6 font-weight-black ms-3">{{ classroom.student_count }}</span>
             </v-card-actions>
             <v-menu>
               <template v-slot:activator="{ props }">
@@ -70,36 +48,29 @@ onMounted(async () => {
   </v-container>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      feedbacks: [
-        { title: "12 A", description: "Kuyuka sayu" },
-        { title: "12 B", description: "Kusa Kura" },
-        { title: "12 C", description: "Kusa Kura" },
-        { title: "12 D", description: "Kusa Kura" },
-        { title: "12 A", description: "Kuyuka sayu" },
-        { title: "12 B", description: "Kusa Kura" },
-        { title: "12 C", description: "Kusa Kura" },
-        { title: "12 D", description: "Kusa Kura" },
-        { title: "12 B", description: "Kusa Kura" },
-        { title: "12 C", description: "Kusa Kura" },
-        { title: "12 D", description: "Kusa Kura" },
-      ],
-      items: [{ title: "Edit" }, { title: "Delete" }],
-    };
-  },
-  methods: {
-    //   editFeedback(index) {
-    //     // Implement edit functionality
-    //   },
-    deleteFeedback(index) {
-      this.feedbacks.splice(index, 1);
-    },
-  },
-};
+
+<script setup>
+import { onMounted } from 'vue';
+import { useClassroomStore } from '@/stores/classroom.js';
+
+const items = [
+  { title: "Edit" },
+  { title: "Delete" }
+];
+
+
+const classroomStore = useClassroomStore();
+console.log(classroomStore.classrooms.data);
+
+onMounted(async () => {
+  try {
+    await classroomStore.fetchAllClassrooms();
+  } catch (error) {
+    console.error("Error fetching total students or teachers:", error);
+  }
+});
 </script>
+
 <style scoped>
 .card-title,
 .card-action {

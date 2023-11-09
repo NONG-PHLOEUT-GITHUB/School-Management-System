@@ -30,7 +30,9 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-
+    
+    'admin_url' => env('APP_ADMIN_URL', 'http://localhost:8080/reset-new-password'),
+    'user_url' => env('APP_USER_URL', 'http://localhost:8080/login'),
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

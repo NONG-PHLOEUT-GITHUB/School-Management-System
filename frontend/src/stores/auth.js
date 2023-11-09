@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { userLogin, fetchUserLoged } from "@/services/auth.js";
-import Cookies from "js-cookie";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authUser: null,
     isAuthenticated: false,
+    userRole: null,
   }),
   getters: {
     user: (state) => state.authUser,
@@ -21,29 +21,27 @@ export const useAuthStore = defineStore("auth", {
         ) {
           this.authUser = response.data.user;
           this.isAuthenticated = true;
-          Cookies.set("access_token", response.data.access_token, { expires: 14 });
           localStorage.setItem("access_token", response.data.access_token);
         } else {
           this.isAuthenticated = false;
-          console.error("Login failed:", response.data);
         }
       } catch (error) {
         this.isAuthenticated = false;
-        console.error("An error occurred:", error);
       }
     },
     async fetchUser() {
       try {
         const data = await fetchUserLoged();
         this.authUser = data.data;
-        console.log('get user logged in store:', this.user);
+        this.userRole = data.user.role;
+        localStorage.setItem("user_role",this.user.data.role);
       } catch (error) {
         console.error('Error fetching user:', error);
       }
     },
     logout() {
       localStorage.removeItem("access_token");
-      // Reset the authentication state
+      localStorage.removeItem("user_role");
       this.isAuthenticated = false;
     },
   },

@@ -75,7 +75,7 @@ class UserController extends Controller
      * get total teacher.
      */
     public function getTotalTeacher(){
-        $totalTeachers = User::where('role', 1)->count();
+        $totalTeachers = User::where('role', 2)->count();
         return $totalTeachers;
     }
 }

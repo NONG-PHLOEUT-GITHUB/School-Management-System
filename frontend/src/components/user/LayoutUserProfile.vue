@@ -13,7 +13,7 @@
     </v-img>
     <v-card-text>
       <div class="user-infor">
-        <div class="user-name text-h4">John Doe</div>
+        <div class="user-name text-h4">{{ email }}</div>
         <div>
           <v-list class="user-menu">
             <card
@@ -22,7 +22,12 @@
               :value="item"
               color="primary"
             >
-              <v-btn v-text="item.text" :to="{ name:item.path }"  variant="outlined" class="ms-2"></v-btn>
+              <v-btn
+                v-text="item.text"
+                :to="{ name: item.path }"
+                variant="outlined"
+                class="ms-2"
+              ></v-btn>
             </card>
           </v-list>
         </div>
@@ -40,19 +45,25 @@
     <router-view />
   </v-container>
 </template>
+
 <script>
 export default {
-  components: {},
-  data: () => ({
-    items: [
-      { path: "AboutMe", text: "About me", icon: "mdi-clock" },
-      { path: "profileComment", text: "My comment", icon: "mdi-account" },
-      { text: "Conversions", icon: "mdi-flag" },
-    ],
-  }),
-};
+  props: {
+    email: {
+      type: String,
+      required: true
+    }
+  },
+}
 </script>
 
+<script setup>
+  const items = [
+    { path: "AboutMe", text: "About me", icon: "mdi-clock" },
+    { path: "profileCommentRecord", text: "My comment", icon: "mdi-account" },
+    { text: "Conversions", icon: "mdi-flag" },
+  ];
+</script>
 <style scoped>
 .user-menu {
   display: flex;

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Http\Request;
@@ -27,7 +29,12 @@ Route::post('/user', [UserController::class,'store']);
 Route::get('/users', [UserController::class,'index']);
 Route::get('count', [UserController::class,'getTotalStudent']);
 Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
-Route::post('login',[AuthController::class,'login']);
+// Route::post('login',[AuthController::class,'login']);
+
+Route::post('/classroom',[ClassroomController::class,'store']);
+// Route::get('/classrooms',[ClassroomController::class,'index']);
+Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
+Route::post('/forgot-password', [ForgotPasswordController::class,'send_reset_password_email']);
 
 
 Route::prefix('v2')->group(function () {

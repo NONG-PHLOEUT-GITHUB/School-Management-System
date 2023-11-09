@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ProfileUser from "@/components/user/Profile.vue";
+import ProfileUser from "@/components/user/LayoutUserProfile.vue";
 export default {
   name: "UserProfile",
 

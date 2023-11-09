@@ -6,19 +6,19 @@
     <v-list>
       <v-list-item
         prepend-icon="mdi-widgets"
-        title="Dashboard"
+        :title="$t('menu.dashboard')"
         value="home"
         :to="{ name: 'dashboard' }"
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-account-group-outline"
-        title="User Management"
+        :title="$t('menu.userMg')"
         value="account"
         :to="{ name: 'user-management' }"
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-chair-school"
-        title="Class Management"
+        :title="$t('menu.classMg')"
         value="users"
         :to="{ name: 'ClassManagement' }"
       ></v-list-item>

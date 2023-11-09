@@ -5,6 +5,7 @@ import MainLayout from "@/components/layout/LayoutComponent.vue";
 import Comment from "@/views/comment/Comment.vue";
 import UserInformation from "@/views/userInfor/UserInformation.vue";
 import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
+import ClassRecord from "@/components/classroomManagement/ClassRecord.vue"
 const routes = [
   {
     path: "/",
@@ -27,9 +28,9 @@ const routes = [
         redirect:"/user/about-me",
         children: [
           {
-            path: "/profile/comment",
-            name:"profileComment",
-            component:Comment
+            path: "/profile/comments/user",
+            name:"profileCommentRecord",
+            component:ClassRecord
           },
           {
             path: "/user/about-me",
@@ -93,6 +94,11 @@ const routes = [
     name: "forget-password",
     component: () => import("../views/auth/ForgetPassword.vue"),
   },
+  // {
+  //   path: "/:catchAll(.*)",
+  //   name: "Not Found",
+  //   component: NotFoundPage,
+  // },
 ];
 
 const router = createRouter({

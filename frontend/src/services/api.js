@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 const api = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,//get for env.local
   headers: {
@@ -19,34 +18,31 @@ api.interceptors.request.use(async (config) => {
 
 // Function to refresh the token
 const refreshToken = async () => {
-  const refreshToken = Cookies.get('refresh_token');
+  const refreshToken = localStorage.getItem("refresh_token");
   if (!refreshToken) {
     return null;
   }
   try {
     const response = await axios.post('/api/refresh-token', { refresh_token: refreshToken });
     const token = response.data.access_token;
-    console.log(response);
-    Cookies.set('access_token', token, { expires: 14 });
+    localStorage.setItem("access_token");
     return token;
   } catch (error) {
-    console.error(error);
     return null;
   }
 };
 
 // Function to get the access token
 const getAccessToken = async () => {
-  const token = Cookies.get('access_token');
+  const token = localStorage.getItem("access_token");
   if (token) {
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    const expirationTime = decodedToken.exp * 1000;
     const currentTime = new Date().getTime();
-    const timeUntilExpiration = expirationTime - currentTime;
-    if (timeUntilExpiration < 60 * 1000) { // Refresh the token if it will expire in less than 1 minute
+    const expirationTime = currentTime + 24 * 60 * 60;
+    if (decodedToken.exp <= expirationTime) { // Refresh the token if it will expire in less than 1day
       await refreshToken();
     }
-    return Cookies.get('access_token');
+    return localStorage.getItem("access_token");
   }
   return null;
 };
