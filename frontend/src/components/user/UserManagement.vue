@@ -1,5 +1,4 @@
 <template>
-  <!-- <v-card variants="tonal"> -->
   <v-data-table
     v-model="selected"
     class="elevation-1 text-center"
@@ -7,6 +6,7 @@
     :items="desserts"
     items-per-page="10"
     item-value="name"
+    item-selectable="selectable"
     return-object
     show-select 
   >
@@ -37,10 +37,6 @@
       </tr>
     </template>
   </v-data-table>
-<!-- </v-card> -->
-  <!-- <v-card class="mt-2 pa-2">
-    <pre>{{ selected }}</pre>
-  </v-card> -->
 </template>
 
 <script>
@@ -88,3 +84,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.v-data-table-header th {
+  white-space: nowrap;
+  background: #000;
+}
+</style>

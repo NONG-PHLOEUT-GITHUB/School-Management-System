@@ -7,7 +7,7 @@
       </v-avatar>
     </span>
   </custom-title>
-  <v-card variant="flat" class="menu mb-3 py-3">
+  <v-card variant="flat" class="menu py-3">
     <v-list v-for="(menu, i) in menus" :key="i" :value="menu">
       <v-btn
         v-text="menu.title"
@@ -17,7 +17,7 @@
       ></v-btn>
     </v-list>
   </v-card>
-  <v-container fluid class="py-0">
+  <v-container fluid class="pa-0">
     <router-view />
   </v-container>
 </template>
@@ -26,10 +26,10 @@ export default {
   data() {
     return {
       menus: [
-        { path: "AboutMe", title: "About", icon: "mdi-clock" },
+        { path: "UserDetail", title: "About", icon: "mdi-clock" },
         { path: "profileComment", title: "Class record", icon: "mdi-account" },
-        { title: "Acadmic record", icon: "mdi-flag" },
-        { title: "Attendance record", icon: "mdi-flag" },
+        { path: "detailAcademic",title: "Acadmic record", icon: "mdi-flag" },
+        { path: 'detailAttendance',title: "Attendance record", icon: "mdi-flag" },
       ],
     };
   },

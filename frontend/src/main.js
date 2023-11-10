@@ -22,8 +22,8 @@ const vuetify = createVuetify({
 const app = createApp(App)
 const pinia = createPinia()
 
-app.component('custom-title',CustomTitle) // call to use without i
-app.component('custom-filter',CustomFilter) // call to use without i
+app.component('custom-title',CustomTitle) // call to use without import
+app.component('custom-filter',CustomFilter) // call to use without import
 app.component('v-data-table',VDataTable)
 
 app.use(pinia)

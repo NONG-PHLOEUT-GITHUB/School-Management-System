@@ -52,7 +52,7 @@ const cards = [
   },
   {
     icon: 'mdi-school',
-    title: 'Total Courses',
+    title: 'Total Classroom',
     value: 30,
     color: 'pink-accent-3',
   },

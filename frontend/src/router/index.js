@@ -2,10 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/auth/LoginPage";
 import UserProfile from "@/views/userInfor/UserProfile.vue";
 import MainLayout from "@/components/layout/LayoutComponent.vue";
-import Comment from "@/views/comment/Comment.vue";
+// import Comment from "@/views/comment/Comment.vue";
 import UserInformation from "@/views/userInfor/UserInformation.vue";
 import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
 import ClassRecord from "@/components/classroomManagement/ClassRecord.vue"
+import ClassRecordView from "@/views/classroom/ClassRecord.vue"
 const routes = [
   {
     path: "/",
@@ -46,9 +47,24 @@ const routes = [
         redirect:"/profile/comment",
         children:[
           {
-            path: "/profile/comment",
+            path: "/user-detail/class-record",
             name:"profileComment",
-            component:Comment
+            component:ClassRecordView
+          },
+          {
+            path: "/user-detail/academic-record",
+            name:"detailAcademic",
+            component:()=>import("@/views/academic/AcademicRecord.vue")
+          },
+          {
+            path: "/user-detail/attendance-record",
+            name:"detailAttendance",
+            component:()=>import("@/views/attendance/AttendanceRecord.vue")
+          },
+          {
+            path: "/user/detail",
+            name: "UserDetail",
+            component: () => import("../views/userInfor/UserInfoDetails.vue"),
           },
         ]
       },
@@ -76,11 +92,6 @@ const routes = [
         path: "/comment",
         name: "comment",
         component: () => import("../views/comment/Comment.vue"),
-      },
-      {
-        path: "/user/detail",
-        name: "UserDetail",
-        component: () => import("../views/userInfor/UserDetail.vue"),
       },
     ],
   },
