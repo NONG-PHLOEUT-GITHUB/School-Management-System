@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <LaunchApp />
+    <LaunchApp ref="overlay"/>
     <router-view />
     <!-- <AlertNotification :value="toastNotifications"/> -->
   </v-app>

@@ -96,9 +96,9 @@ const routes = [
     ],
   },
   {
-    path: "/reset-password",
+    path: "/reset-new-password/:token",
     name: "reset-password",
-    component: () => import("../views/auth/ResetPasswordPage.vue"),
+    component: () => import("../views/auth/ResetPassword.vue"),
   },
   {
     path: "/forget-password",

@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
-import { userLogin, fetchUserLoged } from "@/services/auth.js";
+import { userLogin, fetchUserLoged ,forgotPassword,resetNewPassword } from "@/services/auth.js";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authUser: null,
     isAuthenticated: false,
     userRole: null,
+    isResetPassword: false,
+    isReset: false,
   }),
   getters: {
     user: (state) => state.authUser,
@@ -22,6 +24,7 @@ export const useAuthStore = defineStore("auth", {
           this.authUser = response.data.user;
           this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
+          // localStorage.setItem("user_role",response.data.user.role);
         } else {
           this.isAuthenticated = false;
         }
@@ -33,8 +36,6 @@ export const useAuthStore = defineStore("auth", {
       try {
         const data = await fetchUserLoged();
         this.authUser = data.data;
-        this.userRole = data.user.role;
-        localStorage.setItem("user_role",this.user.data.role);
       } catch (error) {
         console.error('Error fetching user:', error);
       }
@@ -44,5 +45,30 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("user_role");
       this.isAuthenticated = false;
     },
+    async forgotPassword(email) {
+      try{
+        const response = await forgotPassword(email);
+        if(response.data.status === 'success'){
+          this.isResetPassword = true;
+        }else{
+          this.isResetPassword = false;
+        }
+      }catch(error){
+        console.error('Error reset passw:', error);
+      }
+    },
+    async userResetNewPassword(token,password,password_confirmation) {
+      try{
+        const response = await resetNewPassword(token,password,password_confirmation);
+        if(response.data.status === 'success'){
+          this.isReset = true;
+          localStorage.setItem("access_token", response.data.access_token);
+        }else{
+          this.isReset = false;
+        }
+      }catch(error){
+        console.error('Error reset passw:', error);
+      }
+    }
   },
 });

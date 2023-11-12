@@ -14,7 +14,7 @@
         ></v-img>
       </div>
       <v-card class="login-card">
-        <v-form ref="form" @submit.prevent="login">
+        <v-form ref="form" @submit.prevent="userForgotPassword">
           <h1 class="login-title">{{$t("login.form.forgot-pass")}}</h1>
           <span>{{$t("forgot-pass.message-forgot-pass")}}</span>
           <div class="input-group">
@@ -49,15 +49,52 @@
 </template>
 <script setup>
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 import { ref } from 'vue';
 
+const router = useRouter();
+const userReset = useAuthStore()
 const helperText = "We'll send a password reset link to this email address.";
-const email = ref('');
+const email = ref('phloeutnong@gmail.com');
 const emailRules = [
   (v) => !!v || 'common.passReuire',
   (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
 ];
+
+const validateForm = () => {
+  const emailValid = emailRules.every((rule) => rule(email.value) === true);
+
+  if (!emailValid) {
+    return false;
+  }
+
+  return true;
+};
+
+const userForgotPassword = async () => {
+  console.log('hello reset password');
+  if (!validateForm()) {
+    return;
+  }
+  console.log('email',email.value);
+  try {
+    await userReset.forgotPassword(email.value);
+
+    console.log(userReset.isResetPassword);
+    if (userReset.isResetPassword) {
+      
+      console.log("in reset password", userReset);      
+      await router.push({ path: "reset-new-password" });
+    } else {
+      // errorText.value = "Email or password is incorrect"; // Set the error message
+      console.log("Email or password is incorrect");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
 </script>
 <style scoped>
 .login-page {

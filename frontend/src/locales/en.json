@@ -14,6 +14,10 @@
     "message-forgot-pass": "Remember to check your email for a password reset link.",
     "back-login": "Back To Login"
   },
+  "resetPassword": {
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
+  },
   "lang": {
     "en": "English",
     "kh": "Khner"

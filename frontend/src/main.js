@@ -12,6 +12,7 @@ import "@mdi/font/css/materialdesignicons.css"
 
 import CustomTitle from "@/components/common/CustomTitle.vue"
 import CustomFilter from "@/components/common/CustomFilter.vue"
+import SidebarComponent from "@/components/layout/SidebarComponent.vue"
 import { VDataTable } from "vuetify/labs/VDataTable";
 
 const vuetify = createVuetify({
@@ -24,6 +25,7 @@ const pinia = createPinia()
 
 app.component('custom-title',CustomTitle) // call to use without import
 app.component('custom-filter',CustomFilter) // call to use without import
+app.component('sidebar',SidebarComponent) // call to use without import
 app.component('v-data-table',VDataTable)
 
 app.use(pinia)

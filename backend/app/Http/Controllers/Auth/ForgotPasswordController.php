@@ -15,7 +15,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class ForgotPasswordController extends Controller
 {
     //  || REFERENCE|| // https://youtu.be/rLt_RkSfqDc
-    public function send_reset_password_email(Request $request){
+    public function SendEmailResetPassword(Request $request){
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -56,7 +56,7 @@ class ForgotPasswordController extends Controller
 
 
 
-    public function resetPassword(Request $request, $token)
+    public function resetNewPassword(Request $request, $token)
     {
         $formatted = Carbon::now()->subMinutes(2)->toDateTimeString();
         PasswordReset::where('created_at', '<=', $formatted)->delete();

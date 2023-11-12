@@ -14,40 +14,43 @@
         ></v-img>
       </div>
       <v-card class="login-card">
-        <v-form ref="form" @submit.prevent="login">
-          <h1 class="login-title">{{ $t("login.title") }}</h1>
+        <v-form ref="form" @submit.prevent="resetNewPassword">
+          <h1 class="login-title">{{ $t("btn.resetPassword") }}</h1>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("login.form.email") }}
+              {{ $t("resetPassword.newPassword") }}
             </div>
             <v-text-field
-              ref="emailField"
+              :append-inner-icon="
+                isPasswordVisibleNew ? 'mdi-eye-off' : 'mdi-eye'
+              "
+              :type="isPasswordVisibleNew ? 'text' : 'password'"
               density="compact"
-              :placeholder="$t('common.emailAddress')"
-              prepend-inner-icon="mdi-email-outline"
-              v-model="email"
-              :rules="emailRules"
+              :placeholder="$t('common.password')"
+              prepend-inner-icon="mdi-lock-outline"
+              v-model="newPassword"
+              :rules="newPasswordRules"
               variant="outlined"
-              no-validation
+              @click:append-inner="toggleVisibleNewpassword"
             ></v-text-field>
-            <!-- <span :rules="emailRules"></span> -->
           </div>
+
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("login.form.password") }}
+              {{ $t("resetPassword.confirmPassword") }}
             </div>
             <v-text-field
               :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
               :type="isPasswordVisible ? 'text' : 'password'"
               density="compact"
-              :placeholder="$t('common.password')"
+              :placeholder="$t('resetPassword.confirmPassword')"
               prepend-inner-icon="mdi-lock-outline"
-              v-model="password"
-              :rules="passwordRules"
+              v-model="password_confirmation"
+              :rules="confirmPasswordRules"
               variant="outlined"
               @click:append-inner="toggleVisible"
             ></v-text-field>
@@ -71,7 +74,7 @@
             color="teal darken-4"
             block
             class="login-button"
-            >{{ $t("login.title") }}</v-btn
+            >{{ $t("btn.resetPassword") }}</v-btn
           >
         </v-form>
       </v-card>
@@ -80,73 +83,96 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth.js";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
-const email = ref("phloeutnong@gmail.com");
-const password = ref("2tEBLuJK");
+const newPassword = ref("123456789");
+const password_confirmation = ref("123456789");
 const isPasswordVisible = ref(false);
+const isPasswordVisibleNew = ref(false);
+const token = route.params.token;
 const errorText = ref(""); // Create a ref for error messages
 
 const toggleVisible = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
 };
+const toggleVisibleNewpassword = () => {
+  isPasswordVisibleNew.value = !isPasswordVisibleNew.value;
+};
 
-const emailRules = [
-  (v) => !!v || "E-mail is required",
-  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+const confirmPasswordRules = [
+  (v) => !!v || "Password is required",
+  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
 ];
-
-const passwordRules = [
+const newPasswordRules = [
   (v) => !!v || "Password is required",
   (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
 ];
 
 const validateForm = () => {
-  const emailValid = emailRules.every((rule) => rule(email.value) === true);
-  const passwordValid = passwordRules.every(
-    (rule) => rule(password.value) === true
+  const newPasswordValid = confirmPasswordRules.every(
+    (rule) => rule(newPassword.value) === true
+  );
+  const confirmPasswordValid = confirmPasswordRules.every(
+    (rule) => rule(password_confirmation.value) === true
   );
 
-  if (!emailValid || !passwordValid) {
+  if (!newPasswordValid || !confirmPasswordValid) {
     return false;
   }
 
   return true;
 };
 
-const login = async () => {
+watch([newPassword, password_confirmation], ([newVal, confirmVal]) => {
+  if (newVal !== confirmVal) {
+    console.log("Passwords do not match");
+    errorText.value = "Passwords do not match"; // Set the error message
+    // You can set an error message or perform other actions here
+  } else {
+    errorText.value = ""; // Set the error message
+    // console.log('Passwords match');
+    // Clear any previous error messages or perform other actions here
+  }
+});
+
+const resetNewPassword = async () => {
   if (!validateForm()) {
     return;
   }
   try {
-    await authStore.login({ email: email.value, password: password.value });
+    await authStore.userResetNewPassword(
+      token,
+      newPassword.value,
+      password_confirmation.value
+    );
 
-    if (authStore.isAuthenticated) {
-
+    if (authStore.isReset) {
       let userRole = authStore.user.role
-      localStorage.setItem('user_role',userRole);
-
-      if(userRole === 1){
+      console.log('role in reset password',authStore.user.role);
+      localStorage.setItem("user_role", userRole);
+      if (userRole === 1) {
         await router.push({ path: "/dashboard/user" });
-      }else if (userRole === 2) {
+      }
+      else if (userRole === 2) {
         await router.push({ path: "/dashboard/user" });
       } else {
         await router.push({ path: "/dashboard/user" });
       }
+      // await router.push({ path: "/dashboard/user" });
     } else {
-      errorText.value = "Email or password is incorrect"; // Set the error message
+      // errorText.value = "Email or password is incorrect"; // Set the error message
       console.log("Email or password is incorrect");
     }
   } catch (error) {
     console.error("An error occurred:", error);
   }
 };
-
 </script>
 
 <style scoped>

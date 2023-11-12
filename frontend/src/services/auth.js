@@ -18,3 +18,18 @@ export function userLogin(email, password) {
 export function fetchUserLoged() {
   return http.get("/v2/auth/user");
 }
+
+export function forgotPassword(email) {
+  const user = {
+    email
+  }
+  return http.post('/forgot-password', user);
+}
+
+export function resetNewPassword(token,password,password_confirmation) {
+  const user = {
+    password,
+    password_confirmation
+  }
+  return http.post(`/reset-new-password/${token}`, user);
+}

@@ -34,7 +34,8 @@ Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
 Route::post('/classroom',[ClassroomController::class,'store']);
 // Route::get('/classrooms',[ClassroomController::class,'index']);
 Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
-Route::post('/forgot-password', [ForgotPasswordController::class,'send_reset_password_email']);
+Route::post('/forgot-password', [ForgotPasswordController::class,'SendEmailResetPassword']);
+Route::post('/reset-new-password/{token}', [ForgotPasswordController::class,'resetNewPassword']);
 
 
 Route::prefix('v2')->group(function () {

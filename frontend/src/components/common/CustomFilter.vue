@@ -1,5 +1,4 @@
 <template>
-  <v-container class="px-0">
     <v-card variant="flat">
       <v-row class="mt-2">
         <v-col cols="4">
@@ -22,5 +21,4 @@
         </v-col>
       </v-row>
     </v-card>
-  </v-container>
 </template>
