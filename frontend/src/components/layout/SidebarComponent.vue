@@ -35,6 +35,7 @@ Transcripts and report card generation. -->
         prepend-icon="mdi-clipboard-check"
         title="Attendance Tracking"
         value="attendance"
+        :to="{name:'AttendanceTracking'}"
       ></v-list-item>
       <!-- give feed back to student -->
       <v-list-item

@@ -93,6 +93,11 @@ const routes = [
         name: "comment",
         component: () => import("../views/comment/Comment.vue"),
       },
+      {
+        path: "/attendance-tracking",
+        name: "AttendanceTracking",
+        component: () => import("../views/attendanceTracking/AttendanceTracking.vue"),
+      },
     ],
   },
   {
@@ -105,11 +110,11 @@ const routes = [
     name: "forget-password",
     component: () => import("../views/auth/ForgetPassword.vue"),
   },
-  // {
-  //   path: "/:catchAll(.*)",
-  //   name: "Not Found",
-  //   component: NotFoundPage,
-  // },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "Not Found",
+    component:() => import('../views/common/NotFount.vue')
+  },
 ];
 
 const router = createRouter({
