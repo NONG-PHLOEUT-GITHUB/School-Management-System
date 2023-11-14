@@ -117,7 +117,7 @@ const routes = [
   },
   {
     path: "/chnage-password",
-    name: "forget-password",
+    name: "chnage-password",
     component: () => import("../views/auth/ForgetPassword.vue"),
   },
   

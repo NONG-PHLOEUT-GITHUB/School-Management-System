@@ -1,80 +1,91 @@
 <template>
-  <v-container fluid style="height: 300px">
-    <v-row justify="center">
-      <v-menu min-width="200px" rounded>
-        <template v-slot:activator="{ props }">
-          <v-badge class="mt-2" content="2" color="error" v-bind="props">
-            <v-icon class="cursor-pointer">mdi-bell-outline</v-icon>
-          </v-badge>
-        </template>
-        <v-card class="mx-auto" max-width="450">
-          <v-toolbar color="cyan-lighten-1">
-            <v-btn variant="text" icon="mdi-menu"></v-btn>
-
-            <v-toolbar-title>Inbox</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn variant="text" icon="mdi-magnify"></v-btn>
-          </v-toolbar>
-          <v-virtual-scroll :items="items" height="400" item-height="48">
-            <template v-slot:default="{ isHovering, props }">
-              <v-list
-                :items="items"
-                item-props
-                lines="three"
-                v-bind="props"
-                :color="isHovering ? 'primary' : undefined"
-              >
-                <template v-slot:subtitle="{ subtitle }">
-                  <div v-html="subtitle"></div>
-                </template>
-              </v-list>
-            </template>
-          </v-virtual-scroll>
-        </v-card>
-      </v-menu>
-    </v-row>
-  </v-container>
-</template>
-<script>
-export default {
-  data: () => ({
-    items: [
-      { type: "subheader", title: "Today" },
-      {
-        prependAvatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        title: "Brunch this weekend?",
-        subtitle: `<span class="text-primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+    <div class="alert">
+      <v-slide-x-reverse-transition group>
+        <v-alert
+          v-for="alert in alerts"
+          :key="alert.id"
+          :type="alert.type"
+          :icon="alert.icon"
+          :dense="alert.dense"
+          :prominent="alert.prominent"
+          :dismissible="alert.dismissible"
+          @input="closeAlert(alert.id)"
+        >
+          <span class="d-inline-block capitalize-first-letter">{{
+            alert.message
+          }}</span>
+        </v-alert>
+      </v-slide-x-reverse-transition>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'NotificationAlert',
+    props: {
+      // Type d'affichage
+      outlined: { type: Boolean, required: false, default: false },
+      text: { type: Boolean, required: false, default: false },
+      dense: { type: Boolean, required: false, default: false },
+      prominent: { type: Boolean, required: false, default: false },
+      // Ajout de la possibilité de fermer l'alerte
+      dismissible: { type: Boolean, required: false, default: false },
+      // Temps d'affichage à l'écran en ms
+      defaultTimeout: { type: Number, required: false, default: 2000 },
+      // Maximum d'alerte afficher en même Temps
+      defaultMaxAlert: { type: Number, required: false, default: 4 },
+    },
+    data() {
+      return {
+        alerts: [],
+      }
+    },
+    methods: {
+      newAlert(
+        message,
+        {
+          type = 'success',
+          icon = null,
+          timeout = this.defaultTimeout,
+          dense = this.dense,
+          prominent = this.prominent,
+          dismissible = this.dismissible,
+        }
+      ) {
+        if (this.alerts.length === this.defaultMaxAlert) this.alerts.shift()
+        // Création d'un id unique
+        const id = new Date().valueOf() + Math.random()
+        this.alerts.push({
+          id,
+          type,
+          icon,
+          message,
+          dense,
+          prominent,
+          dismissible,
+        })
+        // Si timeout = 0 on laisse l'alerte à l'écran
+        if (timeout) {
+          setTimeout(() => {
+            this.closeAlert(id)
+          }, timeout)
+        }
       },
-      { type: "divider", inset: true },
-      {
-        prependAvatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        title: "Summer BBQ",
-        subtitle: `<span class="text-primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+      closeAlert(id) {
+        this.alerts = this.alerts.filter((el) => el.id !== id)
       },
-      { type: "divider", inset: true },
-      {
-        prependAvatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        title: "Oui oui",
-        subtitle:
-          '<span class="text-primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-      },
-      { type: "divider", inset: true },
-      {
-        prependAvatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        title: "Birthday gift",
-        subtitle:
-          '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-      },
-      { type: "divider", inset: true },
-      {
-        prependAvatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-        title: "Recipe to try",
-        subtitle:
-          '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-      },
-    ],
-  }),
-};
-</script>
+    },
+  }
+  </script>
+  
+  <style scoped>
+  .alert {
+    overflow: hidden;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    margin-right: 16px;
+    z-index: 999;
+  }
+  </style>
+  

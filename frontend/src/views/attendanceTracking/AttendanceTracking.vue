@@ -1,10 +1,12 @@
 <template>
-  <v-container fluid class="pa-2">
+  <!-- <v-container fluid class="pa-2"> -->
+    <v-card>
     <v-row>
       <v-col sm="6" md="4" lg="2" class="pa-1">
         <v-card
           class="pa-2"
-          :style="{ backgroundColor: getCardBackgroundColor }"
+          :color="model ? 'red' : ''"
+          variant="outlined"
         >
           <v-card-item class="pa-0">
             <v-card-title>
@@ -33,7 +35,7 @@
             variant="outlined"
           ></v-select>
           <v-card-actions>
-            <v-btn color="orange-lighten-2" variant="text"> Comment </v-btn>
+            <v-btn color="orange-lighten-2" variant="text"> Message </v-btn>
 
             <v-spacer></v-spacer>
 
@@ -55,9 +57,11 @@
             </div>
           </v-expand-transition>
         </v-card>
+        
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
+  <!-- </v-container> -->
 </template>
 <script>
 export default {

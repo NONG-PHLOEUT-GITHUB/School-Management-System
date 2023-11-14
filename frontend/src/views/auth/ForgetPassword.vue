@@ -7,10 +7,10 @@
       <div class="login-content">
         <h1 class="logo">SCHOOL MANAGEMENT</h1>
         <v-img
-          class="login-image"
-          src="../../../public/assets/images/Forgotpassword.png"
-          aspect-ratio="1"
-          cover
+        class="login-image"
+        src="../../../public/assets/images/Forgotpassword.png"
+        aspect-ratio="1"
+        cover
         ></v-img>
       </div>
       <v-card class="login-card">
@@ -50,10 +50,10 @@
 <script setup>
 import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
 import { useAuthStore } from "@/stores/auth";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import { ref } from 'vue';
 
-const router = useRouter();
+// const router = useRouter();
 const userReset = useAuthStore()
 const helperText = "We'll send a password reset link to this email address.";
 const email = ref('phloeutnong@gmail.com');
@@ -73,19 +73,17 @@ const validateForm = () => {
 };
 
 const userForgotPassword = async () => {
-  console.log('hello reset password');
   if (!validateForm()) {
     return;
   }
-  console.log('email',email.value);
   try {
     await userReset.forgotPassword(email.value);
-
-    console.log(userReset.isResetPassword);
-    if (userReset.isResetPassword) {
-      
-      console.log("in reset password", userReset);      
-      await router.push({ path: "reset-new-password" });
+    if (userReset.isResetPassword) {    
+      // await router.push({ path: "reset-new-password" });
+      this.$root.$notif(this.$t('alert.success'), {
+          type: 'success',
+          color: 'primary',
+        })
     } else {
       // errorText.value = "Email or password is incorrect"; // Set the error message
       console.log("Email or password is incorrect");

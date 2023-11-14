@@ -153,8 +153,8 @@ const resetNewPassword = async () => {
     );
 
     if (authStore.isReset) {
-      let userRole = authStore.user.role
-      console.log('role in reset password',authStore.user.role);
+      let userRole = authStore.data
+      console.log('role in reset password',authStore.data);
       localStorage.setItem("user_role", userRole);
       if (userRole === 1) {
         await router.push({ path: "/dashboard/user" });
@@ -164,7 +164,6 @@ const resetNewPassword = async () => {
       } else {
         await router.push({ path: "/dashboard/user" });
       }
-      // await router.push({ path: "/dashboard/user" });
     } else {
       // errorText.value = "Email or password is incorrect"; // Set the error message
       console.log("Email or password is incorrect");

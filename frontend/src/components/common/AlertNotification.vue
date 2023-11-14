@@ -10,9 +10,9 @@
           <v-icon color="red">mdi-close</v-icon>
         </li>
       </ul>
-      <div class="buttons">
+      <!-- <div class="buttons">
         <button class="btn" @click="createToast('success')">Success</button>
-      </div>
+      </div> -->
     </div>
   </template>
   

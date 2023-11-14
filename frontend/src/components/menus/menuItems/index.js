@@ -2,7 +2,7 @@ export const menuItems = [
     {
         title: 'menu.dashboard',
         icon: 'mdi-widgets',
-        link: '/dashboard',
+        path: '/dashboard',
         active: false
     }
 ]

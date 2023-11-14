@@ -3,22 +3,27 @@
     <LaunchApp ref="overlay"/>
     <router-view />
     <!-- <AlertNotification :value="toastNotifications"/> -->
+    <Notif ref="notif" dismissible :default-timeout="7000"/>
   </v-app>
 </template>
 
 <script>
 import LaunchApp from "./components/common/components/LaunchApp.vue";
 // import AlertNotification from "./components/common/AlertNotification.vue";
+import Notif from "./components/common/components/Notification.vue";
 export default {
   name: "App",
   components: {
     LaunchApp,
-    // AlertNotification
+    Notif
   },
   data() {
     return {
       toastNotifications: [],
     };
+  },
+  mounted() {
+    this.$root.$notif = this.$refs.notif.newAlert
   },
 };
 </script>

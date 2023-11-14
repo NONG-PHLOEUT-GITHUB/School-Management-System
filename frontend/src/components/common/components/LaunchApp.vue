@@ -1,42 +1,3 @@
-<!-- <template>
-    <div class="text-center">
-      <v-btn
-        append-icon="mdi-open-in-new"
-        color="deep-purple-accent-4"
-        @click="overlay = !overlay"
-      >
-        Launch Application
-      </v-btn>
-  
-      <v-overlay
-        :model-value="overlay"
-        class="align-center justify-center"
-      >
-        <v-progress-circular
-          color="primary"
-          indeterminate
-          size="64"
-        ></v-progress-circular>
-      </v-overlay>
-    </div>
-  </template>
-
-<script>
-export default {
-  data: () => ({
-    overlay: false,
-  }),
-
-  watch: {
-    overlay (val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 3000)
-    },
-  },
-}
-</script> -->
-
 <template>
   <v-row
     v-if="isLoading && !forceStopLoading"
@@ -65,14 +26,11 @@ import { useLoadingStore } from '@/stores/loading'; // Update the path according
 
 const loadingStore = useLoadingStore();
 
-const isLoading = ref(loadingStore.isLoading);
-const forceStopLoading = ref(loadingStore.forceStopLoading);
-const message = ref(loadingStore.message);
-console.log('is loading',loadingStore.isLoading);
+const isLoading = ref();
+const forceStopLoading = ref();
+const message = ref();
+
 watch(() => {
-  console.log('isLoading:', isLoading.value);
-  console.log('forceStopLoading:', forceStopLoading.value);
-  console.log('message:', message.value);
   isLoading.value = loadingStore.isLoading;
   forceStopLoading.value = loadingStore.forceStopLoading;
   message.value = loadingStore.message;
@@ -89,4 +47,4 @@ watch(() => {
   top: 0;
   left: 0;
 }
-</style>
+</style> 

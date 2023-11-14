@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { userLogin, fetchUserLoged ,forgotPassword,resetNewPassword } from "@/services/auth.js";
-
+import { useLoadingStore } from './loading';
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authUser: null,
@@ -24,7 +24,6 @@ export const useAuthStore = defineStore("auth", {
           this.authUser = response.data.user;
           this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
-          // localStorage.setItem("user_role",response.data.user.role);
         } else {
           this.isAuthenticated = false;
         }
@@ -46,6 +45,8 @@ export const useAuthStore = defineStore("auth", {
       this.isAuthenticated = false;
     },
     async forgotPassword(email) {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
       try{
         const response = await forgotPassword(email);
         if(response.data.status === 'success'){
@@ -55,12 +56,18 @@ export const useAuthStore = defineStore("auth", {
         }
       }catch(error){
         console.error('Error reset passw:', error);
+      }finally {
+        // Set loading to false when the request is complete (either success or failure)
+        loadingStore.setLoading(false);
       }
     },
     async userResetNewPassword(token,password,password_confirmation) {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
       try{
         const response = await resetNewPassword(token,password,password_confirmation);
         if(response.data.status === 'success'){
+          this.authUser = response.data.user;
           this.isReset = true;
           localStorage.setItem("access_token", response.data.access_token);
         }else{
@@ -68,6 +75,8 @@ export const useAuthStore = defineStore("auth", {
         }
       }catch(error){
         console.error('Error reset passw:', error);
+      }finally{
+        loadingStore.setLoading(false);
       }
     }
   },
