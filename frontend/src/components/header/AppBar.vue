@@ -1,6 +1,13 @@
 <template>
   <LogoutConfirmation @logout="logoutUser" ref="logoutDialog" />
-
+  <v-dialog
+    v-model="dialogVisible"
+    transition="dialog-top-transition"
+    width="auto"
+  >
+    <!-- @password-changed="dialogVisible = false" -->
+    <change-password-dailog @cancel="dialogVisible = false" />
+  </v-dialog>
   <v-app-bar ref="appBar" app color="white">
     <v-app-bar-nav-icon @click="togglerDrawer">
       <v-icon>mdi-menu</v-icon>
@@ -42,11 +49,16 @@
                   >
                   </v-img>
                 </v-avatar>
-                <div class="subtitle" v-for="(value, key) in authStore.user" :key="key">
+                <div
+                  class="subtitle"
+                  v-for="(value, key) in authStore.user"
+                  :key="key"
+                >
                   <span class="font-weight-black">
                     {{ value.first_name }}
-                    {{ value.last_name }} 
-                  </span> <br/>
+                    {{ value.last_name }}
+                  </span>
+                  <br />
                   <span class="email">{{ value.email }}</span>
                 </div>
               </div>
@@ -93,6 +105,7 @@
 import Language from "../common/SwitcherLanguage.vue";
 import LogoutConfirmation from "../common/LogoutConfirmation.vue";
 import Notification from "../common/components/Notification.vue";
+import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
 import { useAuthStore } from "@/stores/auth.js";
 // import { useRouter } from 'vue-router';
 
@@ -104,15 +117,17 @@ export default {
     Language,
     LogoutConfirmation,
     Notification,
+    ChangePasswordDailog,
   },
   data() {
     return {
       drawer: false,
       tooltipVisible: false,
+      dialogVisible: false,
       menus: [
         {
           title: this.$t("header.menuChangePass"),
-          path: "/chnage-password",
+          action: "changePassword",
           icon: "mdi-lock-reset",
         },
         {
@@ -139,6 +154,10 @@ export default {
     toggleTooltip() {
       this.tooltipVisible = !this.tooltipVisible;
     },
+    // async chnagePassword (){
+    //   console.log(this.dialogVisible);
+    //   this.dialogVisible = true
+    // },
     async logoutUser() {
       const authStore = useAuthStore(); // Get the authentication store
       await authStore.logout(); // Call a logout action in your store
@@ -149,6 +168,9 @@ export default {
       switch (action) {
         case "logout":
           this.logoutUser();
+          break;
+        case "changePassword":
+          this.dialogVisible = true;
           break;
         default:
           break;

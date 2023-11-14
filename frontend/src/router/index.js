@@ -98,6 +98,11 @@ const routes = [
         name: "AttendanceTracking",
         component: () => import("../views/attendanceTracking/AttendanceTracking.vue"),
       },
+      {
+        path: "/student/dshaboard",
+        name: "StudentSheet",
+        component: () => import("../views/student/StudentDashboard.vue"),
+      },
     ],
   },
   {
@@ -110,6 +115,12 @@ const routes = [
     name: "forget-password",
     component: () => import("../views/auth/ForgetPassword.vue"),
   },
+  {
+    path: "/chnage-password",
+    name: "forget-password",
+    component: () => import("../views/auth/ForgetPassword.vue"),
+  },
+  
   {
     path: "/:pathMatch(.*)*",
     name: "Not Found",

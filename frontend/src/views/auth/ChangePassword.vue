@@ -1,20 +1,91 @@
 <template>
-  <v-col cols="auto">
-    <v-dialog transition="dialog-top-transition" width="auto">
-      <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props">From the bottom</v-btn>
-      </template>
-      <template v-slot:default="{ isActive }">
-        <v-card>
-          <v-toolbar color="primary" title="Change password"></v-toolbar>
+  <v-card width="430" class="pa-2">
+    <v-toolbar color="red" title="Opening from the bottom">
+      <v-col cols="auto">
+          <v-btn icon="mdi-close" size="small"  @Click="cancelDailog"></v-btn>
+        </v-col>
+    </v-toolbar>
+    <v-form ref="form" @submit.prevent="resetNewPassword">
+      <!-- <h1 class="login-title">{{ $t("btn.resetPassword") }}</h1> -->
+      <div class="input-group">
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+        >
+          {{ $t("resetPassword.newPassword") }}
+        </div>
+        <v-text-field
+          :append-inner-icon="isPasswordVisibleNew ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="isPasswordVisibleNew ? 'text' : 'password'"
+          density="compact"
+          :placeholder="$t('common.password')"
+          prepend-inner-icon="mdi-lock-outline"
+          v-model="newPassword"
+          :rules="newPasswordRules"
+          variant="outlined"
+          @click:append-inner="toggleVisibleNewpassword"
+        ></v-text-field>
+      </div>
+      <div class="input-group">
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+        >
+          {{ $t("resetPassword.newPassword") }}
+        </div>
+        <v-text-field
+          :append-inner-icon="isPasswordVisibleNew ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="isPasswordVisibleNew ? 'text' : 'password'"
+          density="compact"
+          :placeholder="$t('common.password')"
+          prepend-inner-icon="mdi-lock-outline"
+          v-model="newPassword"
+          :rules="newPasswordRules"
+          variant="outlined"
+          @click:append-inner="toggleVisibleNewpassword"
+        ></v-text-field>
+      </div>
+
+      <div class="input-group">
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+        >
+          {{ $t("resetPassword.confirmPassword") }}
+        </div>
+        <v-text-field
+          :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          density="compact"
+          :placeholder="$t('resetPassword.confirmPassword')"
+          prepend-inner-icon="mdi-lock-outline"
+          v-model="password_confirmation"
+          :rules="confirmPasswordRules"
+          variant="outlined"
+          @click:append-inner="toggleVisible"
+        ></v-text-field>
+        <v-card class="mx-auto" v-if="errorText" variant="tonal" color="red">
           <v-card-text>
-            <div class="text-h2 pa-12">Hello world!</div>
-          </v-card-text>
-          <v-card-actions class="justify-end">
-            <v-btn variant="text" @click="isActive.value = false">Close</v-btn>
-          </v-card-actions>
+            <div>{{ errorText }}</div></v-card-text
+          >
         </v-card>
-      </template>
-    </v-dialog>
-  </v-col>
+      </div>
+      <v-btn type="submit" color="teal darken-4" block class="login-button">{{
+        $t("btn.chagePassword")
+      }}</v-btn>
+    </v-form>
+  </v-card>
 </template>
+<script>
+export default{
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    cancelDailog() {
+      this.$emit("cancel");
+    },
+  }
+}
+</script>
+
+<style scoped></style>
