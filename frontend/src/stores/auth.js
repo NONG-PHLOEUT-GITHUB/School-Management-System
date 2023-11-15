@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
-import { userLogin, fetchUserLoged ,forgotPassword,resetNewPassword } from "@/services/auth.js";
-import { useLoadingStore } from './loading';
+import {
+  userLogin,
+  fetchUserLoged,
+  forgotPassword,
+  resetNewPassword,
+} from "@/services/auth.js";
+import { useLoadingStore } from "./loading";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authUser: null,
@@ -22,6 +27,8 @@ export const useAuthStore = defineStore("auth", {
           response.data.access_token
         ) {
           this.authUser = response.data.user;
+          const loadingStore = useLoadingStore();
+          loadingStore.setLoading(true);
           this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
         } else {
@@ -32,11 +39,15 @@ export const useAuthStore = defineStore("auth", {
       }
     },
     async fetchUser() {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
       try {
         const data = await fetchUserLoged();
         this.authUser = data.data;
       } catch (error) {
-        console.error('Error fetching user:', error);
+        console.error("Error fetching user:", error);
+      } finally {
+        loadingStore.setLoading(false);
       }
     },
     logout() {
@@ -50,37 +61,40 @@ export const useAuthStore = defineStore("auth", {
     async forgotPassword(email) {
       const loadingStore = useLoadingStore();
       loadingStore.setLoading(true);
-      try{
+      try {
         const response = await forgotPassword(email);
-        if(response.data.status === 'success'){
+        if (response.data.status === "success") {
           this.isResetPassword = true;
-        }else{
+        } else {
           this.isResetPassword = false;
         }
-      }catch(error){
-        console.error('Error reset passw:', error);
-      }finally {
-        // Set loading to false when the request is complete (either success or failure)
+      } catch (error) {
+        console.error("Error reset passw:", error);
+      } finally {
         loadingStore.setLoading(false);
       }
     },
-    async userResetNewPassword(token,password,password_confirmation) {
+    async userResetNewPassword(token, password, password_confirmation) {
       const loadingStore = useLoadingStore();
       loadingStore.setLoading(true);
-      try{
-        const response = await resetNewPassword(token,password,password_confirmation);
-        if(response.data.status === 'success'){
+      try {
+        const response = await resetNewPassword(
+          token,
+          password,
+          password_confirmation
+        );
+        if (response.data.status === "success") {
           this.authUser = response.data.user;
           this.isReset = true;
           localStorage.setItem("access_token", response.data.access_token);
-        }else{
+        } else {
           this.isReset = false;
         }
-      }catch(error){
-        console.error('Error reset passw:', error);
-      }finally{
+      } catch (error) {
+        console.error("Error reset passw:", error);
+      } finally {
         loadingStore.setLoading(false);
       }
-    }
+    },
   },
 });
