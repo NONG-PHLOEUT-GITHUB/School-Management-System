@@ -40,9 +40,12 @@ export const useAuthStore = defineStore("auth", {
       }
     },
     logout() {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
       localStorage.removeItem("access_token");
       localStorage.removeItem("user_role");
       this.isAuthenticated = false;
+      loadingStore.setLoading(false);
     },
     async forgotPassword(email) {
       const loadingStore = useLoadingStore();

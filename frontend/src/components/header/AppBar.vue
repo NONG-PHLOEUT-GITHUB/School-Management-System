@@ -104,7 +104,7 @@
 <script>
 import Language from "../common/SwitcherLanguage.vue";
 import LogoutConfirmation from "../common/LogoutConfirmation.vue";
-import Notification from "../common/components/Notification.vue";
+import Notification from "../common/components/Notification1.vue";
 import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
 import { useAuthStore } from "@/stores/auth.js";
 // import { useRouter } from 'vue-router';
@@ -159,9 +159,9 @@ export default {
     //   this.dialogVisible = true
     // },
     async logoutUser() {
-      const authStore = useAuthStore(); // Get the authentication store
-      await authStore.logout(); // Call a logout action in your store
-      this.$router.push({ name: "login" }); // Navigate to the logout route
+      const authStore = useAuthStore();
+      await authStore.logout();
+      this.$router.push({ name: "login" });
       console.log("Logout confirmed");
     },
     onMenuClick(action) {
