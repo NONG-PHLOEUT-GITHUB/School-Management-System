@@ -94,7 +94,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const authStore = useAuthStore();
 const email = ref("phloeutnong@gmail.com");
-const password = ref("2tEBLuJK");
+const password = ref("T1WNXKeW");
 const isPasswordVisible = ref(false);
 const errorText = ref(""); // Create a ref for error messages
 

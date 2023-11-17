@@ -103,6 +103,11 @@ const routes = [
         name: "StudentSheet",
         component: () => import("../views/student/StudentDashboard.vue"),
       },
+      {
+        path: "/crud/user",
+        name: "CrudUser",
+        component: () => import("../views/crud/UserCrud.vue"),
+      },
     ],
   },
   {

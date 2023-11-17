@@ -26,7 +26,8 @@
     "resetPassword": "Reset Password"
   },
   "alert": {
-    "resetPassword": "Reset Password"
+    "resetPassword": "Reset Password",
+    "cucces": "cucces"
   },
   "dashboard":{
     "studentTotal":"Student Total",
