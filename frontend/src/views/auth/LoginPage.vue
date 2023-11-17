@@ -52,14 +52,20 @@
               @click:append-inner="toggleVisible"
             ></v-text-field>
             <v-card
-              class="mx-auto"
               v-if="errorText"
+              class="mx-auto pa-1"
               variant="tonal"
               color="red"
             >
-              <v-card-text>
-                <div>{{ errorText }}</div></v-card-text
-              >
+            <span>{{ errorText }}</span>
+            </v-card>
+            <v-card
+              v-else
+              class="mx-auto pa-1"
+              variant="flat"
+              color="#f4f4f4"
+            >
+              <span class="error">.</span>
             </v-card>
           </div>
 
@@ -171,7 +177,6 @@ const login = async () => {
 .login-content {
   flex: 1;
   padding: 2rem;
-  /* text-align: center; */
 }
 
 .logo {
@@ -210,10 +215,13 @@ const login = async () => {
   color: #666;
   text-decoration: none;
   display: block;
-  margin-top: 1rem;
+  margin-top: -15px;
 }
 
 .login-button {
   margin-top: 2rem;
+}
+.error{
+  color: #f5f5f5;
 }
 </style>

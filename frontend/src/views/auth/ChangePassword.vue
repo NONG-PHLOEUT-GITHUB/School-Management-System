@@ -1,10 +1,11 @@
 <template>
-  <v-card width="430" class="pa-2">
-    <v-toolbar color="red" title="Opening from the bottom">
-      <v-col cols="auto">
-          <v-btn icon="mdi-close" size="small"  @Click="cancelDailog"></v-btn>
-        </v-col>
-    </v-toolbar>
+  <v-card width="430" height="500" class="pa-8">
+    <v-card class="px-0" variant="flat">
+      <v-col cols="auto" class="title px-0">
+        <h2 class="login-title">Change Password</h2>
+        <v-btn icon="mdi-close" size="small" @Click="cancelDailog"></v-btn>
+      </v-col>
+    </v-card>
     <v-form ref="form" @submit.prevent="resetNewPassword">
       <!-- <h1 class="login-title">{{ $t("btn.resetPassword") }}</h1> -->
       <div class="input-group">
@@ -67,25 +68,28 @@
           >
         </v-card>
       </div>
-      <v-btn type="submit" color="teal darken-4" block class="login-button">{{
+      <v-btn type="submit" color="teal darken-4" block class="mt-5">{{
         $t("btn.chagePassword")
       }}</v-btn>
     </v-form>
   </v-card>
 </template>
 <script>
-export default{
-  data(){
-    return{
-
-    }
+export default {
+  data() {
+    return {};
   },
-  methods:{
+  methods: {
     cancelDailog() {
       this.$emit("cancel");
     },
-  }
-}
+  },
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.title{
+  display: flex;
+  justify-content: space-between;
+}
+</style>
