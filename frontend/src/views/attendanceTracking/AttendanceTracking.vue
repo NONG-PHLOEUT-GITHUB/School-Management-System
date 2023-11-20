@@ -3,10 +3,6 @@
     <span class="d-inline-block capitalize-first-letter">Attendance Tracking</span>
   </custom-title>
   <v-container fluid class="pa-0">
-    <v-infinite-scroll
-    height="50"
-    @load="loadMoreData"
-  >
     <v-row>
       <v-col
         v-for="(card, index) in cards"
@@ -75,8 +71,18 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-infinite-scroll>
   </v-container>
+  <v-data-table
+    v-model="selected"
+    class="elevation-1 text-center"
+    :headers="headers"
+    :items="desserts"
+    items-per-page="10"
+    item-value="name"
+    item-selectable="selectable"
+    return-object
+    show-select 
+  ></v-data-table>
 </template>
 
 <script>
@@ -143,87 +149,7 @@ export default {
           model: false,
           show: false,
           imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
-        {
-          model: false,
-          show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
-        },
+        }
       ],
       
     };
