@@ -108,6 +108,11 @@ const routes = [
         name: "CrudUser",
         component: () => import("../views/crud/UserCrud.vue"),
       },
+      {
+        path: "/crud/classroom",
+        name: "CrudClassroom",
+        component: () => import("../views/admin/classroomManagement/CreateClassroom.vue"),
+      },
     ],
   },
   {

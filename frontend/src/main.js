@@ -12,7 +12,7 @@ import "@mdi/font/css/materialdesignicons.css"
 
 import CustomTitle from "@/components/common/CustomTitle.vue"
 import CustomFilter from "@/components/common/CustomFilter.vue"
-import SidebarComponent from "@/components/layout/SidebarComponent.vue"
+import SidebarComponent from "@/components/layout/Sidebar.vue"
 import { VDataTable } from "vuetify/labs/VDataTable";
 
 const vuetify = createVuetify({

@@ -38,8 +38,9 @@ const getAccessToken = async () => {
   if (token) {
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
     const currentTime = new Date().getTime();
-    const expirationTime = currentTime + 24 * 60 * 60;
-    if (decodedToken.exp <= expirationTime) { // Refresh the token if it will expire in less than 1day
+    //const expirationTime = currentTime + 24 * 60 * 60;
+    const expirationTime = decodedToken.exp * 1000; 
+    if (expirationTime <= currentTime < 60 * 60 * 1000) { // Refresh the token if it will expire in less than 1day
       await refreshToken();
     }
     return localStorage.getItem("access_token");

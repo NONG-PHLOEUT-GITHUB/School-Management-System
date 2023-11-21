@@ -33,3 +33,13 @@ export function resetNewPassword(token,password,password_confirmation) {
   }
   return http.post(`/reset-new-password/${token}`, user);
 }
+
+export function changeNewPassword(current_password,new_password) {
+  const user = {
+    current_password,
+    new_password
+  }
+  return http.post(`/change-password`, user);
+}
+
+
