@@ -37,6 +37,11 @@
   "title": {
   
   },
+  "menu":{
+    "dashboard":"Dashboard",
+    "userMg":"User Management",
+    "classMg":"Class Management"
+  },
   "header":{
     "menuLogout":"Logout",
     "menuChangePass":"Change password"

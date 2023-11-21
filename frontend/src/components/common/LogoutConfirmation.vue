@@ -1,65 +1,143 @@
 <template>
-  <div v-if="showDialog" class="logout-confirmation">
-    <div class="confirmation-content">
-      <p>Are you sure you want to logout?</p>
-      <div class="buttons">
-        <button @click="cancelLogout">Cancel</button>
-        <button @click="confirmLogout">Confirm</button>
-      </div>
+  <div>
+    <ul class="notifications">
+      <v-card
+        v-for="toast in toastList"
+        :key="toast.id"
+        :class="['toast', { hide: toast.hide }]"
+      >
+        <div class="column">
+          <v-icon color="white" size="40">mdi-robot</v-icon>
+          <span>Are your sure you want to log out?</span>
+        </div>
+        <div class="action">
+          <v-btn color="red" @click="confirmAction(toast)">Yes</v-btn>
+          <v-btn class="me-3 ms-4" @click="cancelAction(toast)">Cancel</v-btn>
+        </div>
+      </v-card>
+    </ul>
+    <div class="buttons">
+      <button class="btn" @click="createToast('success')">Success</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      showDialog: false,
+      toastList: [],
     };
   },
   methods: {
-    openDialog() {
-      this.showDialog = true;
+    removeToast(toast) {
+      toast.hide = true;
+      if (toast.timeoutId) clearTimeout(toast.timeoutId);
+      setTimeout(() => {
+        const index = this.toastList.indexOf(toast);
+        if (index !== -1) this.toastList.splice(index, 1);
+      }, 500);
     },
-    cancelLogout() {
-      this.showDialog = false;
+    createToast() {
+      const toast = {
+        id: Date.now(),
+        hide: false,
+      };
+      this.toastList.push(toast);
     },
-    confirmLogout() {
-      this.$emit('logout');
-      this.showDialog = false;
+
+    confirmAction(toast) {
+      if (toast.action === 'logout') {
+        console.log('Logout confirmed');
+      }
+      this.removeToast(toast);
+    },
+    cancelAction(toast) {
+      this.removeToast(toast);
+    },
+  },
+  computed: {
+    toastDetails() {
+      return {
+        success: {
+          type: "success",
+          text: "Are your sure you want to log out?",
+        },
+      };
     },
   },
 };
 </script>
 
 <style scoped>
-.logout-confirmation {
+:root {
+  --error: #e24d4c;
+  --warning: #e9bd0c;
+  --info: #3498db;
+}
+.notifications {
+  position: absolute;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  top: 30px;
+  right: 20px;
+  z-index: 1000;
+}
+.notifications .toast {
+  width: 400px;
+  list-style: none;
+  border-radius: 4px;
+  padding: 16px 17px;
+  background: #e9bd0c;
+  animation: show_toast 0.3s ease forwards;
+}
+.action {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+  justify-content: flex-end;
+  margin-top: 15px;
 }
-
-.confirmation-content {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
+@keyframes show_toast {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
 }
-
-.buttons {
-  margin-top: 20px;
+.notifications .toast.hide {
+  animation: hide_toast 0.3s ease forwards;
 }
-
-button {
-  margin: 0 10px;
-  padding: 5px 10px;
+@keyframes hide_toast {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(calc(100% + 20px));
+  }
+}
+.toast .column span {
+  font-size: 1.1rem;
+  margin-left: 12px;
+  
+}
+span {
+  color: white;
 }
 </style>

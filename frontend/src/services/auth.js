@@ -33,3 +33,13 @@ export function resetNewPassword(token,password,password_confirmation) {
   }
   return http.post(`/reset-new-password/${token}`, user);
 }
+
+
+// const obj = {a:'1',b:'2'}
+
+
+// export {function1 ,function2 } 
+
+// // when import just write 
+
+// import { function1,function2 } from "folder name";

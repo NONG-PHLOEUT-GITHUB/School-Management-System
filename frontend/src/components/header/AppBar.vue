@@ -103,19 +103,20 @@
 
 <script>
 import Language from "../common/SwitcherLanguage.vue";
-import LogoutConfirmation from "../common/LogoutConfirmation.vue";
+// import LogoutConfirmation from "../common/LogoutConfirmation.vue";
 import Notification from "../common/components/Notification1.vue";
 import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
 import { useAuthStore } from "@/stores/auth.js";
 // import { useRouter } from 'vue-router';
 
 export default {
+  name:"AppBar",
   props: {
     width: { type: [Number, String] },
   },
   components: {
     Language,
-    LogoutConfirmation,
+    // LogoutConfirmation,
     Notification,
     ChangePasswordDailog,
   },
