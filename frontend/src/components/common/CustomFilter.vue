@@ -1,4 +1,5 @@
 <template>
+  <v-btn><v-icon> mdi-pencil-plus</v-icon></v-btn> 
     <v-card variant="flat">
       <v-row class="mt-2">
         <v-col cols="4">

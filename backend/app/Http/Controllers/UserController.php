@@ -78,4 +78,12 @@ class UserController extends Controller
         $totalTeachers = User::where('role', 2)->count();
         return $totalTeachers;
     }
+
+    public function getClassCoordinator(){
+        $classCoordinator = User::where('role', 2)->select('first_name', 'last_name', 'id')->get();
+        return response()->json(['success' => true, 'data' => $classCoordinator], 200);
+
+        // return $classCoordinator;
+
+    }
 }

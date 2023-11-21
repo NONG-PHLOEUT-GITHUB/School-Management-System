@@ -5,8 +5,7 @@
     transition="dialog-top-transition"
     width="auto"
   >
-    <!-- @password-changed="dialogVisible = false" -->
-    <change-password-dailog @cancel="dialogVisible = false" />
+    <change-password-dailog @cancel="dialogVisible = false" @passwordChanged="dialogVisible = false"/>
   </v-dialog>
   <v-app-bar ref="appBar" app color="white">
     <v-app-bar-nav-icon @click="togglerDrawer">
