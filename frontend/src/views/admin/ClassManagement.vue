@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Classroom from '@/components/classroomManagement/Classroom.vue';
+import Classroom from '@/components/classroom/Classroom.vue';
 export default {
     name: "AdminDashboard",
     components:{

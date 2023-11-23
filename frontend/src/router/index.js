@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/auth/LoginPage";
 import UserProfile from "@/views/userInfor/UserProfile.vue";
-import MainLayout from "@/components/layout/LayoutComponent.vue";
+import MainLayout from "@/components/layout/Layout.vue";
 // import Comment from "@/views/comment/Comment.vue";
 import UserInformation from "@/views/userInfor/UserInformation.vue";
 import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
-import ClassRecord from "@/components/classroomManagement/ClassRecord.vue"
+import ClassRecord from "@/components/classroom/ClassRecord.vue"
 import ClassRecordView from "@/views/classroom/ClassRecord.vue"
 const routes = [
   {
