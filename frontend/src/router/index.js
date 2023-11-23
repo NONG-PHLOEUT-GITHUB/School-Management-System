@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/auth/LoginPage";
-import UserProfile from "@/views/userInfor/UserProfile.vue";
+import UserProfile from "@/views/userInfo/UserProfile.vue";
 import MainLayout from "@/components/layout/Layout.vue";
 // import Comment from "@/views/comment/Comment.vue";
-import UserInformation from "@/views/userInfor/UserInformation.vue";
+import UserInformation from "@/views/userInfo/UserInformation.vue";
 import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
 import ClassRecord from "@/components/classroom/ClassRecord.vue"
 import ClassRecordView from "@/views/classroom/ClassRecord.vue"
@@ -64,7 +64,7 @@ const routes = [
           {
             path: "/user/detail",
             name: "UserDetail",
-            component: () => import("../views/userInfor/UserInfoDetails.vue"),
+            component: () => import("../views/userInfo/UserInfoDetails.vue"),
           },
         ]
       },
@@ -96,7 +96,7 @@ const routes = [
       {
         path: "/attendance-tracking",
         name: "AttendanceTracking",
-        component: () => import("../views/attendanceTracking/AttendanceTracking.vue"),
+        component: () => import("../views/attendance/AttendanceTracking.vue"),
       },
       {
         path: "/student/dshaboard",
