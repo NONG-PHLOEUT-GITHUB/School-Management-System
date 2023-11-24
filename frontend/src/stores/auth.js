@@ -6,7 +6,7 @@ import {
   forgotPassword,
   resetNewPassword,
   changeNewPassword,
-} from "@/services/auth.js";
+} from "@/api/auth.js";
 import { useLoadingStore } from "./loading";
 export const useAuthStore = defineStore("auth", {
   state: () => ({

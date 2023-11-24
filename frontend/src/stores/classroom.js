@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { fetchAllClassroom ,fetchClassCoordinator} from "@/services/classroom.js"; // Import your service
+import { fetchAllClassroom ,fetchClassCoordinator} from "@/api/classroom.js"; // Import your service
 
 export const useClassroomStore = defineStore("getClassroom", {
   state: () => ({

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { countAllTeacher } from "@/services/teacher.js"; // Import your service
+import { countAllTeacher } from "@/api/teacher.js"; // Import your service
 
 export const useTeacherStore = defineStore("totalTeacher", {
   state: () => ({

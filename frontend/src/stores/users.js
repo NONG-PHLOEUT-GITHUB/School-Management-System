@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { fetchAllUsers } from "@/services/users.js";
+import { fetchAllUsers } from "@/api/users.js";
 
 export const useUsersStore = defineStore("users", {
   state: () => ({

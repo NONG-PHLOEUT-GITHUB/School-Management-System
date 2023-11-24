@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { createUser } from "@/services/crudUser.js"; // Import your service
+import { createUser } from "@/api/crudUser.js"; // Import your service
 
 export const useUserStore = defineStore('user', {
   state: () => ({
