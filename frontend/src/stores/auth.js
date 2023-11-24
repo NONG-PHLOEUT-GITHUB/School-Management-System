@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
+import Sidebar from "@/components/layout/Sidebar.vue"
 import {
   userLogin,
   fetchUserLoged,
   forgotPassword,
   resetNewPassword,
+  changeNewPassword,
 } from "@/services/auth.js";
 import { useLoadingStore } from "./loading";
 export const useAuthStore = defineStore("auth", {
@@ -13,6 +15,7 @@ export const useAuthStore = defineStore("auth", {
     userRole: null,
     isResetPassword: false,
     isReset: false,
+    isChanged: false,
   }),
   getters: {
     user: (state) => state.authUser,
@@ -31,6 +34,9 @@ export const useAuthStore = defineStore("auth", {
           loadingStore.setLoading(true);
           this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
+          const userRole = response.data.user.role;
+          console.log('user id in stat',userRole);
+          Sidebar.methods.setUserRole(userRole);
         } else {
           this.isAuthenticated = false;
         }
@@ -89,6 +95,24 @@ export const useAuthStore = defineStore("auth", {
           localStorage.setItem("access_token", response.data.access_token);
         } else {
           this.isReset = false;
+        }
+      } catch (error) {
+        console.error("Error reset passw:", error);
+      } finally {
+        loadingStore.setLoading(false);
+      }
+    },
+
+    async userChangePassword(current_password, new_password) {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
+      try {
+        const response = await changeNewPassword(
+          current_password,
+          new_password
+        );
+        if (response.status === 200) {
+          this.isChanged = true;
         }
       } catch (error) {
         console.error("Error reset passw:", error);

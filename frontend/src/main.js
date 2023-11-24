@@ -7,7 +7,7 @@ import vuetify from "./plugins/vuetify";
 
 import CustomTitle from "@/components/common/CustomTitle.vue"
 import CustomFilter from "@/components/common/CustomFilter.vue"
-import SidebarComponent from "@/components/layout/SidebarComponent.vue"
+import SidebarComponent from "@/components/layout/Sidebar.vue"
 import CustomHeader from "@/components/common/CustomHeader.vue"; 
 
 const app = createApp(App)

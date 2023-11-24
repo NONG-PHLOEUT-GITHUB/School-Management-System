@@ -1,7 +1,7 @@
 <template>
   <v-layout class="rounded rounded-md">
     <!-- sidebar -->
-    <sidebar-component v-model="drawer"></sidebar-component>
+    <sidebar v-model="drawer"></sidebar>
     <!-- app bar -->
     <app-bar :width="appBarWidth" @toggle="toggleNav"></app-bar>
 
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import SidebarComponent from "./SidebarComponent.vue";
+import Sidebar from "./Sidebar.vue";
 import AppBar from "../header/AppBar.vue";
 export default {
  name: "layout-component",
-  components: {SidebarComponent ,AppBar},
+  components: {Sidebar ,AppBar},
   data() {
     return {
       drawer: true,

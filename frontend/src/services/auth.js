@@ -43,3 +43,12 @@ export function resetNewPassword(token,password,password_confirmation) {
 // // when import just write 
 
 // import { function1,function2 } from "folder name";
+export function changeNewPassword(current_password,new_password) {
+  const user = {
+    current_password,
+    new_password
+  }
+  return http.post(`/change-password`, user);
+}
+
+

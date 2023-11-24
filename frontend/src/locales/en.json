@@ -18,6 +18,9 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password"
   },
+  "changePassword": {
+    "current":"Corrent password"
+  },
   "lang": {
     "en": "English",
     "kh": "Khner"
