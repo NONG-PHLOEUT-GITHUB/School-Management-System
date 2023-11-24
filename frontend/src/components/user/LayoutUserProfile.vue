@@ -54,6 +54,11 @@ export default {
       required: true
     }
   },
+  data(){
+    return {
+      vAvatar: require("@/assets/images/avatar1.png"),
+    }
+  }
 }
 </script>
 

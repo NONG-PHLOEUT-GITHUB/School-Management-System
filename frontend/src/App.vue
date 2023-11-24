@@ -4,7 +4,6 @@
     <router-view />
     <!-- <AlertNotification :value="toastNotifications"/> -->
     <Notif ref="notif" dismissible :default-timeout="7000"/>
-    <!-- <DataTable></DataTable> -->
     <LogoutConfirmation ef="notif"  @logoutconfirmation="handleCreateToast"/>
   </v-app>
 </template>
@@ -13,7 +12,6 @@
 import LaunchApp from "./components/common/components/LaunchApp.vue";
 // import AlertNotification from "./components/common/AlertNotification.vue";
 import Notif from "./components/common/components/Notification.vue";
-// import DataTable from "./components/common/components/DataTable.vue";
 import LogoutConfirmation from "./components/common/LogoutConfirmation.vue"
 
 export default {
@@ -21,8 +19,7 @@ export default {
   components: {
     LaunchApp,
     Notif,
-    LogoutConfirmation
-    // DataTable
+    LogoutConfirmation,
   },
   data() {
     return {
