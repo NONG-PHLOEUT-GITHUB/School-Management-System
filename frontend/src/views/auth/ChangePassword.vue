@@ -11,7 +11,7 @@
     <v-card class="px-0" variant="flat">
       <v-col cols="auto" class="title px-0">
         <h2 class="login-title">Change Password</h2>
-        <v-btn icon="mdi-close" size="small" @Click="cancelDialog"></v-btn>
+        <v-btn icon="mdi-close"  variant="text" size="small" @Click="cancelDialog"></v-btn>
       </v-col>
     </v-card>
     <v-form ref="form" @submit.prevent="onChangeNewPassword">

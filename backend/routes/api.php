@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Authenticated;
@@ -25,6 +26,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::get('/getComments', [CommentController::class, 'index']);
+Route::post('/comments', [CommentController::class, 'store']);
+// Route::put("/comments", [CommentController::class, 'update']);
+Route::get("/get-comments-student/{user_id}/{teacher_id}", [UserController::class, "getCommentForStudent"]);
+
 
 // user routes //
 Route::post('/user', [UserController::class,'store']);

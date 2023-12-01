@@ -109,6 +109,7 @@ import { useAuthStore } from "@/stores/auth.js";
 // import { useRouter } from 'vue-router';
 
 export default {
+  emits: ['toggle'],
   name:"AppBar",
   props: {
     width: { type: [Number, String] },

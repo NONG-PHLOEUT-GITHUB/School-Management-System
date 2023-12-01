@@ -30,7 +30,7 @@ export default {
     this.$root.$notif = this.$refs.notif.newAlert
   },
   methods: {
-    handleCreateToastFromConfirmation() {
+    handleCreateToast() {
       this.$refs.alertNotification.createToast('success');
     },
   },

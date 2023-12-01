@@ -16,9 +16,6 @@
         </div>
       </v-card>
     </ul>
-    <div class="buttons">
-      <button class="btn" @click="createToast('success')">Success</button>
-    </div>
   </div>
 </template>
 
@@ -74,7 +71,9 @@ export default {
   },
 };
 </script>
-
+<!-- <div class="buttons">
+  <button class="btn" @click="createToast('success')">Success</button>
+</div> -->
 <style scoped>
 :root {
   --error: #e24d4c;

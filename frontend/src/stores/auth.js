@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import Sidebar from "@/components/layout/Sidebar.vue"
+
 import {
   userLogin,
   fetchUserLoged,
@@ -7,6 +7,7 @@ import {
   resetNewPassword,
   changeNewPassword,
 } from "@/api/auth.js";
+
 import { useLoadingStore } from "./loading";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -19,6 +20,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   getters: {
     user: (state) => state.authUser,
+    role: (state) => state.userRole,
   },
   actions: {
     async login({ email, password }) {
@@ -30,13 +32,13 @@ export const useAuthStore = defineStore("auth", {
           response.data.access_token
         ) {
           this.authUser = response.data.user;
-          const loadingStore = useLoadingStore();
-          loadingStore.setLoading(true);
           this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
           const userRole = response.data.user.role;
           console.log('user id in stat',userRole);
-          Sidebar.methods.setUserRole(userRole);
+
+          const loadingStore = useLoadingStore();
+          loadingStore.setLoading(true);
         } else {
           this.isAuthenticated = false;
         }
@@ -50,6 +52,7 @@ export const useAuthStore = defineStore("auth", {
       try {
         const data = await fetchUserLoged();
         this.authUser = data.data;
+        console.log('user login',this.authUser);
       } catch (error) {
         console.error("Error fetching user:", error);
       } finally {

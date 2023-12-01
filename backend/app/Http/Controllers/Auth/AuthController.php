@@ -43,7 +43,17 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        $user = User::find(Auth::user()->id);
+        // $user = User::find(Auth::user()->id);
+        // 'comments' => function ($query) {
+        //     $query->join('users', 'comments.teacher_id', '=', 'users.id')
+        //     ->select('comments.*', 'users.first_name', 'users.last_name');
+        // }
+        $user = User::with([
+            'comments' => function ($query) {
+                $query->join('users', 'comments.teacher_id', '=', 'users.id')
+                ->select('comments.*', 'users.first_name', 'users.last_name','users.profile');
+            }
+        ])->find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
             'data' => $user

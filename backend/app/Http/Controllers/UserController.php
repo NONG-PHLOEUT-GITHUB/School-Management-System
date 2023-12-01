@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommentResource;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -86,4 +88,16 @@ class UserController extends Controller
         // return $classCoordinator;
 
     }
+
+
+     // ----------------------get comment for student------------------------
+    
+     public function getCommentForStudent($user_id, $teacher_id)
+     {
+         $comments = Comment::where('user_id', $user_id)
+                     ->where('teacher_id', $teacher_id)
+                     ->get();
+         $comment = CommentResource::collection($comments);
+         return response()->json(['comments' => $comment]);
+     }
 }

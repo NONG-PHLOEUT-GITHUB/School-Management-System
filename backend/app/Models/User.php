@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-class User extends Authenticatable implements JWTSubject 
+
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -56,12 +57,13 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-       /**
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
      */
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier()
+    {
         return $this->getKey();
     }
 
@@ -70,9 +72,10 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims() {
+    public function getJWTCustomClaims()
+    {
         return [];
-    }    
+    }
     // model create 
 
     public static function store($request, $id = null)
@@ -93,6 +96,12 @@ class User extends Authenticatable implements JWTSubject
             'classroom_id',
             // 'guardian_id',
         );
+        if($request->file('profile')){
+            $file= $request->file('profile');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('public/images'), $filename);
+            $data['profile']= $filename;
+        }
         if ($id) {
             $user = self::find($id);
             if (!$user) {
@@ -100,7 +109,7 @@ class User extends Authenticatable implements JWTSubject
             }
             $user->update($users);
         } else {
-          
+
             $password = Str::random(8);
             $users['password'] = bcrypt($password);
 
@@ -123,4 +132,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Classroom::class, 'teacher_classroom', 'user_id', 'classroom_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

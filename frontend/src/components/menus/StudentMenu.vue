@@ -23,10 +23,22 @@
             to: { name: "dashboard" },
           },
           {
-            icon: "mdi-account-group-outline",
-            title: "menu.userMg",
+            icon: "mdi-trending-up",
+            title: "menu.myGrades",
             value: "account",
             to: { name: "user-management" },
+          },
+          {
+            icon: "mdi-clock-in",
+            title: "menu.myAttendance",
+            value: "account",
+            to: { name: "user-management" },
+          },
+          {
+            icon: "mdi-comment",
+            title: "menu.myComment",
+            value: "comment",
+            to: { name: "CommentStudent" },
           },
         ],
       };
