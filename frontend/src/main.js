@@ -9,9 +9,13 @@ import CustomTitle from "@/components/common/CustomTitle.vue"
 import CustomFilter from "@/components/common/CustomFilter.vue"
 import SidebarComponent from "@/components/layout/Sidebar.vue"
 import CustomHeader from "@/components/common/CustomHeader.vue"; 
+//store
+import { useAuthStore } from './stores/auth';
 
 const app = createApp(App)
 const pinia = createPinia()
+
+
 //Grobal components call to use without import
 app.component('custom-title',CustomTitle) 
 app.component('custom-filter',CustomFilter)
@@ -22,3 +26,11 @@ app.use(pinia)
 app.use(i18n())
 app.use(router)
 app.use(vuetify).mount("#app")
+
+const authStore = useAuthStore();
+// attach other stores as needed
+app.config.globalProperties.$authStore = authStore
+// use in component without import 
+// const authStore = this.$authStore; // For class-style components
+// // OR
+// const authStore = useAuthStore(); // For composition API
