@@ -1,85 +1,64 @@
 <template>
-    <div>
-      <ul class="notifications">
-        <li v-for="toast in toastList" :key="toast.id" :class="['toast', toast.type, { hide: toast.hide }]">
-          <div class="column">
-            <v-icon color="white" :class="toast.icon">mdi-check-circle</v-icon>
-            <span>{{ toast.text }}</span>
-          </div>
-          <i class="fa-solid fa-xmark" @click="removeToast(toast)"></i>
-          <v-icon color="red">mdi-close</v-icon>
-        </li>
-      </ul>
-        <div class="buttons">
-        <button class="btn" @click="createToast('success')">Success</button>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      value: {
-        type: Array,
-        required: true,
-      },
-    },
-    data() {
-      return {
-        toastList: [],
-      };
-    },
-    methods: {
-      removeToast(toast) {
-        toast.hide = true;
-        if (toast.timeoutId) clearTimeout(toast.timeoutId);
-        setTimeout(() => {
-          const index = this.toastList.indexOf(toast);
-          if (index !== -1) this.toastList.splice(index, 1);
-        }, 500);
-      },
-      createToast(type) {
-        const { icon, text } = this.toastDetails[type];
-        const toast = {
-          id: Date.now(),
-          type,
-          icon,
-          text,
-          hide: false,
-        };
-        this.toastList.push(toast);
-        toast.timeoutId = setTimeout(() => this.removeToast(toast), this.toastDetails.timer);
-      },
-    },
-    watch: {
-      value(newVal) {
-        this.toastList = newVal.slice();
-      },
-    },
-    created() {
-      this.toastList = this.value.slice();
-    },
-    computed: {
-      toastDetails() {
-        return {
-          timer: 1000,
-          success: {
-            type: 'success',
-            icon: 'fa-circle-check',
-            text: 'Success: Login successfull.',
-          },
-        };
-      },
-    },
+  <div>
+    <ul class="notifications">
+      <li
+        v-for="toast in toastList"
+        :key="toast.id"
+        :class="['toast', toast.type, { hide: toast.hide }]"
+      >
+        <div class="column">
+          <v-icon color="white">mdi-check-circle</v-icon>
+          <span>Login successfull.</span>
+        </div>
+        <i class="fa-solid fa-xmark" @click="removeToast(toast)"></i>
+        <v-icon color="red" @click="removeToast(toast)">mdi-close</v-icon>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref,watch } from "vue";
+import { useAuthStore } from "@/stores/auth.js";
+const toastList = ref([]);
+
+const removeToast = (toast) => {
+  console.log(toast);
+  toast.hide = true;
+  if (toast.timeoutId) clearTimeout(toast.timeoutId);
+  setTimeout(() => {
+    const index = toastList.value.indexOf(toast);
+    if (index !== -1) toastList.value.splice(index, 1);
+  }, 500);
+};
+
+const createToast = () => {
+  const toast = {
+    id: Date.now(),
+    hide: false,
   };
-  </script>
-  
-  
+  toastList.value.push(toast);
+  toast.timeoutId = setTimeout(() => removeToast(toast), 500);
+};
+
+watch(
+  () => useAuthStore().isAuthenticated,
+  (newIsLogout) => {
+    if (newIsLogout) {
+      createToast();
+    }
+    console.log(
+      "isLogout status after logout in logout confirmation:",
+      useAuthStore().isAuthenticated
+    );
+  },
+);
+</script>
+
 <style scoped>
 
 
 /* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 * {
   margin: 0;
   padding: 0;

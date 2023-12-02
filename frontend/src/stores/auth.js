@@ -17,6 +17,7 @@ export const useAuthStore = defineStore("auth", {
     isResetPassword: false,
     isReset: false,
     isChanged: false,
+    isLogout:false
   }),
   getters: {
     user: (state) => state.authUser,
@@ -32,13 +33,12 @@ export const useAuthStore = defineStore("auth", {
           response.data.access_token
         ) {
           this.authUser = response.data.user;
-          this.isAuthenticated = true;
           localStorage.setItem("access_token", response.data.access_token);
           const userRole = response.data.user.role;
           console.log('user id in stat',userRole);
-
           const loadingStore = useLoadingStore();
           loadingStore.setLoading(true);
+          this.isAuthenticated = true;
         } else {
           this.isAuthenticated = false;
         }
@@ -62,8 +62,9 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       const loadingStore = useLoadingStore();
       loadingStore.setLoading(true);
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("user_role");
+      this.isLogout = true;
+      // localStorage.removeItem("access_token");
+      // localStorage.removeItem("user_role");
       this.isAuthenticated = false;
       loadingStore.setLoading(false);
     },

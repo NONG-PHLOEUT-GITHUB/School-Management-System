@@ -51,5 +51,10 @@
   "header":{
     "menuLogout":"Logout",
     "menuChangePass":"Change password"
+  },
+  "filterFrom":{
+    "filterStatuse":"Search statuse",
+    "filterSubject":"Search subject",
+    "filterTeacher":"Search teacher"
   }
 }

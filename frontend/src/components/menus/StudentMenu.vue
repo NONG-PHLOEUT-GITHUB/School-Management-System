@@ -19,20 +19,20 @@
           {
             icon: "mdi-widgets",
             title: "menu.dashboard",
-            value: "home",
-            to: { name: "dashboard" },
+            value: "studentDashboard",
+            to: { name: "studentDashboard" },
           },
           {
             icon: "mdi-trending-up",
             title: "menu.myGrades",
-            value: "account",
-            to: { name: "user-management" },
+            value: "myScore",
+            to: { name: "myScore" },
           },
           {
             icon: "mdi-clock-in",
             title: "menu.myAttendance",
-            value: "account",
-            to: { name: "user-management" },
+            value: "myAttendance",
+            to: { name: "myAttendance" },
           },
           {
             icon: "mdi-comment",

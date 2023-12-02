@@ -142,7 +142,7 @@ const login = async () => {
       }else if (userRole === 2) {
         await router.push({ path: "/dashboard/user" });
       } else {
-        await router.push({ path: "/dashboard/user" });
+        await router.push({ path: "/dashboard/student" });
       }
     } else {
       errorText.value = "Email or password is incorrect"; // Set the error message

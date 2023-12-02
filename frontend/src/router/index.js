@@ -91,6 +91,21 @@ const routes = [
         component: () => import("../views/student/Comment.vue"),
       },
       {
+        path: "/my-attendance",
+        name:"myAttendance",
+        component:()=>import("@/views/attendance/MyAttendance.vue")
+      },
+      {
+        path: "/my-score",
+        name:"myScore",
+        component:()=>import("@/views/score/MyScore.vue")
+      },
+      {
+        path: "/dashboard/student",
+        name:"studentDashboard",
+        component:()=>import("@/views/dashboard/StudentDashboard.vue")
+      },
+      {
         path:"/layout-user-detail",
         name:"LayourUserDetail",
         component:LayoutUserDetail,

@@ -1,11 +1,11 @@
 import { createApp } from "vue"
 import { createPinia } from "pinia"
 import i18n from './plugins/i18n';
+import vuetify from "./plugins/vuetify";
 import App from "./App.vue"
 import router from "./router"
-import vuetify from "./plugins/vuetify";
 
-import CustomTitle from "@/components/common/CustomTitle.vue"
+import CustomTitle from "@/components/global/CustomTitle.vue"
 import CustomFilter from "@/components/common/CustomFilter.vue"
 import SidebarComponent from "@/components/layout/Sidebar.vue"
 import CustomHeader from "@/components/common/CustomHeader.vue"; 
