@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CommentResource;
-use App\Models\Comment;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $comment = Comment::all();
-        $comment = CommentResource::collection($comment);
-        return response()->json(['success' => true, 'data' => $comment], 200);
+        //
     }
 
     /**
@@ -23,8 +20,8 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = Comment::store($request);
-        return  $comment;
+        $attendance = Attendance::store($request);
+        return $attendance;
     }
 
     /**
@@ -32,7 +29,9 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $attendance = Attendance::find($id);
+
+        return response()->json(['success' => true, 'data' => $attendance], 200);
     }
 
     /**

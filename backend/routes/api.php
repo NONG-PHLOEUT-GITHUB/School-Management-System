@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Authenticated;
@@ -25,6 +27,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::get('/getComments', [CommentController::class, 'index']);
+Route::post('/comments', [CommentController::class, 'store']);
+// Route::put("/comments", [CommentController::class, 'update']);
+Route::get("/get-comments-student/{user_id}/{teacher_id}", [UserController::class, "getCommentForStudent"]);
+
 
 // user routes //
 Route::post('/user', [UserController::class,'store']);
@@ -53,7 +62,7 @@ Route::prefix('v2')->group(function () {
         Route::post('login',[AuthController::class,'login']);
         
         // Refresh the JWT Token
-        Route::get('refresh', [AuthController::class,'refresh']);
+        Route::get('refresh-token', [AuthController::class,'refresh']);
         
         // Below mention routes are available only for the authenticated users.
         Route::middleware('auth:api')->group(function () {
@@ -65,6 +74,13 @@ Route::prefix('v2')->group(function () {
 
             // count students
             Route::get('count', [UserController::class,'getTotalStudent']);
+
+            //get students attendance
+            Route::get('student/attendances',[AttendanceController::class,'index']);
+            Route::get('student/attendance/{studentID}',[AttendanceController::class,'show']);
+            Route::post('student/attendances',[AttendanceController::class,'store']);
+            Route::put('student/attendances',[AttendanceController::class,'update']);
+            Route::delete('student/attendances',[AttendanceController::class,'destroy']);
         });
     });
 });

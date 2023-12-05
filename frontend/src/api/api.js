@@ -23,7 +23,7 @@ const refreshToken = async () => {
     return null
   }
   try {
-    const response = await axios.post('/api/refresh-token', {
+    const response = await axios.get('/refresh-token', {
       refresh_token: refreshToken
     })
     const token = response.data.access_token

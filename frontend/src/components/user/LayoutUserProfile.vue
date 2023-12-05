@@ -13,7 +13,11 @@
     </v-img>
     <v-card-text>
       <div class="user-infor">
-        <div class="user-name text-h4">{{ email }}</div>
+        <span class="user-name text-h4"
+          ><v-icon>mdi-account</v-icon> {{ userFirstName }}
+          {{ userLastName }}</span
+        >
+
         <div>
           <v-list class="user-menu">
             <card
@@ -46,28 +50,31 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  props: {
-    email: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      vAvatar: require('@/assets/images/avatar1.png')
-    }
-  }
-}
-</script>
-
 <script setup>
+import { useAuthStore } from '@/stores/auth.js'
+import { ref, onMounted } from 'vue'
+const authStore = useAuthStore()
+
+// const vAvatar = ref(require("@/assets/images/avatar1.png"));
+
 const items = [
   { path: 'AboutMe', text: 'About me', icon: 'mdi-clock' },
   { path: 'profileCommentRecord', text: 'My comment', icon: 'mdi-account' },
   { text: 'Conversions', icon: 'mdi-flag' }
 ]
+
+let userFirstName = ref('')
+let userLastName = ref('')
+
+onMounted(async () => {
+  try {
+    await authStore.fetchUser()
+    userFirstName.value = authStore.user?.data?.first_name || ''
+    userLastName.value = authStore.user?.data?.last_name || ''
+  } catch (error) {
+    console.error('Error fetching user:', error)
+  }
+})
 </script>
 <style scoped>
 .user-menu {

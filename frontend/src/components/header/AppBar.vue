@@ -1,5 +1,5 @@
 <template>
-  <LogoutConfirmation @logout="logoutUser" ref="logoutDialog" />
+  <!-- <LogoutConfirmation @logout="logoutUser" ref="logoutDialog" /> -->
   <v-dialog
     v-model="dialogVisible"
     transition="dialog-top-transition"
@@ -105,13 +105,13 @@
 
 <script>
 import Language from '../common/SwitcherLanguage.vue'
-// import LogoutConfirmation from "../common/LogoutConfirmation.vue";
+// import LogoutConfirmation from "../global/LogoutConfirmation.vue";
 import Notification from '../common/components/Notification1.vue'
 import ChangePasswordDailog from '@/views/auth/ChangePassword.vue'
 import { useAuthStore } from '@/stores/auth.js'
-// import { useRouter } from 'vue-router';
 
 export default {
+  emits: ['toggle'],
   name: 'AppBar',
   props: {
     width: { type: [Number, String] }
@@ -161,11 +161,11 @@ export default {
     //   console.log(this.dialogVisible);
     //   this.dialogVisible = true
     // },
+
     async logoutUser() {
       const authStore = useAuthStore()
       await authStore.logout()
-      this.$router.push({ name: 'login' })
-      console.log('Logout confirmed')
+      console.log('isLogout status after logout:', authStore.isLogout)
     },
     onMenuClick(action) {
       switch (action) {

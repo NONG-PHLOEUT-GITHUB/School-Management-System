@@ -17,9 +17,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if ($token = auth()->guard('api')->attempt($credentials)) {
             $user = auth()->user();
+            $attendances = $user->attendances;
             return response()->json([
                 'status' => 'success',
                 'user' => $user,
+                'attendance' => $attendances,
                 'access_token' => $token,
             ], 200)
             ->header('Authorization', $token)
@@ -43,7 +45,18 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        $user = User::find(Auth::user()->id);
+        // $user = User::find(Auth::user()->id);
+        // 'comments' => function ($query) {
+        //     $query->join('users', 'comments.teacher_id', '=', 'users.id')
+        //     ->select('comments.*', 'users.first_name', 'users.last_name');
+        // }
+        $user = User::with([
+            'attendances',
+            'comments' => function ($query) {
+                $query->join('users', 'comments.teacher_id', '=', 'users.id')
+                ->select('comments.*', 'users.first_name', 'users.last_name','users.profile');
+            }
+        ])->find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
             'data' => $user
@@ -56,7 +69,7 @@ class AuthController extends Controller
     {
         if ($token = $this->guard()->refresh()) {
             return response()
-                ->json(['status' => 'successs'], 200)
+                ->json(['status' => 'successs','access_token' => $token], 200)
                 ->header('Authorization', $token);
         }
         return response()->json(['error' => 'refresh_token_error'], 401);

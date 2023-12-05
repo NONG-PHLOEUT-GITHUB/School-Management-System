@@ -1,5 +1,4 @@
 <template>
-  <!-- <LayoutUserProfile :email="userProperties.find(property => property.key === 'email').value"></LayoutUserProfile> -->
   <v-card class="mt-1">
     <v-row class="mt-2">
       <v-col v-for="property in userProperties" :key="property.key" cols="4">
@@ -15,8 +14,6 @@
 </template>
 
 <script setup>
-// import LayoutUserProfile from './LayoutUserProfile.vue';
-
 import { onMounted, computed } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 
@@ -63,6 +60,7 @@ const userProperties = computed(() => [
 onMounted(async () => {
   try {
     await authStore.fetchUser()
+    console.log(authStore.user)
   } catch (error) {
     console.error('Error fetching user:', error)
   }

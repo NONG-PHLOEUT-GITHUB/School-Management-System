@@ -1,15 +1,4 @@
 <template>
-  <!-- <v-data-table
-    v-model="selected"
-    class="elevation-1 text-center"
-    :headers="headers"
-    :items="desserts"
-    items-per-page="10"
-    item-value="name"
-    item-selectable="selectable"
-    return-object
-    show-select 
-  ></v-data-table> -->
   <div>
     <v-card
       class="mt-2"

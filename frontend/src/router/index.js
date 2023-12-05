@@ -41,32 +41,9 @@ const routes = [
         ]
       },
       {
-        path: '/layout-user-detail',
-        name: 'LayourUserDetail',
-        component: LayoutUserDetail,
-        redirect: '/profile/comment',
-        children: [
-          {
-            path: '/user-detail/class-record',
-            name: 'profileComment',
-            component: ClassRecordView
-          },
-          {
-            path: '/user-detail/academic-record',
-            name: 'detailAcademic',
-            component: () => import('@/views/academic/AcademicRecord.vue')
-          },
-          {
-            path: '/user-detail/attendance-record',
-            name: 'detailAttendance',
-            component: () => import('@/views/attendance/AttendanceRecord.vue')
-          },
-          {
-            path: '/user/detail',
-            name: 'UserDetail',
-            component: () => import('../views/userInfo/UserInfoDetails.vue')
-          }
-        ]
+        path: '/dashboard/user',
+        name: 'dashboard',
+        component: () => import('../views/admin/DashboardView.vue')
       },
       {
         path: '/dashboard/user',
@@ -109,10 +86,52 @@ const routes = [
         component: () => import('../views/crud/UserCrud.vue')
       },
       {
-        path: '/crud/classroom',
-        name: 'CrudClassroom',
-        component: () =>
-          import('../views/admin/classroomManagement/CreateClassroom.vue')
+        path: '/comment/student',
+        name: 'CommentStudent',
+        component: () => import('../views/student/Comment.vue')
+      },
+      {
+        path: '/my-attendance',
+        name: 'myAttendance',
+        component: () => import('@/views/attendance/MyAttendance.vue')
+      },
+      {
+        path: '/my-score',
+        name: 'myScore',
+        component: () => import('@/views/score/MyScore.vue')
+      },
+      {
+        path: '/dashboard/student',
+        name: 'studentDashboard',
+        component: () => import('@/views/dashboard/StudentDashboard.vue')
+      },
+      {
+        path: '/layout-user-detail',
+        name: 'LayourUserDetail',
+        component: LayoutUserDetail,
+        redirect: '/profile/comment',
+        children: [
+          {
+            path: '/user-detail/class-record',
+            name: 'profileComment',
+            component: ClassRecordView
+          },
+          {
+            path: '/user-detail/academic-record',
+            name: 'detailAcademic',
+            component: () => import('@/views/academic/AcademicRecord.vue')
+          },
+          {
+            path: '/user-detail/attendance-record',
+            name: 'detailAttendance',
+            component: () => import('@/views/attendance/AttendanceRecord.vue')
+          },
+          {
+            path: '/user/detail',
+            name: 'UserDetail',
+            component: () => import('../views/userInfo/UserInfoDetails.vue')
+          }
+        ]
       }
     ]
   },

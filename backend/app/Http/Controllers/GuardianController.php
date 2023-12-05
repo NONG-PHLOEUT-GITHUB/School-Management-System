@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
+use App\Models\Guardian;
 use Illuminate\Http\Request;
 
 class GuardianController extends Controller
@@ -11,7 +13,9 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        //
+        $guardian = Guardian::all();
+        $guardian = UserResource::collection($guardian);
+        return $guardian;
     }
 
     /**
@@ -19,7 +23,8 @@ class GuardianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardian = Guardian::store($request);
+        return $guardian;
     }
 
     /**
@@ -27,7 +32,12 @@ class GuardianController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $guardian = Guardian::find($id);
+
+        if (!$guardian) {
+            return response()->json(['message' => 'The record with ID ' . $id . ' was not found.'], 404);
+        }
+        return response()->json(['success' => true, 'data' => $guardian], 200);
     }
 
     /**
@@ -35,7 +45,8 @@ class GuardianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $guardian = Guardian::store($request ,$id);
+        return $guardian;
     }
 
     /**
@@ -43,6 +54,8 @@ class GuardianController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $guardian = Guardian::find($id);
+        $guardian->delete();
+        return response()->json(['success' => true, 'data' => "delete successfully"], 200);
     }
 }

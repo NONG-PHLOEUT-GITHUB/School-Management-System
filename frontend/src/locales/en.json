@@ -43,10 +43,18 @@
   "menu":{
     "dashboard":"Dashboard",
     "userMg":"User Management",
-    "classMg":"Class Management"
+    "classMg":"Class Management",
+    "myGrades":"My Grades",
+    "myAttendance":"My Attendance",
+    "myComment":"My Comment"
   },
   "header":{
     "menuLogout":"Logout",
     "menuChangePass":"Change password"
+  },
+  "filterFrom":{
+    "filterStatuse":"Search statuse",
+    "filterSubject":"Search subject",
+    "filterTeacher":"Search teacher"
   }
 }

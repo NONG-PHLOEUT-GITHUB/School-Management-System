@@ -4,30 +4,25 @@
       <img :src="logo" alt="" :width="130" />
     </div>
     <div v-if="isAdmin == true">
-      Welcome, admin!
-      <MenuList :menuItems="menuItems"></MenuList>
+      <AdminMenu :menuItems="menuItems"></AdminMenu>
     </div>
     <div v-if="isTeacher">
-      Welcome, teacher!
       <TeacherMenu :menuItems="menuItems"></TeacherMenu>
     </div>
     <div v-if="isStudent">
-      Welcome, students!
-      <!-- <MenuList :menuItems="menuItems"></MenuList> -->
       <StudentMenu :menuItems="menuItems"></StudentMenu>
     </div>
-    admin role {{ isAdmin }}
   </v-navigation-drawer>
 </template>
 
 <script>
-import MenuList from '../menus/MenuList.vue'
+import AdminMenu from '../menus/AdminMenu.vue'
 import TeacherMenu from '../menus/TeacherMenu.vue'
 import StudentMenu from '../menus/StudentMenu.vue'
-import { useAuthStore } from '@/stores/auth'
+
 export default {
   components: {
-    MenuList,
+    AdminMenu,
     StudentMenu,
     TeacherMenu
   },
@@ -40,7 +35,8 @@ export default {
       logo: require('@/assets/images/logo.png'),
       isAdmin: false,
       isTeacher: false,
-      isStudent: false
+      isStudent: false,
+      menuItems: []
     }
   },
   methods: {
@@ -51,9 +47,9 @@ export default {
       this.$emit('input', val)
     },
     setUserRole(role) {
-      if (role === 1) {
+      if (role == 1) {
         this.isAdmin = true
-      } else if (role === 2) {
+      } else if (role == 2) {
         this.isTeacher = true
       } else {
         this.isStudent = true
@@ -61,9 +57,7 @@ export default {
     }
   },
   mounted() {
-    const authStore = useAuthStore() // Create an instance of your auth store
-    const userRole = authStore.userRole // Access the userRole property from the store
-    console.log(userRole)
+    const userRole = localStorage.getItem('user_role')
     this.setUserRole(userRole)
   }
 }

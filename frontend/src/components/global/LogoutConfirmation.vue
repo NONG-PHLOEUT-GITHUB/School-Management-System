@@ -16,63 +16,63 @@
         </div>
       </v-card>
     </ul>
-    <div class="buttons">
-      <button class="btn" @click="createToast('success')">Success</button>
-    </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    value: {
-      type: Array,
-      required: true
-    }
-  },
-  data() {
-    return {
-      toastList: []
-    }
-  },
-  methods: {
-    removeToast(toast) {
-      toast.hide = true
-      if (toast.timeoutId) clearTimeout(toast.timeoutId)
-      setTimeout(() => {
-        const index = this.toastList.indexOf(toast)
-        if (index !== -1) this.toastList.splice(index, 1)
-      }, 500)
-    },
-    createToast() {
-      const toast = {
-        id: Date.now(),
-        hide: false
-      }
-      this.toastList.push(toast)
-    },
+<script setup>
+import { ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
+const authStore = useAuthStore()
+const router = useRouter()
+const toastList = ref([])
+const isCancelled = ref(false)
+const removeToast = (toast) => {
+  toast.hide = true
+  if (toast.timeoutId) clearTimeout(toast.timeoutId)
+  setTimeout(() => {
+    const index = toastList.value.indexOf(toast)
+    if (index !== -1) toastList.value.splice(index, 1)
+  }, 500)
+}
 
-    confirmAction(toast) {
-      if (toast.action === 'logout') {
-        console.log('Logout confirmed')
-      }
-      this.removeToast(toast)
-    },
-    cancelAction(toast) {
-      this.removeToast(toast)
-    }
-  },
-  computed: {
-    toastDetails() {
-      return {
-        success: {
-          type: 'success',
-          text: 'Are your sure you want to log out?'
-        }
-      }
-    }
+const createToast = () => {
+  const toast = {
+    id: Date.now(),
+    hide: false
+  }
+  toastList.value.push(toast)
+}
+
+const confirmAction = (toast) => {
+  console.log('You have been logged out')
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('user_role')
+  removeToast(toast)
+  router.push({ name: 'login' })
+}
+
+const cancelAction = (toast) => {
+  console.log('cancel action', toast.hide)
+  isCancelled.value = true
+  removeToast(toast)
+}
+
+const toastDetails = {
+  success: {
+    type: 'success',
+    text: 'Are you sure you want to log out?'
   }
 }
+
+watch(
+  () => useAuthStore().isLogout,
+  (newIsLogout) => {
+    if (newIsLogout) {
+      createToast()
+    }
+  }
+)
 </script>
 
 <style scoped>

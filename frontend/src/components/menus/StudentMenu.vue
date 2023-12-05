@@ -19,14 +19,26 @@ export default {
         {
           icon: 'mdi-widgets',
           title: 'menu.dashboard',
-          value: 'home',
-          to: { name: 'dashboard' }
+          value: 'studentDashboard',
+          to: { name: 'studentDashboard' }
         },
         {
-          icon: 'mdi-account-group-outline',
-          title: 'menu.userMg',
-          value: 'account',
-          to: { name: 'user-management' }
+          icon: 'mdi-trending-up',
+          title: 'menu.myGrades',
+          value: 'myScore',
+          to: { name: 'myScore' }
+        },
+        {
+          icon: 'mdi-clock-in',
+          title: 'menu.myAttendance',
+          value: 'myAttendance',
+          to: { name: 'myAttendance' }
+        },
+        {
+          icon: 'mdi-comment',
+          title: 'menu.myComment',
+          value: 'comment',
+          to: { name: 'CommentStudent' }
         }
       ]
     }
