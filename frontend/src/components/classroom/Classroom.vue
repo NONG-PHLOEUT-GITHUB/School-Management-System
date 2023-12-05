@@ -20,39 +20,36 @@
       </v-btn>
     </template>
   </custom-title>
-  <v-card tile elevation="0" v-if="toggleFilter">
+  <v-card tile elevation="0" v-if="toggleFilter" color="indigo-lighten-5" class="px-3 mb-3">
     <v-row>
       <v-col cols="12" md="11">
         <v-row color="transparent" class="mt-4">
           <v-col cols="3" :md="4" color="transparent">
-            <!-- v-model="searchUser.name" -->
             <v-text-field
+              v-model="searchClassroom.classroom_name"
               :label="$t('filterFrom.filterTeacher')"
-              @keyup="loadData"
+              @keyup="searchData()"
               variant="outlined"
               dense
               persistent-placeholder
             ></v-text-field>
           </v-col>
           <v-col cols="3" :md="4">
-            <!-- v-model="searchUser.roleKey" -->
-            <v-select
-              :items="roles"
-              :menu-props="{ maxHeight: '400' }"
-              :label="$t('filterFrom.filterSubject')"
-              persistent-hint
-              @change="loadData()"
+            <v-text-field
+              v-model="searchClassroom.student_count"
+              :label="$t('filterFrom.filterTeacher')"
+              @keyup="searchData()"
               variant="outlined"
               dense
               persistent-placeholder
-            ></v-select>
+            ></v-text-field>
           </v-col>
 
           <v-col cols="3" :md="4" color="transparent">
-            <!-- v-model="searchUser.email" -->
             <v-text-field
+              v-model="searchClassroom.classCoordinatorName"
               :label="$t('filterFrom.filterStatuse')"
-              @keyup="loadData"
+              @keyup="searchData()"
               variant="outlined"
               dense
               persistent-placeholder
@@ -66,9 +63,8 @@
             class="elevation-0 search-btn mt-4"
             small
             variant="outlined"
-            @click.stop="clearFilter"
+            @click="clearFilter"
           >
-            <!-- {{ $t("btn.clear") }} -->
             clear
           </v-btn>
         </v-card>
@@ -85,9 +81,10 @@
         sm="6"
         md="4"
         lg="2"
-        v-for="(classroom, index) in classroomStore.classrooms.data"
         :key="index"
-      >
+        v-for="(classroom, index) in filteredClassrooms"
+        >
+        <!-- v-for="(classroom, index) in classroomStore.classrooms.data" -->
         <v-card class="card elevation-2">
           <v-card-title class="card-title">
             <span class="text-h6 font-weight-black">{{
@@ -147,26 +144,55 @@ import { useClassroomStore } from '@/stores/classroom.js'
 const items = [{ title: 'Edit' }, { title: 'Delete' }]
 const toggleFilter = ref(false)
 const classroomStore = useClassroomStore()
+const searchClassroom = ref({ student_count: null, classroom_name: '' })
+let filteredClassrooms = ref([])
+
 
 const deleteClassroom = async (ID) => {
   try {
     await classroomStore.deleteClassroomByID(ID)
-    await classroomStore.fetchAllClassrooms()
+    await loadDataFromServer()
   } catch (error) {
     console.error('Error deleting classroom:', error)
   }
 }
 
-onMounted(async () => {
-  try {
-    await classroomStore.fetchAllClassrooms()
-  } catch (error) {
-    console.error('Error fetching total students or teachers:', error)
-  }
-})
 const updateToggle = async () => {
   toggleFilter.value = !toggleFilter.value
 }
+
+const performSearch = async () => {
+  filteredClassrooms.value = classroomStore.classrooms.data.filter((classroom) => {
+    console.log('filler',filteredClassrooms);
+    const matchStudentCount = searchClassroom.value.student_count
+    ? Number(classroom.student_count) === Number(searchClassroom.value.student_count)
+    : true;
+
+    const matchClassroomName = classroom.classroom_name.toLowerCase().includes(searchClassroom.value.classroom_name.toLowerCase());
+    return matchStudentCount && matchClassroomName;
+  });
+};
+
+// Method to handle the search
+const searchData = () => {
+  performSearch();
+};
+
+const loadDataFromServer = async () => {
+  await classroomStore.fetchAllClassrooms()
+  console.log(classroomStore.classrooms);
+};
+
+const clearFilter = async () => {
+  searchClassroom.classroom_name = ''
+  searchClassroom.student_count = ''
+  await loadDataFromServer()
+};
+
+onMounted(async () => {
+  await loadDataFromServer()
+  await performSearch()
+});
 </script>
 
 <style scoped>

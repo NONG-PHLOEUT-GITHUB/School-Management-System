@@ -15,7 +15,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class ForgotPasswordController extends Controller
 {
     //  || REFERENCE|| // https://youtu.be/rLt_RkSfqDc
-    public function SendEmailResetPassword(Request $request){
+    public function SendEmailResetPassword(Request $request)
+    {
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -23,10 +24,10 @@ class ForgotPasswordController extends Controller
 
         // Check User's Email Exists or Not
         $user = User::where('email', $email)->first();
-        if(!$user){
+        if (!$user) {
             return response([
-                'message'=>'Email doesnt exists',
-                'status'=>'failed'
+                'message' => 'Email doesnt exists',
+                'status' => 'failed'
             ], 404);
         }
 
@@ -36,20 +37,20 @@ class ForgotPasswordController extends Controller
         PasswordReset::where('email', $email)->delete();
         // Saving Data to Password Reset Table
         PasswordReset::create([
-            'email'=>$email,
-            'token'=>$token,
-            'created_at'=>Carbon::now()
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
         ]);
-        
+
         // Sending EMail with Password Reset View
-        Mail::send('emails.sendEmailPasswordReset', ['token'=>$token], function(Message $message)use($email){
+        Mail::send('emails.sendEmailPasswordReset', ['token' => $token], function (Message $message) use ($email) {
             $message->subject('Reset Your Password');
             $message->to($email);
         });
 
         return response([
-            'message'=>'Password Reset Email Sent... Check Your Email',
-            'status'=>'success'
+            'message' => 'Password Reset Email Sent... Check Your Email',
+            'status' => 'success'
         ], 200);
     }
 
@@ -65,14 +66,14 @@ class ForgotPasswordController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-    
+
         $passwordreset = PasswordReset::where('token', $token)->first();
 
 
-        if(!$passwordreset){
+        if (!$passwordreset) {
             return response([
-                'message'=>'Token is Invalid or Expired',
-                'status'=>'failed'
+                'message' => 'Token is Invalid or Expired',
+                'status' => 'failed'
             ], 404);
         }
 
@@ -84,8 +85,8 @@ class ForgotPasswordController extends Controller
         PasswordReset::where('email', $user->email)->delete();
 
         return response([
-            'message'=>'Password Reset Success',
-            'status'=>'success',
+            'message' => 'Password Reset Success',
+            'status' => 'success',
             'access_token' => auth()->guard('api')->login($user),
             'data' => $user
         ], 200);

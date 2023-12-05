@@ -18,7 +18,7 @@ class SendEmailResetPassword extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($token,$email)
+    public function __construct($token, $email)
     {
         $this->token = $token;
         $this->email = $email;

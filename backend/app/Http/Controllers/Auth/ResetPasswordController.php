@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+
 class ResetPasswordController extends Controller
 {
     public function sendEmail(Request $request)
@@ -56,7 +57,7 @@ class ResetPasswordController extends Controller
     {
         return !!User::where('email', $email)->first();
     }
-  
+
     public function failedResponse()
     {
         return response()->json([

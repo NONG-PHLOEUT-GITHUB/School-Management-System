@@ -22,8 +22,8 @@ class AuthController extends Controller
                 'user' => $user,
                 'access_token' => $token,
             ], 200)
-            ->header('Authorization', $token)
-            ->header('X-Auth-Login-Time', now()->toDateTimeString());
+                ->header('Authorization', $token)
+                ->header('X-Auth-Login-Time', now()->toDateTimeString());
         }
         return response()->json(['error' => 'login_error'], 401);
     }
@@ -56,8 +56,8 @@ class AuthController extends Controller
             'scores',
             'comments' => function ($query) {
                 $query->join('users', 'comments.teacher_id', '=', 'users.id')
-                ->select('comments.*', 'users.first_name', 'users.last_name','users.profile')
-                ->orderBy('comments.created_at', 'desc');
+                    ->select('comments.*', 'users.first_name', 'users.last_name', 'users.profile')
+                    ->orderBy('comments.created_at', 'desc');
             }
         ])->find(Auth::user()->id);
         return response()->json([
@@ -72,7 +72,7 @@ class AuthController extends Controller
     {
         if ($token = $this->guard()->refresh()) {
             return response()
-                ->json(['status' => 'successs','access_token' => $token], 200)
+                ->json(['status' => 'successs', 'access_token' => $token], 200)
                 ->header('Authorization', $token);
         }
         return response()->json(['error' => 'refresh_token_error'], 401);

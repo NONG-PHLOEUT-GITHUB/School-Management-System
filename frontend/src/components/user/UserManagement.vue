@@ -32,10 +32,10 @@
             ></v-text-field>
           </v-col>
           <v-col cols="3" :md="3" color="transparent">
-            <!-- v-model="searchUser.name" -->
             <v-text-field
-              :label="$t('filterFrom.filterTeacher')"
-              @keyup="loadData"
+              v-model="searchUser.first_name"
+              :label="$t('filterFrom.first name')"
+              @keyup="searchData"
               variant="outlined"
               dense
               persistent-placeholder
@@ -48,7 +48,7 @@
               :menu-props="{ maxHeight: '400' }"
               :label="$t('filterFrom.filterSubject')"
               persistent-hint
-              @change="loadData()"
+              @change="searchData()"
               variant="outlined"
               dense
               persistent-placeholder
@@ -59,7 +59,7 @@
             <!-- v-model="searchUser.email" -->
             <v-text-field
               :label="$t('filterFrom.filterStatuse')"
-              @keyup="loadData"
+              @keyup="searchData()"
               variant="outlined"
               dense
               persistent-placeholder
@@ -86,7 +86,7 @@
     v-model="selected"
     class="elevation-1"
     :headers="headers"
-    :items="desserts"
+    :items="filteredUser"
     items-per-page="10"
     item-value="name"
     return-object
@@ -99,8 +99,10 @@ import { useUsersStore } from '@/stores/users'
 import { ref, onMounted } from 'vue'
 const usersStore = useUsersStore()
 const toggleFilter = ref(false)
-const desserts = ref([])
+// const desserts = ref([])
 const selected = ref([])
+const searchUser = ref({ email: '', first_name: '' })
+let filteredUser = ref([])
 
 const headers = [
   { title: 'Profile', align: 'center', key: 'profile' },
@@ -112,12 +114,10 @@ const headers = [
   { title: '', align: 'center', key: 'Action' }
 ]
 
-onMounted(async () => {
-  try {
-    await usersStore.fetchAllUsersData()
-    console.log(usersStore.users)
-    usersStore.users.data.forEach((user) => {
-      desserts.value.push({
+const loadData = async () => {
+  await usersStore.fetchAllUsersData()
+  usersStore.users.data.forEach((user) => {
+    filteredUser.value.push({
         date: user.date,
         profile: user.profile,
         first_name: user.first_name,
@@ -127,13 +127,27 @@ onMounted(async () => {
         id: user.id
       })
     })
-  } catch (error) {
-    console.error('Error fetching total students or teachers:', error)
-  }
-})
+}
+
+const performSearch = async () => {
+  filteredUser.value = usersStore.users.data.filter((user) => {
+    const matchClassroomName = user.first_name.toLowerCase().includes(searchUser.value.first_name.toLowerCase());
+    return matchClassroomName;
+  });
+};
+
+// Method to handle the search
+const searchData = () => {
+  performSearch();
+};
+
 const updateToggle = async () => {
   toggleFilter.value = !toggleFilter.value
 }
+
+onMounted(async () => {
+  await loadData()
+})
 </script>
 
 <style scoped>
