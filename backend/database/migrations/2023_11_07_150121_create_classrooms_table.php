@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('classroom_name', 100)->nullable();
             $table->string('description', 500)->nullable();
-            $table->unsignedBigInteger('class_coordinator_id')->unique()->nullable();
-            $table->foreign('class_coordinator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

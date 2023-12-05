@@ -149,7 +149,7 @@ const validateForm = () => {
 };
 
 watch([newPassword, newPasswordConfirmation], ([newVal, confirmVal]) => {
-  if (newVal !== confirmVal) {n
+  if (newVal !== confirmVal) {
     errorText.value = "Passwords do not match";
   } else {
     errorText.value = "";

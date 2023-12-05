@@ -31,10 +31,13 @@
 import { computed, onMounted } from "vue";
 import { useStudentStore } from "@/stores/student";
 import { useTeacherStore } from "@/stores/teacher";
+import { useClassroomStore } from "@/stores/classroom";
 import { useI18n } from "vue-i18n";
 
 const studentStore = useStudentStore();
 const teacherStore = useTeacherStore();
+const totaClassroomStore = useClassroomStore();
+
 const { t } = useI18n();
 
 const cards = [
@@ -52,8 +55,8 @@ const cards = [
   },
   {
     icon: 'mdi-school',
-    title: 'Total Classroom',
-    value: 30,
+    title: t('dashboard.classroomTotal'),
+    value: computed(() => totaClassroomStore.totalClassrooms),
     color: 'pink-accent-3',
   },
   {
@@ -69,6 +72,7 @@ onMounted(async () => {
   try {
     await studentStore.fetchTotalStudents();
     await teacherStore.fetchTotalTeachers();
+    await totaClassroomStore.getTotalClass();
   } catch (error) {
     console.error("Error fetching total students or teachers:", error);
   }

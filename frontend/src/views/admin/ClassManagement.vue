@@ -2,7 +2,6 @@
     <custom-title icon="mdi-office-building">
         <span class="d-inline-block capitalize-first-letter">Class Management</span>
     </custom-title>
-    <custom-filter />
     <classroom />
 </template>
 

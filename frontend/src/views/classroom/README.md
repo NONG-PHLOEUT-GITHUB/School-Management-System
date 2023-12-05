@@ -1,17 +1,18 @@
 <template>
-  <!-- <v-btn>Create Class</v-btn> -->
+  <custom-title icon="mdi-office-building">
+    <span class="d-inline-block capitalize-first-letter"
+      >My Classroom Management</span
+    >
+  </custom-title>
   <v-container fluid class="pa-2">
     <v-row>
-      <!--sm Display 2 cards per row on small screens -->
-      <!--md Display 3 cards per row on medium screens -->
-      <!--lg Display 4 cards per row on large screens -->
       <v-col
         class="pa-1"
         sm="6"
         md="4"
         lg="2"
-        v-for="(classroom, index) in classroomStore.classrooms.data"
         :key="index"
+        v-for="(classroom, index) in classTeacher"
       >
         <v-card class="card elevation-2">
           <v-card-title class="card-title">
@@ -66,26 +67,28 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref,onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth.js";
 import { useClassroomStore } from "@/stores/classroom.js";
 
 const items = [{ title: "Edit" }, { title: "Delete" }];
-
+const authStore = useAuthStore();
 const classroomStore = useClassroomStore();
+const classTeacher = ref([])
 
 const deleteClassroom = (async (ID) => {
     try {
     await classroomStore.deleteClassroomByID(ID)
-    await classroomStore.fetchAllClassrooms();
+    await authStore.fetchUser();
   } catch (error) {
     console.error("Error deleting classroom:", error);
   }
 })
-console.log(classroomStore.classrooms.data);
 
 onMounted(async () => {
   try {
-    await classroomStore.fetchAllClassrooms();
+    await authStore.fetchUser();
+    classTeacher.value = authStore.user.data.class_teacher;
   } catch (error) {
     console.error("Error fetching total students or teachers:", error);
   }

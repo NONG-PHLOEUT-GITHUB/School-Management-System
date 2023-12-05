@@ -11,9 +11,13 @@
 <script setup>
 import LaunchApp from "./components/global/LaunchApp.vue";
 import AlertNotification from "./components/global/AlertNotification.vue";
-import Notif from "./components/common/components/Notification.vue";
+import Notif from "./components/common/Notification.vue";
 import LogoutConfirmation from "./components/global/LogoutConfirmation.vue"
+import { onMounted } from "vue";
 
+onMounted(() => {
+
+});
 
 </script>
 

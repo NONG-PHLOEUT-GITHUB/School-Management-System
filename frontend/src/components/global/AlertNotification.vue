@@ -10,7 +10,7 @@
           <v-icon color="white">mdi-check-circle</v-icon>
           <span>Login successfull.</span>
         </div>
-        <i class="fa-solid fa-xmark" @click="removeToast(toast)"></i>
+        <i class="fa-solid fa-xmark"></i>
         <v-icon color="red" @click="removeToast(toast)">mdi-close</v-icon>
       </li>
     </ul>

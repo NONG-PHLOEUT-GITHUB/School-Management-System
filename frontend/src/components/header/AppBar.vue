@@ -106,7 +106,7 @@
 <script>
 import Language from "../common/SwitcherLanguage.vue";
 // import LogoutConfirmation from "../global/LogoutConfirmation.vue";
-import Notification from "../common/components/Notification1.vue";
+import Notification from "@/components/common/InBoxNotification.vue";
 import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
 import { useAuthStore } from "@/stores/auth.js";
 

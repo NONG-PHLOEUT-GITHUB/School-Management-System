@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('classroom_id');
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('is_class_coordinator')->default(false);
+            // $table->unsignedBigInteger('class_coordinator_id')->unique()->nullable();
+            // $table->foreign('class_coordinator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

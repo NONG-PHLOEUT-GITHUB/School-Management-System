@@ -17,11 +17,9 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if ($token = auth()->guard('api')->attempt($credentials)) {
             $user = auth()->user();
-            $attendances = $user->attendances;
             return response()->json([
                 'status' => 'success',
                 'user' => $user,
-                'attendance' => $attendances,
                 'access_token' => $token,
             ], 200)
             ->header('Authorization', $token)
@@ -51,10 +49,15 @@ class AuthController extends Controller
         //     ->select('comments.*', 'users.first_name', 'users.last_name');
         // }
         $user = User::with([
-            'attendances',
+            'attendances' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'classTeacher',
+            'scores',
             'comments' => function ($query) {
                 $query->join('users', 'comments.teacher_id', '=', 'users.id')
-                ->select('comments.*', 'users.first_name', 'users.last_name','users.profile');
+                ->select('comments.*', 'users.first_name', 'users.last_name','users.profile')
+                ->orderBy('comments.created_at', 'desc');
             }
         ])->find(Auth::user()->id);
         return response()->json([

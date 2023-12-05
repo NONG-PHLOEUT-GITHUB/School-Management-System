@@ -88,7 +88,7 @@ const routes = [
       {
         path: "/comment/student",
         name: "CommentStudent",
-        component: () => import("../views/student/Comment.vue"),
+        component: () => import("../views/comment/Comment.vue"),
       },
       {
         path: "/my-attendance",
@@ -99,6 +99,11 @@ const routes = [
         path: "/my-score",
         name:"myScore",
         component:()=>import("@/views/score/MyScore.vue")
+      },
+      {
+        path: "/classroom/teacher",
+        name:"myClassroomTeacher",
+        component:()=>import("@/views/classroom/MyClassroom.vue")
       },
       {
         path: "/dashboard/student",

@@ -34,7 +34,8 @@
   },
   "dashboard":{
     "studentTotal":"Student Total",
-    "teacherTotal":"Teacher Total"
+    "teacherTotal":"Teacher Total",
+    "classroomTotal":"Classroom Total"
   },
   "errors": {},
   "title": {

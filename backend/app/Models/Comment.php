@@ -11,6 +11,7 @@ class Comment extends Model
 
     protected $fillable = [
         'id',
+        'title',
         'body',
         'user_id',
         'teacher_id',
@@ -20,7 +21,8 @@ class Comment extends Model
     public static function store($request, $id = null)
     {
         $comments = $request->only(
-            'id',
+            'id',     
+            'title',
             'body',
             'user_id',
             'teacher_id'

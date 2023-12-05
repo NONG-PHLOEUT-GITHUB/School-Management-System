@@ -20,10 +20,10 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted} from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
-const authStore = useAuthStore();
+// const authStore = useAuthStore();
 const router = useRouter();
 const toastList = ref([]);
 const isCancelled = ref(false);
@@ -58,12 +58,12 @@ const cancelAction = (toast) => {
   removeToast(toast);
 };
 
-const toastDetails = {
-  success: {
-    type: "success",
-    text: "Are you sure you want to log out?",
-  },
-};
+// const toastDetails = {
+//   success: {
+//     type: "success",
+//     text: "Are you sure you want to log out?",
+//   },
+// };
 
 watch(
   () => useAuthStore().isLogout,

@@ -140,4 +140,17 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Attendance::class);
     }
+      /**
+     * user realationship with scores
+     */
+
+     public function scores()
+     {
+        return $this->hasMany(Score::class);
+     }
+
+     public function classTeacher()
+     {
+         return $this->belongsToMany(ClassRoom::class, 'classroom_teachers','teacher_id', 'classroom_id');
+     }
 }

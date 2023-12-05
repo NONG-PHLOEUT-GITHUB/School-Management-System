@@ -24,9 +24,9 @@
           },
           {
             icon: "mdi-account-group-outline",
-            title: "menu.userMg",
-            value: "account",
-            to: { name: "user-management" },
+            title: "My classroom",
+            value: "myClassroomTeacher",
+            to: { name: "myClassroomTeacher" },
           },
           {
             icon: "mdi-chair-school",

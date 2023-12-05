@@ -8,3 +8,11 @@ export function fetchAllClassroom() {
 export function fetchClassCoordinator() {
   return http.get("/class-coordinator");
 }
+
+export function fetchTotalClass() {
+  return http.get("/classrooms/count");
+}
+
+export function deleteClassroom(ID) {
+  return http.delete(`/classroom/${ID}`);
+}

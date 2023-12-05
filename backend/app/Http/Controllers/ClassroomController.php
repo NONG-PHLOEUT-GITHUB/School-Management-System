@@ -78,15 +78,29 @@ class ClassroomController extends Controller
     public function getAllClassrooms()
     {
         $classrooms = Classroom::withCount('students')
-            ->select('classrooms.id', 'classrooms.classroom_name', 'teachers.first_name as teacher_first_name', 'teachers.last_name as teacher_last_name')
-            ->leftJoin('users as teachers', 'classrooms.class_coordinator_id', '=', 'teachers.id')
-            ->where('teachers.role', 2)
-            ->get();
+            ->select('classrooms.id', 'classrooms.classroom_name')->get();
     
         $classroomCount = $classrooms->count();
     
         return response()->json(['success' => true, 'data' => $classrooms, 'count' => $classroomCount], 200);
     }
+    // public function getAllClassrooms()
+    // {
+    //     $classrooms = Classroom::withCount('students')
+    //         ->select('classrooms.id', 'classrooms.classroom_name', 'teachers.first_name as teacher_first_name', 'teachers.last_name as teacher_last_name')
+    //         ->leftJoin('users as teachers')
+    //         ->where('teachers.role', 2)
+    //         ->get();
+    
+    //     $classroomCount = $classrooms->count();
+    
+    //     return response()->json(['success' => true, 'data' => $classrooms, 'count' => $classroomCount], 200);
+    // }
 
+    public function countTotalClass()
+    {
+        $totalClassroom = ClassRoom::count();
+        return response()->json(['success' => true, 'data' => $totalClassroom], 200);
+    }
 
 }

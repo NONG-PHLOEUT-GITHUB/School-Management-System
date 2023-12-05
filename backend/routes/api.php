@@ -46,6 +46,8 @@ Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
 Route::post('/classroom',[ClassroomController::class,'store']);
 // Route::get('/classrooms',[ClassroomController::class,'index']);
 Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
+Route::get('/classrooms/count',[ClassroomController::class,'countTotalClass']);
+Route::delete('/classroom/{id}',[ClassroomController::class,'destroy']);
 
 
 Route::post('/change-password', [VerificationController::class,'changePassword']);

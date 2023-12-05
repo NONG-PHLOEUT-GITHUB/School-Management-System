@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Score;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -11,7 +12,8 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        //
+        $scores = Score::all();
+        return response()->json(['success' => true, 'data' => $scores], 200);
     }
 
     /**
@@ -19,7 +21,9 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $scores = Score::store($request);
+
+        return response()->json(['success' => true, 'data' => $scores], 201);
     }
 
     /**

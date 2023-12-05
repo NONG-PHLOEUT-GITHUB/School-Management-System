@@ -6,7 +6,6 @@ import App from "./App.vue"
 import router from "./router"
 
 import CustomTitle from "@/components/global/CustomTitle.vue"
-import CustomFilter from "@/components/common/CustomFilter.vue"
 import SidebarComponent from "@/components/layout/Sidebar.vue"
 import CustomHeader from "@/components/common/CustomHeader.vue"; 
 //store
@@ -18,7 +17,6 @@ const pinia = createPinia()
 
 //Grobal components call to use without import
 app.component('custom-title',CustomTitle) 
-app.component('custom-filter',CustomFilter)
 app.component('custom-header',CustomHeader)
 app.component('sidebar',SidebarComponent) 
 
