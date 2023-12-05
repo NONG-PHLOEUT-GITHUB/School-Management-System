@@ -1,6 +1,8 @@
 <template>
   <custom-title icon="mdi-check-circle">
-    <span class="d-inline-block capitalize-first-letter">Attendance Tracking</span>
+    <span class="d-inline-block capitalize-first-letter"
+      >Attendance Tracking</span
+    >
   </custom-title>
   <v-container fluid class="pa-0">
     <v-row>
@@ -44,7 +46,7 @@
               'Excused',
               'Unexcused',
               'On leave',
-              'No show',
+              'No show'
             ]"
             variant="outlined"
           ></v-select>
@@ -81,7 +83,7 @@
     item-value="name"
     item-selectable="selectable"
     return-object
-    show-select 
+    show-select
   ></v-data-table>
 </template>
 
@@ -93,92 +95,91 @@ export default {
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         },
         {
           model: false,
           show: false,
-          imageSrc: "https://cdn.vuetifyjs.com/images/john.jpg",
+          imageSrc: 'https://cdn.vuetifyjs.com/images/john.jpg'
         }
-      ],
-      
-    };
+      ]
+    }
   },
   methods: {
     loadMoreData() {
       // Simulate loading more data (replace this with your actual data loading logic)
       const newData = [
         // Load your new data here
-      ];
+      ]
 
       // Append the new data to the existing cards
-      this.cards = [...this.cards, ...newData];
+      this.cards = [...this.cards, ...newData]
     },
     toggleCard(index) {
-      this.cards[index].show = !this.cards[index].show;
-      console.log(index);
+      this.cards[index].show = !this.cards[index].show
+      console.log(index)
     },
     toggleSwitcher(index) {
-      this.cards[index].model = !this.cards[index].model;
-      console.log(index);
-    },
+      this.cards[index].model = !this.cards[index].model
+      console.log(index)
+    }
   },
   computed: {
     counterAttendance() {
-      return this.cards.filter((card) => card.show || card.model).length;
-    },
-  },
-};
+      return this.cards.filter((card) => card.show || card.model).length
+    }
+  }
+}
 </script>
 
 <style scoped>

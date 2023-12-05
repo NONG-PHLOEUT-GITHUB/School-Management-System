@@ -30,26 +30,25 @@ export default {
     return {
       sections: [
         {
-          title: "Personal Information",
-          icon: "mdi-home",
+          title: 'Personal Information',
+          icon: 'mdi-home',
           fields: [
-            { label: "Field 1" },
-            { label: "Field 2" },
-            { label: "Field 3" },
-          ],
+            { label: 'Field 1' },
+            { label: 'Field 2' },
+            { label: 'Field 3' }
+          ]
         },
         {
-          title: "Contact Information",
-          icon: "mdi-web",
+          title: 'Contact Information',
+          icon: 'mdi-web',
           fields: [
-            { label: "Field 4" },
-            { label: "Field 5" },
-            { label: "Field 6" },
-          ],
-        },
-      ],
-    };
-  },
-};
+            { label: 'Field 4' },
+            { label: 'Field 5' },
+            { label: 'Field 6' }
+          ]
+        }
+      ]
+    }
+  }
+}
 </script>
-

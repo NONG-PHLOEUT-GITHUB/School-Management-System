@@ -1,18 +1,18 @@
-import { defineStore } from "pinia";
-import { fetchAllUsers } from "@/api/users.js";
+import { defineStore } from 'pinia'
+import { fetchAllUsers } from '@/api/users.js'
 
-export const useUsersStore = defineStore("users", {
+export const useUsersStore = defineStore('users', {
   state: () => ({
-    users: null,
+    users: null
   }),
   actions: {
     async fetchAllUsersData() {
       try {
-        const response = await fetchAllUsers();
-        this.users = response.data;
+        const response = await fetchAllUsers()
+        this.users = response.data
       } catch (error) {
-        console.error("Error fetching total students:", error);
+        console.error('Error fetching total students:', error)
       }
-    },
-  },
-});
+    }
+  }
+})

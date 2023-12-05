@@ -1,3 +1,3 @@
 <template>
-    <span>Class record under maintenance</span>
+  <span>Class record under maintenance</span>
 </template>

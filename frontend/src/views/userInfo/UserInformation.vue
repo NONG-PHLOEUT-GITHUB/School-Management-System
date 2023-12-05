@@ -1,11 +1,11 @@
 <template>
-    <user-information/>
+  <user-information />
 </template>
 <script>
-import UserInformation from '@/components/user/UserInformation.vue';
+import UserInformation from '@/components/user/UserInformation.vue'
 export default {
-    components:{
-        UserInformation
-    }
+  components: {
+    UserInformation
+  }
 }
 </script>

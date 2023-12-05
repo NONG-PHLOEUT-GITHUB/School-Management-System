@@ -54,20 +54,20 @@ export default {
       required: true
     }
   },
-  data(){
+  data() {
     return {
-      vAvatar: require("@/assets/images/avatar1.png"),
+      vAvatar: require('@/assets/images/avatar1.png')
     }
   }
 }
 </script>
 
 <script setup>
-  const items = [
-    { path: "AboutMe", text: "About me", icon: "mdi-clock" },
-    { path: "profileCommentRecord", text: "My comment", icon: "mdi-account" },
-    { text: "Conversions", icon: "mdi-flag" },
-  ];
+const items = [
+  { path: 'AboutMe', text: 'About me', icon: 'mdi-clock' },
+  { path: 'profileCommentRecord', text: 'My comment', icon: 'mdi-account' },
+  { text: 'Conversions', icon: 'mdi-flag' }
+]
 </script>
 <style scoped>
 .user-menu {

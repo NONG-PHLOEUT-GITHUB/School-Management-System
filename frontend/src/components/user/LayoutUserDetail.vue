@@ -26,14 +26,18 @@ export default {
   data() {
     return {
       menus: [
-        { path: "UserDetail", title: "About", icon: "mdi-clock" },
-        { path: "profileComment", title: "Class record", icon: "mdi-account" },
-        { path: "detailAcademic",title: "Acadmic record", icon: "mdi-flag" },
-        { path: 'detailAttendance',title: "Attendance record", icon: "mdi-flag" },
-      ],
-    };
-  },
-};
+        { path: 'UserDetail', title: 'About', icon: 'mdi-clock' },
+        { path: 'profileComment', title: 'Class record', icon: 'mdi-account' },
+        { path: 'detailAcademic', title: 'Acadmic record', icon: 'mdi-flag' },
+        {
+          path: 'detailAttendance',
+          title: 'Attendance record',
+          icon: 'mdi-flag'
+        }
+      ]
+    }
+  }
+}
 </script>
 <style scoped>
 .menu {

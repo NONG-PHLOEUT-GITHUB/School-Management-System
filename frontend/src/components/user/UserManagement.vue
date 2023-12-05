@@ -8,13 +8,12 @@
     item-value="name"
     item-selectable="selectable"
     return-object
-    show-select 
+    show-select
   >
     <template v-slot:item="{ item }">
       <tr>
         <td>
-          <v-checkbox hide-details  color="red"
-            value="red"></v-checkbox>
+          <v-checkbox hide-details color="red" value="red"></v-checkbox>
         </td>
         <td>
           <v-avatar color="info">
@@ -25,9 +24,7 @@
         <td>{{ item.fat }}</td>
         <td>{{ item.carbs }}</td>
         <td>
-          <v-chip class="ma-2" color="red" text-color="white">
-           student
-          </v-chip>
+          <v-chip class="ma-2" color="red" text-color="white"> student </v-chip>
         </td>
         <td>{{ item.iron }}</td>
         <td>
@@ -46,43 +43,43 @@ export default {
     return {
       selected: [],
       headers: [
-        { title: "Profile", align: "center", key: "profile" },
-        { title: "First Name", align: "center", key: "calories" },
-        { title: "Last Name", align: "center", key: "fat" },
-        { title: "Email", align: "center", key: "email" },
-        { title: "Status", align: "center", key: "protein" },
-        { title: "Iron (%)", align: "center", key: "iron" },
-        { title: "", align: "center", key: "Action" },
+        { title: 'Profile', align: 'center', key: 'profile' },
+        { title: 'First Name', align: 'center', key: 'calories' },
+        { title: 'Last Name', align: 'center', key: 'fat' },
+        { title: 'Email', align: 'center', key: 'email' },
+        { title: 'Status', align: 'center', key: 'protein' },
+        { title: 'Iron (%)', align: 'center', key: 'iron' },
+        { title: '', align: 'center', key: 'Action' }
       ],
       desserts: [
         {
-          name: "Frozen Yogurt",
-          calories: "Nong ",
+          name: 'Frozen Yogurt',
+          calories: 'Nong ',
           fat: 'Phloeut',
           carbs: 24,
           protein: 4.0,
-          iron: 1,
+          iron: 1
         },
         {
-          name: "Ice cream sandwich",
-          calories: "Zucima ",
-          fat:'Tu',
+          name: 'Ice cream sandwich',
+          calories: 'Zucima ',
+          fat: 'Tu',
           carbs: 'zucimatu@gmail.com',
           protein: 4.3,
-          iron: 1,
+          iron: 1
         },
         {
-          name: "Eclair",
-          calories: "Kakava",
+          name: 'Eclair',
+          calories: 'Kakava',
           fat: 'Tok',
           carbs: 23,
           protein: 6.0,
-          iron: 7,
+          iron: 7
         }
-      ],
-    };
-  },
-};
+      ]
+    }
+  }
+}
 </script>
 <style scoped>
 .v-data-table-header th {

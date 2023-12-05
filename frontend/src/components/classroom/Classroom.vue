@@ -68,21 +68,21 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { useClassroomStore } from "@/stores/classroom.js";
+import { onMounted } from 'vue'
+import { useClassroomStore } from '@/stores/classroom.js'
 
-const items = [{ title: "Edit" }, { title: "Delete" }];
+const items = [{ title: 'Edit' }, { title: 'Delete' }]
 
-const classroomStore = useClassroomStore();
-console.log(classroomStore.classrooms.data);
+const classroomStore = useClassroomStore()
+console.log(classroomStore.classrooms.data)
 
 onMounted(async () => {
   try {
-    await classroomStore.fetchAllClassrooms();
+    await classroomStore.fetchAllClassrooms()
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>
 
 <style scoped>

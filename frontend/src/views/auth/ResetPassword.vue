@@ -15,12 +15,12 @@
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="resetNewPassword">
-          <h1 class="login-title">{{ $t("btn.resetPassword") }}</h1>
+          <h1 class="login-title">{{ $t('btn.resetPassword') }}</h1>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("resetPassword.newPassword") }}
+              {{ $t('resetPassword.newPassword') }}
             </div>
             <v-text-field
               :append-inner-icon="
@@ -41,7 +41,7 @@
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("resetPassword.confirmPassword") }}
+              {{ $t('resetPassword.confirmPassword') }}
             </div>
             <v-text-field
               :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -67,14 +67,14 @@
           </div>
 
           <router-link to="/forget-password" class="forgot-password-link">{{
-            $t("login.form.forgot-pass")
+            $t('login.form.forgot-pass')
           }}</router-link>
           <v-btn
             type="submit"
             color="teal darken-4"
             block
             class="login-button"
-            >{{ $t("btn.resetPassword") }}</v-btn
+            >{{ $t('btn.resetPassword') }}</v-btn
           >
         </v-form>
       </v-card>
@@ -83,95 +83,94 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-import { useAuthStore } from "@/stores/auth.js";
-import { useRoute, useRouter } from "vue-router";
+import { ref, watch } from 'vue'
+import SwitcherLanguage from '@/components/common/SwitcherLanguage.vue'
+import { useAuthStore } from '@/stores/auth.js'
+import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter();
-const route = useRoute();
-const authStore = useAuthStore();
-const newPassword = ref("123456789");
-const password_confirmation = ref("123456789");
-const isPasswordVisible = ref(false);
-const isPasswordVisibleNew = ref(false);
-const token = route.params.token;
-const errorText = ref(""); // Create a ref for error messages
+const router = useRouter()
+const route = useRoute()
+const authStore = useAuthStore()
+const newPassword = ref('123456789')
+const password_confirmation = ref('123456789')
+const isPasswordVisible = ref(false)
+const isPasswordVisibleNew = ref(false)
+const token = route.params.token
+const errorText = ref('') // Create a ref for error messages
 
 const toggleVisible = () => {
-  isPasswordVisible.value = !isPasswordVisible.value;
-};
+  isPasswordVisible.value = !isPasswordVisible.value
+}
 const toggleVisibleNewpassword = () => {
-  isPasswordVisibleNew.value = !isPasswordVisibleNew.value;
-};
+  isPasswordVisibleNew.value = !isPasswordVisibleNew.value
+}
 
 const confirmPasswordRules = [
-  (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
-];
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!'
+]
 const newPasswordRules = [
-  (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
-];
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!'
+]
 
 const validateForm = () => {
   const newPasswordValid = confirmPasswordRules.every(
     (rule) => rule(newPassword.value) === true
-  );
+  )
   const confirmPasswordValid = confirmPasswordRules.every(
     (rule) => rule(password_confirmation.value) === true
-  );
+  )
 
   if (!newPasswordValid || !confirmPasswordValid) {
-    return false;
+    return false
   }
 
-  return true;
-};
+  return true
+}
 
 watch([newPassword, password_confirmation], ([newVal, confirmVal]) => {
   if (newVal !== confirmVal) {
-    console.log("Passwords do not match");
-    errorText.value = "Passwords do not match"; // Set the error message
+    console.log('Passwords do not match')
+    errorText.value = 'Passwords do not match' // Set the error message
     // You can set an error message or perform other actions here
   } else {
-    errorText.value = ""; // Set the error message
+    errorText.value = '' // Set the error message
     // console.log('Passwords match');
     // Clear any previous error messages or perform other actions here
   }
-});
+})
 
 const resetNewPassword = async () => {
   if (!validateForm()) {
-    return;
+    return
   }
   try {
     await authStore.userResetNewPassword(
       token,
       newPassword.value,
       password_confirmation.value
-    );
+    )
 
     if (authStore.isReset) {
       let userRole = authStore.data
-      console.log('role in reset password',authStore.data);
-      localStorage.setItem("user_role", userRole);
+      console.log('role in reset password', authStore.data)
+      localStorage.setItem('user_role', userRole)
       if (userRole === 1) {
-        await router.push({ path: "/dashboard/user" });
-      }
-      else if (userRole === 2) {
-        await router.push({ path: "/dashboard/user" });
+        await router.push({ path: '/dashboard/user' })
+      } else if (userRole === 2) {
+        await router.push({ path: '/dashboard/user' })
       } else {
-        await router.push({ path: "/dashboard/user" });
+        await router.push({ path: '/dashboard/user' })
       }
     } else {
       // errorText.value = "Email or password is incorrect"; // Set the error message
-      console.log("Email or password is incorrect");
+      console.log('Email or password is incorrect')
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error('An error occurred:', error)
   }
-};
+}
 </script>
 
 <style scoped>

@@ -4,21 +4,20 @@
   </custom-title>
 
   <comment />
-  
 </template>
 <script setup>
-import Comment from "@/components/comments/Comment.vue";
+import Comment from '@/components/comments/Comment.vue'
 
-import { onMounted } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>

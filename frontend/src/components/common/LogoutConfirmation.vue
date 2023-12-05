@@ -27,52 +27,52 @@ export default {
   props: {
     value: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      toastList: [],
-    };
+      toastList: []
+    }
   },
   methods: {
     removeToast(toast) {
-      toast.hide = true;
-      if (toast.timeoutId) clearTimeout(toast.timeoutId);
+      toast.hide = true
+      if (toast.timeoutId) clearTimeout(toast.timeoutId)
       setTimeout(() => {
-        const index = this.toastList.indexOf(toast);
-        if (index !== -1) this.toastList.splice(index, 1);
-      }, 500);
+        const index = this.toastList.indexOf(toast)
+        if (index !== -1) this.toastList.splice(index, 1)
+      }, 500)
     },
     createToast() {
       const toast = {
         id: Date.now(),
-        hide: false,
-      };
-      this.toastList.push(toast);
+        hide: false
+      }
+      this.toastList.push(toast)
     },
 
     confirmAction(toast) {
       if (toast.action === 'logout') {
-        console.log('Logout confirmed');
+        console.log('Logout confirmed')
       }
-      this.removeToast(toast);
+      this.removeToast(toast)
     },
     cancelAction(toast) {
-      this.removeToast(toast);
-    },
+      this.removeToast(toast)
+    }
   },
   computed: {
     toastDetails() {
       return {
         success: {
-          type: "success",
-          text: "Are your sure you want to log out?",
-        },
-      };
-    },
-  },
-};
+          type: 'success',
+          text: 'Are your sure you want to log out?'
+        }
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -135,7 +135,6 @@ export default {
 .toast .column span {
   font-size: 1.1rem;
   margin-left: 12px;
-  
 }
 span {
   color: white;

@@ -17,43 +17,43 @@ export default {
     return {
       menuItems: [
         {
-          icon: "mdi-widgets",
-          title: "menu.dashboard",
-          value: "home",
-          to: { name: "dashboard" },
+          icon: 'mdi-widgets',
+          title: 'menu.dashboard',
+          value: 'home',
+          to: { name: 'dashboard' }
         },
         {
-          icon: "mdi-account-group-outline",
-          title: "menu.userMg",
-          value: "account",
-          to: { name: "user-management" },
+          icon: 'mdi-account-group-outline',
+          title: 'menu.userMg',
+          value: 'account',
+          to: { name: 'user-management' }
         },
         {
-          icon: "mdi-chair-school",
-          title: "menu.classMg",
-          value: "users",
-          to: { name: "ClassManagement" },
+          icon: 'mdi-chair-school',
+          title: 'menu.classMg',
+          value: 'users',
+          to: { name: 'ClassManagement' }
         },
         {
-          icon: "mdi-book-open",
-          title: "Academic Records",
-          value: "academic",
-          to: { name: "UserDetail" },
+          icon: 'mdi-book-open',
+          title: 'Academic Records',
+          value: 'academic',
+          to: { name: 'UserDetail' }
         },
         {
-          icon: "mdi-clipboard-check",
-          title: "Attendance Tracking",
-          value: "attendance",
-          to: { name: "AttendanceTracking" },
+          icon: 'mdi-clipboard-check',
+          title: 'Attendance Tracking',
+          value: 'attendance',
+          to: { name: 'AttendanceTracking' }
         },
         {
-          icon: "mdi-comment",
-          title: "Communication",
-          value: "communication",
-          to: { name: "comment" },
-        },
-      ],
-    };
-  },
-};
+          icon: 'mdi-comment',
+          title: 'Communication',
+          value: 'communication',
+          to: { name: 'comment' }
+        }
+      ]
+    }
+  }
+}
 </script>

@@ -24,53 +24,52 @@
       </v-col>
     </v-row>
   </v-container>
-
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
-import { useStudentStore } from "@/stores/student";
-import { useTeacherStore } from "@/stores/teacher";
-import { useI18n } from "vue-i18n";
+import { computed, onMounted } from 'vue'
+import { useStudentStore } from '@/stores/student'
+import { useTeacherStore } from '@/stores/teacher'
+import { useI18n } from 'vue-i18n'
 
-const studentStore = useStudentStore();
-const teacherStore = useTeacherStore();
-const { t } = useI18n();
+const studentStore = useStudentStore()
+const teacherStore = useTeacherStore()
+const { t } = useI18n()
 
 const cards = [
   {
     icon: 'mdi-account-group',
-    title: t("dashboard.studentTotal"),
+    title: t('dashboard.studentTotal'),
     value: computed(() => studentStore.totalStudents),
-    color: 'pink-accent-3',
+    color: 'pink-accent-3'
   },
   {
     icon: 'mdi-account-tie',
-    title: t("dashboard.teacherTotal"),
+    title: t('dashboard.teacherTotal'),
     value: computed(() => teacherStore.totalTeachers),
-    color: 'pink-accent-3',
+    color: 'pink-accent-3'
   },
   {
     icon: 'mdi-school',
     title: 'Total Classroom',
     value: 30,
-    color: 'pink-accent-3',
+    color: 'pink-accent-3'
   },
   {
     icon: 'mdi-calendar-month',
     title: 'Next Event',
     value: '9',
-    color: 'pink-accent-3',
-  },
-];
+    color: 'pink-accent-3'
+  }
+]
 
 // Fetch the totalStudents and totalTeachers values on component mount
 onMounted(async () => {
   try {
-    await studentStore.fetchTotalStudents();
-    await teacherStore.fetchTotalTeachers();
+    await studentStore.fetchTotalStudents()
+    await teacherStore.fetchTotalTeachers()
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>

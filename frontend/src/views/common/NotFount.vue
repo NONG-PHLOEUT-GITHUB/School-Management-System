@@ -2,10 +2,11 @@
   <v-container fluid>
     <v-row align="center" justify="center" class="mt-12">
       <v-col cols="12" sm="8" md="6">
-          <v-card class="pa-12 text-center" elevation="0" v-if="show">
-            <img
-              src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" width="500"
-            />
+        <v-card class="pa-12 text-center" elevation="0" v-if="show">
+          <img
+            src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif"
+            width="500"
+          />
           <!-- <v-icon x-large color="red darken-2">mdi-emoticon-sad-outline</v-icon> -->
           <h1 class="headline font-weight-bold mb-4">404</h1>
           <p class="subheading mb-6">Oops! Page not found.</p>
@@ -18,19 +19,19 @@
 
 <script>
 export default {
-  name: "PageNotFound",
+  name: 'PageNotFound',
   data() {
     return {
-      show: false,
-    };
+      show: false
+    }
   },
   mounted() {
     // Add a delay to make the card fade in after a short delay
     setTimeout(() => {
-      this.show = true;
-    }, 300);
-  },
-};
+      this.show = true
+    }, 300)
+  }
+}
 </script>
 
 <style scoped>

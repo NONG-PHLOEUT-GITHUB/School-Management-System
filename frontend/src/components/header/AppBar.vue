@@ -5,7 +5,10 @@
     transition="dialog-top-transition"
     width="auto"
   >
-    <change-password-dailog @cancel="dialogVisible = false" @passwordChanged="dialogVisible = false"/>
+    <change-password-dailog
+      @cancel="dialogVisible = false"
+      @passwordChanged="dialogVisible = false"
+    />
   </v-dialog>
   <v-app-bar ref="appBar" app color="white">
     <v-app-bar-nav-icon @click="togglerDrawer">
@@ -70,7 +73,7 @@
                 variant="outlined"
                 color="primary"
                 :to="{ name: 'profile-user' }"
-                >{{ $t("common.viewProfile") }}</v-btn
+                >{{ $t('common.viewProfile') }}</v-btn
               >
             </v-col>
             <v-divider></v-divider>
@@ -101,23 +104,23 @@
 </template>
 
 <script>
-import Language from "../common/SwitcherLanguage.vue";
+import Language from '../common/SwitcherLanguage.vue'
 // import LogoutConfirmation from "../common/LogoutConfirmation.vue";
-import Notification from "../common/components/Notification1.vue";
-import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
-import { useAuthStore } from "@/stores/auth.js";
+import Notification from '../common/components/Notification1.vue'
+import ChangePasswordDailog from '@/views/auth/ChangePassword.vue'
+import { useAuthStore } from '@/stores/auth.js'
 // import { useRouter } from 'vue-router';
 
 export default {
-  name:"AppBar",
+  name: 'AppBar',
   props: {
-    width: { type: [Number, String] },
+    width: { type: [Number, String] }
   },
   components: {
     Language,
     // LogoutConfirmation,
     Notification,
-    ChangePasswordDailog,
+    ChangePasswordDailog
   },
   data() {
     return {
@@ -126,72 +129,72 @@ export default {
       dialogVisible: false,
       menus: [
         {
-          title: this.$t("header.menuChangePass"),
-          action: "changePassword",
-          icon: "mdi-lock-reset",
+          title: this.$t('header.menuChangePass'),
+          action: 'changePassword',
+          icon: 'mdi-lock-reset'
         },
         {
-          title: this.$t("header.menuLogout"),
-          icon: "mdi-logout",
-          action: "logout",
-        },
-      ],
-    };
+          title: this.$t('header.menuLogout'),
+          icon: 'mdi-logout',
+          action: 'logout'
+        }
+      ]
+    }
   },
   watch: {
     width(newVal) {
-      const resizedWidth = newVal.slice(0, -2);
-      const ele = this.$refs.appBar.$el;
-      ele.style.left = resizedWidth + "px";
-      ele.style.transition = "0s";
-      ele.style.userSelect = "none";
-    },
+      const resizedWidth = newVal.slice(0, -2)
+      const ele = this.$refs.appBar.$el
+      ele.style.left = resizedWidth + 'px'
+      ele.style.transition = '0s'
+      ele.style.userSelect = 'none'
+    }
   },
   methods: {
     togglerDrawer() {
-      this.$emit("toggle");
+      this.$emit('toggle')
     },
     toggleTooltip() {
-      this.tooltipVisible = !this.tooltipVisible;
+      this.tooltipVisible = !this.tooltipVisible
     },
     // async chnagePassword (){
     //   console.log(this.dialogVisible);
     //   this.dialogVisible = true
     // },
     async logoutUser() {
-      const authStore = useAuthStore();
-      await authStore.logout();
-      this.$router.push({ name: "login" });
-      console.log("Logout confirmed");
+      const authStore = useAuthStore()
+      await authStore.logout()
+      this.$router.push({ name: 'login' })
+      console.log('Logout confirmed')
     },
     onMenuClick(action) {
       switch (action) {
-        case "logout":
-          this.logoutUser();
-          break;
-        case "changePassword":
-          this.dialogVisible = true;
-          break;
+        case 'logout':
+          this.logoutUser()
+          break
+        case 'changePassword':
+          this.dialogVisible = true
+          break
         default:
-          break;
+          break
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted } from 'vue'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>
 
 <style scoped>

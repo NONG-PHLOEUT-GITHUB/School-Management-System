@@ -32,9 +32,9 @@ export default {
   props: {
     icon: { type: String, required: false },
     rightIcon: { type: String },
-    centeredTitle: { type: Boolean, default: false },
-  },
-};
+    centeredTitle: { type: Boolean, default: false }
+  }
+}
 </script>
 
 <style scoped>

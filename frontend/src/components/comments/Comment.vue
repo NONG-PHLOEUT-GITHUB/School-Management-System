@@ -11,7 +11,8 @@
     show-select 
   ></v-data-table> -->
   <div>
-    <v-card class="mt-2"
+    <v-card
+      class="mt-2"
       v-for="(card, index) in cards"
       :key="index"
       :title="card.name"
@@ -60,42 +61,42 @@
 <script>
 export default {
   data: () => ({
-    menuItems: [{ title: "Edit" }, { title: "Delete" }],
+    menuItems: [{ title: 'Edit' }, { title: 'Delete' }],
     cards: [
       {
-        name: "Nong Phloeut",
-        subtitle: "Feedback for this month",
-        avatar: "https://cdn.vuetifyjs.com/images/john.jpg",
-        timestamp: "2 days ago",
+        name: 'Nong Phloeut',
+        subtitle: 'Feedback for this month',
+        avatar: 'https://cdn.vuetifyjs.com/images/john.jpg',
+        timestamp: '2 days ago',
         show: false,
         content:
-          "I'm a thing. But, like most politicians, he promised more than he could deliver...",
+          "I'm a thing. But, like most politicians, he promised more than he could deliver..."
       },
       {
-        name: "Nong Phloeut",
-        subtitle: "Feedback for this month",
-        avatar: "https://cdn.vuetifyjs.com/images/john.jpg",
-        timestamp: "20 days ago",
+        name: 'Nong Phloeut',
+        subtitle: 'Feedback for this month',
+        avatar: 'https://cdn.vuetifyjs.com/images/john.jpg',
+        timestamp: '20 days ago',
         show: false,
         content:
-          "I'm a thing. But, like most politicians, he promised more than he could deliver...",
+          "I'm a thing. But, like most politicians, he promised more than he could deliver..."
       },
       {
-        name: "Nong Phloeut",
-        subtitle: "Feedback for this month",
-        avatar: "https://cdn.vuetifyjs.com/images/john.jpg",
-        timestamp: "25 days ago",
+        name: 'Nong Phloeut',
+        subtitle: 'Feedback for this month',
+        avatar: 'https://cdn.vuetifyjs.com/images/john.jpg',
+        timestamp: '25 days ago',
         show: false,
         content:
-          "I'm a thing. But, like most politicians, he promised more than he could deliver...",
-      },
+          "I'm a thing. But, like most politicians, he promised more than he could deliver..."
+      }
       // Define data for more cards here...
-    ],
+    ]
   }),
   methods: {
     toggleCard(index) {
-      this.cards[index].show = !this.cards[index].show;
-    },
-  },
-};
+      this.cards[index].show = !this.cards[index].show
+    }
+  }
+}
 </script>

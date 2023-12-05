@@ -15,12 +15,12 @@
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="login">
-          <h1 class="login-title">{{ $t("login.title") }}</h1>
+          <h1 class="login-title">{{ $t('login.title') }}</h1>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("login.form.email") }}
+              {{ $t('login.form.email') }}
             </div>
             <v-text-field
               ref="emailField"
@@ -38,7 +38,7 @@
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("login.form.password") }}
+              {{ $t('login.form.password') }}
             </div>
             <v-text-field
               :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -57,27 +57,22 @@
               variant="tonal"
               color="red"
             >
-            <span>{{ errorText }}</span>
+              <span>{{ errorText }}</span>
             </v-card>
-            <v-card
-              v-else
-              class="mx-auto pa-1"
-              variant="flat"
-              color="#f4f4f4"
-            >
+            <v-card v-else class="mx-auto pa-1" variant="flat" color="#f4f4f4">
               <span class="error">.</span>
             </v-card>
           </div>
 
           <router-link to="/forget-password" class="forgot-password-link">{{
-            $t("login.form.forgot-pass")
+            $t('login.form.forgot-pass')
           }}</router-link>
           <v-btn
             type="submit"
             color="teal darken-4"
             block
             class="login-button"
-            >{{ $t("login.title") }}</v-btn
+            >{{ $t('login.title') }}</v-btn
           >
         </v-form>
       </v-card>
@@ -86,73 +81,71 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-import { useAuthStore } from "@/stores/auth.js";
-import { useRouter } from "vue-router";
+import { ref } from 'vue'
+import SwitcherLanguage from '@/components/common/SwitcherLanguage.vue'
+import { useAuthStore } from '@/stores/auth.js'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
-const authStore = useAuthStore();
-const email = ref("phloeutnong@gmail.com");
-const password = ref("123456789");
-const isPasswordVisible = ref(false);
-const errorText = ref(""); // Create a ref for error messages
+const router = useRouter()
+const authStore = useAuthStore()
+const email = ref('phloeutnong@gmail.com')
+const password = ref('123456789')
+const isPasswordVisible = ref(false)
+const errorText = ref('') // Create a ref for error messages
 
 const toggleVisible = () => {
-  isPasswordVisible.value = !isPasswordVisible.value;
-};
+  isPasswordVisible.value = !isPasswordVisible.value
+}
 
 const emailRules = [
-  (v) => !!v || "E-mail is required",
-  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-];
+  (v) => !!v || 'E-mail is required',
+  (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+]
 
 const passwordRules = [
-  (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
-];
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!'
+]
 
 const validateForm = () => {
-  const emailValid = emailRules.every((rule) => rule(email.value) === true);
+  const emailValid = emailRules.every((rule) => rule(email.value) === true)
   const passwordValid = passwordRules.every(
     (rule) => rule(password.value) === true
-  );
+  )
 
   if (!emailValid || !passwordValid) {
-    return false;
+    return false
   }
 
-  return true;
-};
+  return true
+}
 
 const login = async () => {
   if (!validateForm()) {
-    return;
+    return
   }
   try {
-    await authStore.login({ email: email.value, password: password.value });
+    await authStore.login({ email: email.value, password: password.value })
 
     if (authStore.isAuthenticated) {
-
       let userRole = authStore.user.role
-      localStorage.setItem('user_role',userRole);
+      localStorage.setItem('user_role', userRole)
 
-      if(userRole === 1){
-        await router.push({ path: "/dashboard/user" });
-      }else if (userRole === 2) {
-        await router.push({ path: "/dashboard/user" });
+      if (userRole === 1) {
+        await router.push({ path: '/dashboard/user' })
+      } else if (userRole === 2) {
+        await router.push({ path: '/dashboard/user' })
       } else {
-        await router.push({ path: "/dashboard/user" });
+        await router.push({ path: '/dashboard/user' })
       }
     } else {
-      errorText.value = "Email or password is incorrect"; // Set the error message
-      console.log("Email or password is incorrect");
+      errorText.value = 'Email or password is incorrect' // Set the error message
+      console.log('Email or password is incorrect')
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error('An error occurred:', error)
   }
-};
-
+}
 </script>
 
 <style scoped>
@@ -221,7 +214,7 @@ const login = async () => {
 .login-button {
   margin-top: 2rem;
 }
-.error{
+.error {
   color: #f5f5f5;
 }
 </style>

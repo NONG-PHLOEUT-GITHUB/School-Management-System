@@ -17,24 +17,54 @@
 <script setup>
 // import LayoutUserProfile from './LayoutUserProfile.vue';
 
-import { onMounted, computed } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
+import { onMounted, computed } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 const userProperties = computed(() => [
-  { key: "email", label: "Email", icon: "mdi-email", value: authStore.user?.data?.email },
-  { key: "address", label: "Address", icon: "mdi-map-marker", value: authStore.user?.data?.address },
-  { key: "gender", label: "Gender", icon: "mdi-cake-variant", value: authStore.user?.data?.gender },
-  { key: "phone_number", label: "Phone number", icon: "mdi-phone", value: authStore.user?.data?.phone_number },
-  { key: "date_of_birth", label: "Date of birth", icon: "mdi-cake-variant", value: authStore.user?.data?.date_of_birth },
-  { key: "age", label: "Age", icon: "mdi-cake-variant", value: authStore.user?.data?.age },
-]);
+  {
+    key: 'email',
+    label: 'Email',
+    icon: 'mdi-email',
+    value: authStore.user?.data?.email
+  },
+  {
+    key: 'address',
+    label: 'Address',
+    icon: 'mdi-map-marker',
+    value: authStore.user?.data?.address
+  },
+  {
+    key: 'gender',
+    label: 'Gender',
+    icon: 'mdi-cake-variant',
+    value: authStore.user?.data?.gender
+  },
+  {
+    key: 'phone_number',
+    label: 'Phone number',
+    icon: 'mdi-phone',
+    value: authStore.user?.data?.phone_number
+  },
+  {
+    key: 'date_of_birth',
+    label: 'Date of birth',
+    icon: 'mdi-cake-variant',
+    value: authStore.user?.data?.date_of_birth
+  },
+  {
+    key: 'age',
+    label: 'Age',
+    icon: 'mdi-cake-variant',
+    value: authStore.user?.data?.age
+  }
+])
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
   } catch (error) {
-    console.error("Error fetching user:", error);
+    console.error('Error fetching user:', error)
   }
-});
+})
 </script>

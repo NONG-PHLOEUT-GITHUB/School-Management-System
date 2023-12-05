@@ -20,7 +20,7 @@
         <div
           class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          {{ $t("changePassword.current") }}
+          {{ $t('changePassword.current') }}
         </div>
         <v-text-field
           :append-inner-icon="
@@ -40,7 +40,7 @@
         <div
           class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          {{ $t("resetPassword.newPassword") }}
+          {{ $t('resetPassword.newPassword') }}
         </div>
         <v-text-field
           :append-inner-icon="isNewPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -59,7 +59,7 @@
         <div
           class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          {{ $t("resetPassword.confirmPassword") }}
+          {{ $t('resetPassword.confirmPassword') }}
         </div>
         <v-text-field
           :append-inner-icon="
@@ -87,97 +87,97 @@
         </v-card>
       </div>
       <v-btn type="submit" color="teal darken-4" block class="mt-5">{{
-        $t("btn.chagePassword")
+        $t('btn.chagePassword')
       }}</v-btn>
     </v-form>
   </v-card>
 </template>
 <script setup>
-import { ref, getCurrentInstance, watch } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
-const authStore = useAuthStore();
+import { ref, getCurrentInstance, watch } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+const authStore = useAuthStore()
 
-const currentPassword = ref("123456789");
-const newPassword = ref("123456789");
-const newPasswordConfirmation = ref("123456789");
+const currentPassword = ref('123456789')
+const newPassword = ref('123456789')
+const newPasswordConfirmation = ref('123456789')
 
-const isCurrentPasswordVisible = ref(false);
-const isNewPasswordVisible = ref(false);
-const newPasswordConfirmationVisible = ref(false);
-const errorText = ref("");
+const isCurrentPasswordVisible = ref(false)
+const isNewPasswordVisible = ref(false)
+const newPasswordConfirmationVisible = ref(false)
+const errorText = ref('')
 
 const toggleVisibleCurrent = () => {
-  isCurrentPasswordVisible.value = !isCurrentPasswordVisible.value;
-};
+  isCurrentPasswordVisible.value = !isCurrentPasswordVisible.value
+}
 const toggleVisibleNew = () => {
-  isNewPasswordVisible.value = !isNewPasswordVisible.value;
-};
+  isNewPasswordVisible.value = !isNewPasswordVisible.value
+}
 const toggleVisibleCon = () => {
-  newPasswordConfirmationVisible.value = !newPasswordConfirmationVisible.value;
-};
+  newPasswordConfirmationVisible.value = !newPasswordConfirmationVisible.value
+}
 
 const currentPasswordRole = [
-  (v) => !!v || "Current password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8  characters or more!",
-];
+  (v) => !!v || 'Current password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8  characters or more!'
+]
 const confirmPasswordRules = [
-  (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
-];
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!'
+]
 const newPasswordRules = [
-  (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be 8 characters or more!",
-];
+  (v) => !!v || 'Password is required',
+  (v) => (v && v.length >= 8) || 'Password must be 8 characters or more!'
+]
 
 const validateForm = () => {
   const newPasswordValid = confirmPasswordRules.every(
     (rule) => rule(newPassword.value) === true
-  );
+  )
   const confirmPasswordValid = confirmPasswordRules.every(
     (rule) => rule(newPasswordConfirmation.value) === true
-  );
+  )
 
   const currentPasswordValid = currentPasswordRole.every(
     (rule) => rule(currentPassword.value) === true
-  );
+  )
 
   if (!newPasswordValid || !confirmPasswordValid || !currentPasswordValid) {
-    return false;
+    return false
   }
 
-  return true;
-};
+  return true
+}
 
 watch([newPassword, newPasswordConfirmation], ([newVal, confirmVal]) => {
   if (newVal !== confirmVal) {
-    errorText.value = "Passwords do not match";
+    errorText.value = 'Passwords do not match'
   } else {
-    errorText.value = "";
+    errorText.value = ''
   }
-});
+})
 
 const onChangeNewPassword = async () => {
   if (!validateForm()) {
-    return;
+    return
   }
   try {
     await authStore.userChangePassword(
       currentPassword.value, // put it in order
       newPassword.value
-    );
+    )
     if (authStore.isChanged) {
-      emit("passwordChanged");
-      console.log("change new password");
+      emit('passwordChanged')
+      console.log('change new password')
     }
   } catch {
-    console.log("error");
+    console.log('error')
   }
-};
+}
 
-const { emit } = getCurrentInstance();
+const { emit } = getCurrentInstance()
 const cancelDialog = () => {
-  emit("cancel");
-};
+  emit('cancel')
+}
 </script>
 
 <style scoped>
@@ -185,7 +185,7 @@ const cancelDialog = () => {
   display: flex;
   justify-content: space-between;
 }
-.error{
-  color:white;
+.error {
+  color: white;
 }
 </style>

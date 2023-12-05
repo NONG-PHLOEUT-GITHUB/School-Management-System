@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "clean": "rd /s /q node_modules && del package-lock.json"
+    "clean": "rd /s /q node_modules && del package-lock.json",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue}'",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,vue}'"
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
@@ -30,7 +32,9 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vue": "^8.7.1",
+    "prettier": "3.1.0",
+    "prettier-plugin-vue": "^1.1.6",
     "sass-loader": "^13.3.2",
     "vue-cli-plugin-vuetify": "~2.5.8"
   },
