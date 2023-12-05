@@ -1,4 +1,3 @@
 <template>
-
-    <h1>under manternance</h1>
+  <h1>under manternance</h1>
 </template>

@@ -67,32 +67,32 @@
 </template>
 
 <script setup>
-import { ref,onMounted } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
-import { useClassroomStore } from "@/stores/classroom.js";
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+import { useClassroomStore } from '@/stores/classroom.js'
 
-const items = [{ title: "Edit" }, { title: "Delete" }];
-const authStore = useAuthStore();
-const classroomStore = useClassroomStore();
+const items = [{ title: 'Edit' }, { title: 'Delete' }]
+const authStore = useAuthStore()
+const classroomStore = useClassroomStore()
 const classTeacher = ref([])
 
-const deleteClassroom = (async (ID) => {
-    try {
+const deleteClassroom = async (ID) => {
+  try {
     await classroomStore.deleteClassroomByID(ID)
-    await authStore.fetchUser();
+    await authStore.fetchUser()
   } catch (error) {
-    console.error("Error deleting classroom:", error);
+    console.error('Error deleting classroom:', error)
   }
-})
+}
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
-    classTeacher.value = authStore.user.data.class_teacher;
+    await authStore.fetchUser()
+    classTeacher.value = authStore.user.data.class_teacher
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>
 
 <style scoped>

@@ -1,18 +1,18 @@
-import { defineStore } from 'pinia';
-import { createUser } from "@/api/crudUser.js"; // Import your service
+import { defineStore } from 'pinia'
+import { createUser } from '@/api/crudUser.js' // Import your service
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    users: [],
+    users: []
   }),
   actions: {
     async createUser() {
-        try {
-          const response = await createUser();
-          this.users.push(response.data); 
-        } catch (error) {
-          console.error("Error fetching total class:", error);
-        }
-      },
-  },
-});
+      try {
+        const response = await createUser()
+        this.users.push(response.data)
+      } catch (error) {
+        console.error('Error fetching total class:', error)
+      }
+    }
+  }
+})

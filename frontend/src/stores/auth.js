@@ -1,15 +1,15 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
 import {
   userLogin,
   fetchUserLoged,
   forgotPassword,
   resetNewPassword,
-  changeNewPassword,
-} from "@/api/auth.js";
+  changeNewPassword
+} from '@/api/auth.js'
 
-import { useLoadingStore } from "./loading";
-export const useAuthStore = defineStore("auth", {
+import { useLoadingStore } from './loading'
+export const useAuthStore = defineStore('auth', {
   state: () => ({
     authUser: null,
     isAuthenticated: false,
@@ -17,112 +17,109 @@ export const useAuthStore = defineStore("auth", {
     isResetPassword: false,
     isReset: false,
     isChanged: false,
-    isLogout:false
+    isLogout: false
   }),
   getters: {
     user: (state) => state.authUser,
-    role: (state) => state.userRole,
+    role: (state) => state.userRole
   },
   actions: {
     async login({ email, password }) {
       try {
-        const response = await userLogin(email, password);
+        const response = await userLogin(email, password)
         if (
           response.status === 200 &&
           response.data &&
           response.data.access_token
         ) {
-          this.authUser = response.data.user;
-          localStorage.setItem("access_token", response.data.access_token);
-          const userRole = response.data.user.role;
-          console.log('user id in stat',userRole);
-          const loadingStore = useLoadingStore();
-          loadingStore.setLoading(true);
-          this.isAuthenticated = true;
+          this.authUser = response.data.user
+          localStorage.setItem('access_token', response.data.access_token)
+          const userRole = response.data.user.role
+          console.log('user id in stat', userRole)
+          const loadingStore = useLoadingStore()
+          loadingStore.setLoading(true)
+          this.isAuthenticated = true
         } else {
-          this.isAuthenticated = false;
+          this.isAuthenticated = false
         }
       } catch (error) {
-        this.isAuthenticated = false;
+        this.isAuthenticated = false
       }
     },
     async fetchUser() {
-      const loadingStore = useLoadingStore();
-      loadingStore.setLoading(true);
+      const loadingStore = useLoadingStore()
+      loadingStore.setLoading(true)
       try {
-        const data = await fetchUserLoged();
-        this.authUser = data.data;
-        console.log('user login',this.authUser);
+        const data = await fetchUserLoged()
+        this.authUser = data.data
+        console.log('user login', this.authUser)
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.error('Error fetching user:', error)
       } finally {
-        loadingStore.setLoading(false);
+        loadingStore.setLoading(false)
       }
     },
     logout() {
-      const loadingStore = useLoadingStore();
-      loadingStore.setLoading(true);
-      this.isLogout = true;
+      const loadingStore = useLoadingStore()
+      loadingStore.setLoading(true)
+      this.isLogout = true
       // localStorage.removeItem("access_token");
       // localStorage.removeItem("user_role");
-      this.isAuthenticated = false;
-      loadingStore.setLoading(false);
+      this.isAuthenticated = false
+      loadingStore.setLoading(false)
     },
     async forgotPassword(email) {
-      const loadingStore = useLoadingStore();
-      loadingStore.setLoading(true);
+      const loadingStore = useLoadingStore()
+      loadingStore.setLoading(true)
       try {
-        const response = await forgotPassword(email);
-        if (response.data.status === "success") {
-          this.isResetPassword = true;
+        const response = await forgotPassword(email)
+        if (response.data.status === 'success') {
+          this.isResetPassword = true
         } else {
-          this.isResetPassword = false;
+          this.isResetPassword = false
         }
       } catch (error) {
-        console.error("Error reset passw:", error);
+        console.error('Error reset passw:', error)
       } finally {
-        loadingStore.setLoading(false);
+        loadingStore.setLoading(false)
       }
     },
     async userResetNewPassword(token, password, password_confirmation) {
-      const loadingStore = useLoadingStore();
-      loadingStore.setLoading(true);
+      const loadingStore = useLoadingStore()
+      loadingStore.setLoading(true)
       try {
         const response = await resetNewPassword(
           token,
           password,
           password_confirmation
-        );
-        if (response.data.status === "success") {
-          this.authUser = response.data.user;
-          this.isReset = true;
-          localStorage.setItem("access_token", response.data.access_token);
+        )
+        if (response.data.status === 'success') {
+          this.authUser = response.data.user
+          this.isReset = true
+          localStorage.setItem('access_token', response.data.access_token)
         } else {
-          this.isReset = false;
+          this.isReset = false
         }
       } catch (error) {
-        console.error("Error reset passw:", error);
+        console.error('Error reset passw:', error)
       } finally {
-        loadingStore.setLoading(false);
+        loadingStore.setLoading(false)
       }
     },
 
     async userChangePassword(current_password, new_password) {
-      const loadingStore = useLoadingStore();
-      loadingStore.setLoading(true);
+      const loadingStore = useLoadingStore()
+      loadingStore.setLoading(true)
       try {
-        const response = await changeNewPassword(
-          current_password,
-          new_password
-        );
+        const response = await changeNewPassword(current_password, new_password)
         if (response.status === 200) {
-          this.isChanged = true;
+          this.isChanged = true
         }
       } catch (error) {
-        console.error("Error reset passw:", error);
+        console.error('Error reset passw:', error)
       } finally {
-        loadingStore.setLoading(false);
+        loadingStore.setLoading(false)
       }
-    },
-  },
-});
+    }
+  }
+})

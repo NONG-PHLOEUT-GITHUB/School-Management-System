@@ -73,7 +73,7 @@
                 variant="outlined"
                 color="primary"
                 :to="{ name: 'profile-user' }"
-                >{{ $t("common.viewProfile") }}</v-btn
+                >{{ $t('common.viewProfile') }}</v-btn
               >
             </v-col>
             <v-divider></v-divider>
@@ -104,23 +104,23 @@
 </template>
 
 <script>
-import Language from "../common/SwitcherLanguage.vue";
+import Language from '../common/SwitcherLanguage.vue'
 // import LogoutConfirmation from "../global/LogoutConfirmation.vue";
-import Notification from "@/components/common/InBoxNotification.vue";
-import ChangePasswordDailog from "@/views/auth/ChangePassword.vue";
-import { useAuthStore } from "@/stores/auth.js";
+import Notification from '@/components/common/InBoxNotification.vue'
+import ChangePasswordDailog from '@/views/auth/ChangePassword.vue'
+import { useAuthStore } from '@/stores/auth.js'
 
 export default {
-  emits: ["toggle"],
-  name: "AppBar",
+  emits: ['toggle'],
+  name: 'AppBar',
   props: {
-    width: { type: [Number, String] },
+    width: { type: [Number, String] }
   },
   components: {
     Language,
     // LogoutConfirmation,
     Notification,
-    ChangePasswordDailog,
+    ChangePasswordDailog
   },
   data() {
     return {
@@ -129,72 +129,72 @@ export default {
       dialogVisible: false,
       menus: [
         {
-          title: this.$t("header.menuChangePass"),
-          action: "changePassword",
-          icon: "mdi-lock-reset",
+          title: this.$t('header.menuChangePass'),
+          action: 'changePassword',
+          icon: 'mdi-lock-reset'
         },
         {
-          title: this.$t("header.menuLogout"),
-          icon: "mdi-logout",
-          action: "logout",
-        },
-      ],
-    };
+          title: this.$t('header.menuLogout'),
+          icon: 'mdi-logout',
+          action: 'logout'
+        }
+      ]
+    }
   },
   watch: {
     width(newVal) {
-      const resizedWidth = newVal.slice(0, -2);
-      const ele = this.$refs.appBar.$el;
-      ele.style.left = resizedWidth + "px";
-      ele.style.transition = "0s";
-      ele.style.userSelect = "none";
-    },
+      const resizedWidth = newVal.slice(0, -2)
+      const ele = this.$refs.appBar.$el
+      ele.style.left = resizedWidth + 'px'
+      ele.style.transition = '0s'
+      ele.style.userSelect = 'none'
+    }
   },
   methods: {
     togglerDrawer() {
-      this.$emit("toggle");
+      this.$emit('toggle')
     },
     toggleTooltip() {
-      this.tooltipVisible = !this.tooltipVisible;
+      this.tooltipVisible = !this.tooltipVisible
     },
     // async chnagePassword (){
     //   console.log(this.dialogVisible);
     //   this.dialogVisible = true
     // },
-    
+
     async logoutUser() {
-      const authStore = useAuthStore();
-      await authStore.logout();
-      console.log('isLogout status after logout:', authStore.isLogout);
+      const authStore = useAuthStore()
+      await authStore.logout()
+      console.log('isLogout status after logout:', authStore.isLogout)
     },
     onMenuClick(action) {
       switch (action) {
-        case "logout":
-          this.logoutUser();
-          break;
-        case "changePassword":
-          this.dialogVisible = true;
-          break;
+        case 'logout':
+          this.logoutUser()
+          break
+        case 'changePassword':
+          this.dialogVisible = true
+          break
         default:
-          break;
+          break
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted } from 'vue'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 </script>
 
 <style scoped>

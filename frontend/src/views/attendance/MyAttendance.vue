@@ -96,36 +96,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
-const desserts = ref([]);
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+const desserts = ref([])
 const toggleFilter = ref(false)
 const headers = [
-  { title: "Date time", align: "center", key: "date" },
-  { title: "Suject of attend", align: "center", key: "reason" },
-  { title: "Status", align: "center", key: "status" },
-  { title: "Teacher", align: "center", key: "id" },
-];
-const authStore = useAuthStore();
+  { title: 'Date time', align: 'center', key: 'date' },
+  { title: 'Suject of attend', align: 'center', key: 'reason' },
+  { title: 'Status', align: 'center', key: 'status' },
+  { title: 'Teacher', align: 'center', key: 'id' }
+]
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
     authStore.user.data.attendances.forEach((attendance) => {
       desserts.value.push({
         date: attendance.date,
         reason: attendance.reason,
         status: attendance.status,
-        id: attendance.id,
-      });
-    });
+        id: attendance.id
+      })
+    })
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
-const updateToggle = (async () => {
-    toggleFilter.value = !toggleFilter.value;
 })
+const updateToggle = async () => {
+  toggleFilter.value = !toggleFilter.value
+}
 </script>
 <style>
 .v-data-table-footer {

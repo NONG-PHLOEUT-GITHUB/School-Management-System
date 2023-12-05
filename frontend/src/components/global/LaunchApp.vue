@@ -21,20 +21,20 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { useLoadingStore } from '@/stores/loading'; // Update the path accordingly
+import { ref, watch } from 'vue'
+import { useLoadingStore } from '@/stores/loading' // Update the path accordingly
 
-const loadingStore = useLoadingStore();
+const loadingStore = useLoadingStore()
 
-const isLoading = ref();
-const forceStopLoading = ref();
-const message = ref();
+const isLoading = ref()
+const forceStopLoading = ref()
+const message = ref()
 
 watch(() => {
-  isLoading.value = loadingStore.isLoading;
-  forceStopLoading.value = loadingStore.forceStopLoading;
-  message.value = loadingStore.message;
-});
+  isLoading.value = loadingStore.isLoading
+  forceStopLoading.value = loadingStore.forceStopLoading
+  message.value = loadingStore.message
+})
 </script>
 
 <style scoped>
@@ -47,4 +47,4 @@ watch(() => {
   top: 0;
   left: 0;
 }
-</style> 
+</style>

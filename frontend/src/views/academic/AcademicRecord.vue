@@ -23,106 +23,106 @@ export default {
     return {
       selected: [],
       headers: [
-        { title: "Suject of score", align: "center", key: "suject" },
-        { title: "Score", align: "center", key: "dateTime" },
-        { title: "Average", align: "center", key: "Teacher" },
-        { title: "Status", align: "center", key: "status" },
+        { title: 'Suject of score', align: 'center', key: 'suject' },
+        { title: 'Score', align: 'center', key: 'dateTime' },
+        { title: 'Average', align: 'center', key: 'Teacher' },
+        { title: 'Status', align: 'center', key: 'status' }
       ],
       desserts: [
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 'Pass',
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "English",
+          dateTime: '76',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 'Pass',
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "English",
+          dateTime: '76',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 'Pass',
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "English",
+          dateTime: '76',
+          suject: 'English',
           status: 6.0,
-          Teacher: 30.2,
+          Teacher: 30.2
         },
         {
-          dateTime: "36",
-          suject: "Khmer",
+          dateTime: '36',
+          suject: 'Khmer',
           status: 'Pass',
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "Khmer",
+          dateTime: '76',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "76",
-          suject: "English",
+          dateTime: '76',
+          suject: 'English',
           status: 6.0,
-          Teacher: 5,
+          Teacher: 5
         },
         {
-          dateTime: "56",
-          suject: "Khmer",
+          dateTime: '56',
+          suject: 'Khmer',
           status: 'Pass',
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "56",
-          suject: "Khmer",
+          dateTime: '56',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 40.04,
+          Teacher: 40.04
         },
         {
-          dateTime: "56",
-          suject: "Math",
+          dateTime: '56',
+          suject: 'Math',
           status: 6.0,
-          Teacher: 5,
-        },
-      ],
-    };
-  },
-};
+          Teacher: 5
+        }
+      ]
+    }
+  }
+}
 </script>
 <style>
 .v-data-table-footer {

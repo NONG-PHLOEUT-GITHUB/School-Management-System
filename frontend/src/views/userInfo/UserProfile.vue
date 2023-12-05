@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import ProfileUser from "@/components/user/LayoutUserProfile.vue";
+import ProfileUser from '@/components/user/LayoutUserProfile.vue'
 export default {
-  name: "UserProfile",
+  name: 'UserProfile',
 
   components: {
-    ProfileUser,
-  },
-};
+    ProfileUser
+  }
+}
 </script>

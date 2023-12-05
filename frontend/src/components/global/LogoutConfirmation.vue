@@ -20,43 +20,43 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth.js";
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
 // const authStore = useAuthStore();
-const router = useRouter();
-const toastList = ref([]);
-const isCancelled = ref(false);
+const router = useRouter()
+const toastList = ref([])
+const isCancelled = ref(false)
 const removeToast = (toast) => {
-  toast.hide = true;
-  if (toast.timeoutId) clearTimeout(toast.timeoutId);
+  toast.hide = true
+  if (toast.timeoutId) clearTimeout(toast.timeoutId)
   setTimeout(() => {
-    const index = toastList.value.indexOf(toast);
-    if (index !== -1) toastList.value.splice(index, 1);
-  }, 500);
-};
+    const index = toastList.value.indexOf(toast)
+    if (index !== -1) toastList.value.splice(index, 1)
+  }, 500)
+}
 
 const createToast = () => {
   const toast = {
     id: Date.now(),
-    hide: false,
-  };
-  toastList.value.push(toast);
-};
+    hide: false
+  }
+  toastList.value.push(toast)
+}
 
 const confirmAction = (toast) => {
-  console.log("You have been logged out");
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("user_role");
-  removeToast(toast);
-  router.push({ name: "login" });
-};
+  console.log('You have been logged out')
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('user_role')
+  removeToast(toast)
+  router.push({ name: 'login' })
+}
 
 const cancelAction = (toast) => {
-  console.log("cancel action", toast.hide);
-  isCancelled.value = true;
-  removeToast(toast);
-};
+  console.log('cancel action', toast.hide)
+  isCancelled.value = true
+  removeToast(toast)
+}
 
 // const toastDetails = {
 //   success: {
@@ -69,14 +69,10 @@ watch(
   () => useAuthStore().isLogout,
   (newIsLogout) => {
     if (newIsLogout) {
-      createToast();
+      createToast()
     }
-    console.log(
-      "isLogout status after logout in logout confirmation:",
-      useAuthStore().isLogout
-    );
-  },
-);
+  }
+)
 </script>
 
 <style scoped>

@@ -23,112 +23,112 @@ export default {
     return {
       selected: [],
       headers: [
-        { title: "Date time", align: "center", key: "dateTime" },
-        { title: "Suject of attend", align: "center", key: "suject" },
-        { title: "Status", align: "center", key: "status" },
-        { title: "Teacher", align: "center", key: "Teacher" },
+        { title: 'Date time', align: 'center', key: 'dateTime' },
+        { title: 'Suject of attend', align: 'center', key: 'suject' },
+        { title: 'Status', align: 'center', key: 'status' },
+        { title: 'Teacher', align: 'center', key: 'Teacher' }
       ],
       desserts: [
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.0,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "English",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.0,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "English",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.0,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "English",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.0,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "English",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
+          Teacher: 7
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.0,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "Khmer",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'Khmer',
           status: 4.3,
-          Teacher: 1,
+          Teacher: 1
         },
         {
-          dateTime: "Sun 10 Apr 2023,10:00",
-          suject: "English",
+          dateTime: 'Sun 10 Apr 2023,10:00',
+          suject: 'English',
           status: 6.0,
-          Teacher: 7,
-        },
-      ],
-    };
-  },
-};
+          Teacher: 7
+        }
+      ]
+    }
+  }
+}
 </script>
 <style>
-.v-data-table-footer{
-    background: #ebe6e6;
+.v-data-table-footer {
+  background: #ebe6e6;
 }
-thead{
-    background: #ebe6e6;
+thead {
+  background: #ebe6e6;
 }
 </style>

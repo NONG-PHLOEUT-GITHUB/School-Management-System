@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import Sidebar from "./Sidebar.vue";
-import AppBar from "../header/AppBar.vue";
+import Sidebar from './Sidebar.vue'
+import AppBar from '../header/AppBar.vue'
 export default {
- name: "layout-component",
-  components: {Sidebar ,AppBar},
+  name: 'layout-component',
+  components: { Sidebar, AppBar },
   data() {
     return {
       drawer: true,
-      appBarWidth: '100%',
-    };
+      appBarWidth: '100%'
+    }
   },
   methods: {
     toggleNav() {
@@ -34,13 +34,13 @@ export default {
       this.appBarWidth = width
       this.$vuetify.application.left = width.slice(0, -2)
       this.$refs.vMain.$el.style.userSelect = 'none'
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
-::v-main{
+::v-main {
   background: #a74242;
 }
 </style>

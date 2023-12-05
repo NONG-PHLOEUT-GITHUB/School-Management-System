@@ -56,33 +56,33 @@
 </template>
 
 <script setup>
-import { useClassroomStore } from "@/stores/classroom.js";
-import { ref, onMounted } from "vue";
-const selectedTeacher = ref(null);
+import { useClassroomStore } from '@/stores/classroom.js'
+import { ref, onMounted } from 'vue'
+const selectedTeacher = ref(null)
 // const selectedCoordinator = ref(null);
 
-const classroomStore = useClassroomStore();
+const classroomStore = useClassroomStore()
 onMounted(async () => {
   try {
-    classroomStore.fetchClassCoordinators();
+    classroomStore.fetchClassCoordinators()
   } catch {
-    console.log("error fetching classes");
+    console.log('error fetching classes')
   }
-});
+})
 
 const getTeacherOptions = () => {
   if (classroomStore.classCoordinator && classroomStore.classCoordinator.data) {
     return classroomStore.classCoordinator.data.map((teacher) => ({
       displayName: `${teacher.first_name} ${teacher.last_name}`,
-      value: teacher.id,
-    }));
+      value: teacher.id
+    }))
   } else {
-    return [];
+    return []
   }
-};
+}
 
 const submitForm = () => {
   // You can now use the selectedTeacher.value in your form submission logic
-  console.log("Selected Teacher ID:", selectedTeacher.value.value);
-};
+  console.log('Selected Teacher ID:', selectedTeacher.value.value)
+}
 </script>

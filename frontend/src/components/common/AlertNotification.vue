@@ -1,22 +1,26 @@
 <template>
-    <div>
-      <ul class="notifications">
-        <li v-for="toast in toastList" :key="toast.id" :class="['toast', toast.type, { hide: toast.hide }]">
-          <div class="column">
-            <v-icon color="white" :class="toast.icon">mdi-check-circle</v-icon>
-            <span>{{ toast.text }}</span>
-          </div>
-          <i class="fa-solid fa-xmark" @click="removeToast(toast)"></i>
-          <v-icon color="red">mdi-close</v-icon>
-        </li>
-      </ul>
-        <div class="buttons">
-        <button class="btn" @click="createToast('success')">Success</button>
-      </div>
+  <div>
+    <ul class="notifications">
+      <li
+        v-for="toast in toastList"
+        :key="toast.id"
+        :class="['toast', toast.type, { hide: toast.hide }]"
+      >
+        <div class="column">
+          <v-icon color="white" :class="toast.icon">mdi-check-circle</v-icon>
+          <span>{{ toast.text }}</span>
+        </div>
+        <i class="fa-solid fa-xmark" @click="removeToast(toast)"></i>
+        <v-icon color="red">mdi-close</v-icon>
+      </li>
+    </ul>
+    <div class="buttons">
+      <button class="btn" @click="createToast('success')">Success</button>
     </div>
-  </template>
-  
-  <script>
+  </div>
+</template>
+
+<script>
   export default {
     props: {
       value: {
@@ -24,60 +28,46 @@
         required: true,
       },
     },
-    data() {
+    createToast(type) {
+      const { icon, text } = this.toastDetails[type]
+      const toast = {
+        id: Date.now(),
+        type,
+        icon,
+        text,
+        hide: false
+      }
+      this.toastList.push(toast)
+      toast.timeoutId = setTimeout(
+        () => this.removeToast(toast),
+        this.toastDetails.timer
+      )
+    }
+  },
+  watch: {
+    value(newVal) {
+      this.toastList = newVal.slice()
+    }
+  },
+  created() {
+    this.toastList = this.value.slice()
+  },
+  computed: {
+    toastDetails() {
       return {
-        toastList: [],
-      };
-    },
-    methods: {
-      removeToast(toast) {
-        toast.hide = true;
-        if (toast.timeoutId) clearTimeout(toast.timeoutId);
-        setTimeout(() => {
-          const index = this.toastList.indexOf(toast);
-          if (index !== -1) this.toastList.splice(index, 1);
-        }, 500);
-      },
-      createToast(type) {
-        const { icon, text } = this.toastDetails[type];
-        const toast = {
-          id: Date.now(),
-          type,
-          icon,
-          text,
-          hide: false,
-        };
-        this.toastList.push(toast);
-        toast.timeoutId = setTimeout(() => this.removeToast(toast), this.toastDetails.timer);
-      },
-    },
-    watch: {
-      value(newVal) {
-        this.toastList = newVal.slice();
-      },
-    },
-    created() {
-      this.toastList = this.value.slice();
-    },
-    computed: {
-      toastDetails() {
-        return {
-          timer: 1000,
-          success: {
-            type: 'success',
-            icon: 'fa-circle-check',
-            text: 'Success: Login successfull.',
-          },
-        };
-      },
-    },
-  };
-  </script>
-  
-  
+        timer: 1000,
+        success: {
+          type: 'success',
+          icon: 'fa-circle-check',
+          text: 'Success: Login successfull.'
+        }
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
-
-
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 * {
@@ -88,13 +78,13 @@
   /* background: red; */
 }
 :root {
-  --dark: #34495E;
+  --dark: #34495e;
   --light: #ffffff;
   /* --success: #0ABF30; */
   --success: white;
-  --error: #E24D4C;
-  --warning: #E9BD0C;
-  --info: #3498DB;
+  --error: #e24d4c;
+  --warning: #e9bd0c;
+  --info: #3498db;
 }
 .notifications {
   position: absolute;
@@ -116,7 +106,7 @@
   padding: 16px 17px;
   margin-bottom: 10px;
   background: var(--light);
-  background:#25a625;
+  background: #25a625;
   justify-content: space-between;
   animation: show_toast 0.3s ease forwards;
 }
@@ -153,7 +143,7 @@
 }
 .toast::before {
   position: absolute;
-  content: "";
+  content: '';
   height: 3px;
   width: 100%;
   bottom: 0px;
@@ -165,16 +155,20 @@
     width: 0%;
   }
 }
-.toast.success::before, .btn#success {
+.toast.success::before,
+.btn#success {
   background: var(--success);
 }
-.toast.error::before, .btn#error {
+.toast.error::before,
+.btn#error {
   background: var(--error);
 }
-.toast.warning::before, .btn#warning {
+.toast.warning::before,
+.btn#warning {
   background: var(--warning);
 }
-.toast.info::before, .btn#info {
+.toast.info::before,
+.btn#info {
   background: var(--info);
 }
 .toast .column i {
@@ -215,7 +209,7 @@
 }
 
 /*  */
-span{
+span {
   color: white;
 }
 </style>

@@ -7,21 +7,21 @@
       <div class="login-content">
         <h1 class="logo">SCHOOL MANAGEMENT</h1>
         <v-img
-        class="login-image"
-        src="../../../public/assets/images/Forgotpassword.png"
-        aspect-ratio="1"
-        cover
+          class="login-image"
+          src="../../../public/assets/images/Forgotpassword.png"
+          aspect-ratio="1"
+          cover
         ></v-img>
       </div>
       <v-card class="login-card">
         <v-form ref="form" @submit.prevent="userForgotPassword">
-          <h1 class="login-title">{{$t("login.form.forgot-pass")}}</h1>
-          <span>{{$t("forgot-pass.message-forgot-pass")}}</span>
+          <h1 class="login-title">{{ $t('login.form.forgot-pass') }}</h1>
+          <span>{{ $t('forgot-pass.message-forgot-pass') }}</span>
           <div class="input-group">
             <div
               class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
             >
-              {{ $t("login.form.email") }}
+              {{ $t('login.form.email') }}
             </div>
             <v-text-field
               ref="emailField"
@@ -36,11 +36,17 @@
             ></v-text-field>
             <span :rules="emailRules"></span>
           </div>
-          <v-btn type="submit" color="teal darken-4" block class="login-button"
-            >{{ $t("btn.resetPassword") }}</v-btn
+          <v-btn
+            type="submit"
+            color="teal darken-4"
+            block
+            class="login-button"
+            >{{ $t('btn.resetPassword') }}</v-btn
           >
           <div class="center-text text-center mt-4">
-            <router-link to="/login">{{$t('forgot-pass.back-login')}}</router-link>
+            <router-link to="/login">{{
+              $t('forgot-pass.back-login')
+            }}</router-link>
           </div>
         </v-form>
       </v-card>
@@ -48,51 +54,50 @@
   </div>
 </template>
 <script setup>
-import SwitcherLanguage from "@/components/common/SwitcherLanguage.vue";
-import { useAuthStore } from "@/stores/auth";
+import SwitcherLanguage from '@/components/common/SwitcherLanguage.vue'
+import { useAuthStore } from '@/stores/auth'
 // import { useRouter } from "vue-router";
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 // const router = useRouter();
 const userReset = useAuthStore()
-const helperText = "We'll send a password reset link to this email address.";
-const email = ref('phloeutnong@gmail.com');
+const helperText = "We'll send a password reset link to this email address."
+const email = ref('phloeutnong@gmail.com')
 const emailRules = [
   (v) => !!v || 'common.passReuire',
-  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-];
+  (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+]
 
 const validateForm = () => {
-  const emailValid = emailRules.every((rule) => rule(email.value) === true);
+  const emailValid = emailRules.every((rule) => rule(email.value) === true)
 
   if (!emailValid) {
-    return false;
+    return false
   }
 
-  return true;
-};
+  return true
+}
 
 const userForgotPassword = async () => {
   if (!validateForm()) {
-    return;
+    return
   }
   try {
-    await userReset.forgotPassword(email.value);
-    if (userReset.isResetPassword) {    
+    await userReset.forgotPassword(email.value)
+    if (userReset.isResetPassword) {
       // await router.push({ path: "reset-new-password" });
       this.$root.$notif(this.$t('alert.success'), {
-          type: 'success',
-          color: 'primary',
-        })
+        type: 'success',
+        color: 'primary'
+      })
     } else {
       // errorText.value = "Email or password is incorrect"; // Set the error message
-      console.log("Email or password is incorrect");
+      console.log('Email or password is incorrect')
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error('An error occurred:', error)
   }
-};
-
+}
 </script>
 <style scoped>
 .login-page {

@@ -21,7 +21,6 @@
   </custom-title>
   <v-card tile elevation="0" v-if="toggleFilter">
     <v-row>
-      
       <v-col cols="12" md="11">
         <v-row color="transparent" class="mt-4">
           <v-col cols="3" :md="3">
@@ -96,43 +95,43 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
 const desserts = ref([
-{
-          score: "76",
-          suject: "Khmer",
-          grade: 'A',
-          status: "Pass",
-        },
-]);
+  {
+    score: '76',
+    suject: 'Khmer',
+    grade: 'A',
+    status: 'Pass'
+  }
+])
 const toggleFilter = ref(false)
 const headers = [
-  { title: "Suject", align: "center", key: "suject" },
-  { title: "Score", align: "center", key: "score" },
-  { title: "Grade", align: "center", key: "grade" },
-  { title: "Status", align: "center", key: "status" },
-];
-const authStore = useAuthStore();
+  { title: 'Suject', align: 'center', key: 'suject' },
+  { title: 'Score', align: 'center', key: 'score' },
+  { title: 'Grade', align: 'center', key: 'grade' },
+  { title: 'Status', align: 'center', key: 'status' }
+]
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
+    await authStore.fetchUser()
     // authStore.user.data.attendances.forEach((attendance) => {
-      // desserts.value.push({
-      //   date: attendance.date,
-      //   reason: attendance.reason,
-      //   status: attendance.status,
-      //   id: attendance.id,
-      // });
+    // desserts.value.push({
+    //   date: attendance.date,
+    //   reason: attendance.reason,
+    //   status: attendance.status,
+    //   id: attendance.id,
+    // });
     // });
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
-const updateToggle = (async () => {
-    toggleFilter.value = !toggleFilter.value;
 })
+const updateToggle = async () => {
+  toggleFilter.value = !toggleFilter.value
+}
 </script>
 <style>
 .v-data-table-footer {

@@ -5,24 +5,24 @@
   <v-container fluid class="px-0">
     <v-row>
       <v-col class="sidebar elevation-2" cols="3">
-        <v-virtual-scroll :items="items" height="655" item-height="10">
+        <v-virtual-scroll :items="items" height="700" item-height="10">
           <template v-slot="{ item }">
             <v-list lines="three" select-strategy="classic" class="comment-box">
-                <v-card
-                  @click="displayFullComment(item.id)"
-                  :class="{ 'active-card': item.id === selectedComment?.id }"
-                  class="mx-auto"
-                  max-width="344"
-                  :title="item.first_name + ' ' + item.last_name"
-                  :subtitle="item.title"
-                  variant="outlined"
-                >
-                  <template v-slot:prepend>
-                    <v-avatar color="blue-darken-2">
-                      <v-img :src="item.prependAvatar" alt="John"></v-img>
-                    </v-avatar>
-                  </template>
-                </v-card>
+              <v-card
+                @click="displayFullComment(item.id)"
+                :class="{ 'active-card': item.id === selectedComment?.id }"
+                class="mx-auto"
+                max-width="344"
+                :title="item.first_name + ' ' + item.last_name"
+                :subtitle="item.title"
+                variant="outlined"
+              >
+                <template v-slot:prepend>
+                  <v-avatar color="blue-darken-2">
+                    <v-img :src="item.prependAvatar" alt="John"></v-img>
+                  </v-avatar>
+                </template>
+              </v-card>
             </v-list>
           </template>
         </v-virtual-scroll>
@@ -68,73 +68,77 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
-let items = ref([]);
-let selectedComment = ref(null);
-
-const authStore = useAuthStore();
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+let items = ref([])
+let selectedComment = ref(null)
+let noComment = ref(false)
+const authStore = useAuthStore()
 onMounted(async () => {
   try {
-    await authStore.fetchUser();
-    items.value = authStore.user.data.comments || [];
-    console.log("comment", items.value);
+    await authStore.fetchUser()
+    items.value = authStore.user.data.comments || []
+    console.log('comment')
+    if (authStore.user.data.comments.length == 0) {
+      noComment = true
+      console.log(noComment)
+    }
   } catch (error) {
-    console.error("Error fetching total students or teachers:", error);
+    console.error('Error fetching total students or teachers:', error)
   }
-});
+})
 
 const displayFullComment = async (id) => {
-  selectedComment.value = items.value.find((comment) => comment.id === id);
-};
+  selectedComment.value = items.value.find((comment) => comment.id === id)
+}
 
 const formatTimestamp = (timestamp) => {
-  const date = new Date(timestamp);
-  const now = new Date();
-  const timeDifference = now - date;
+  const date = new Date(timestamp)
+  const now = new Date()
+  const timeDifference = now - date
 
-  const secondsAgo = Math.floor(timeDifference / 1000);
-  const minutesAgo = Math.floor(timeDifference / (1000 * 60));
-  const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60));
-  const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  const secondsAgo = Math.floor(timeDifference / 1000)
+  const minutesAgo = Math.floor(timeDifference / (1000 * 60))
+  const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60))
+  const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
 
   if (secondsAgo < 60) {
-    return `${formattedDate(date)}, ${formattedTime(date)} (just now)`;
+    return `${formattedDate(date)}, ${formattedTime(date)} (just now)`
   } else if (minutesAgo < 60) {
     return `${formattedDate(date)}, ${formattedTime(
       date
-    )} (${minutesAgo} minutes ago)`;
+    )} (${minutesAgo} minutes ago)`
   } else if (hoursAgo < 24) {
     return `${formattedDate(date)}, ${formattedTime(
       date
-    )} (${hoursAgo} hours ago)`;
+    )} (${hoursAgo} hours ago)`
   } else if (daysAgo < 2) {
-    return `${formattedDate(date)}, ${formattedTime(date)} (1 day ago)`;
+    return `${formattedDate(date)}, ${formattedTime(date)} (1 day ago)`
   } else {
     return `${formattedDate(date)}, ${formattedTime(
       date
-    )} (${daysAgo} days ago)`;
+    )} (${daysAgo} days ago)`
   }
-};
+}
 
 const formattedDate = (date) => {
   const options = {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
-  return date.toLocaleString("en-US", options);
-};
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  }
+  return date.toLocaleString('en-US', options)
+}
 
 const formattedTime = (date) => {
   const options = {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  };
-  return date.toLocaleString("en-US", options);
-};
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  }
+  return date.toLocaleString('en-US', options)
+}
 </script>
 <style scoped>
 .sidebar {
@@ -151,7 +155,7 @@ const formattedTime = (date) => {
 }
 
 .active-card {
-  background-color: #e0f7fa; /* Set your desired active card background color */
+  background-color: #e0f7fa;
 }
 .no-selected {
   display: flex;

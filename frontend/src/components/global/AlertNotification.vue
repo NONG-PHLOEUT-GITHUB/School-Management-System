@@ -18,46 +18,44 @@
 </template>
 
 <script setup>
-import { ref,watch } from "vue";
-import { useAuthStore } from "@/stores/auth.js";
-const toastList = ref([]);
+import { ref, watch } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+const toastList = ref([])
 
 const removeToast = (toast) => {
-  console.log(toast);
-  toast.hide = true;
-  if (toast.timeoutId) clearTimeout(toast.timeoutId);
+  console.log(toast)
+  toast.hide = true
+  if (toast.timeoutId) clearTimeout(toast.timeoutId)
   setTimeout(() => {
-    const index = toastList.value.indexOf(toast);
-    if (index !== -1) toastList.value.splice(index, 1);
-  }, 500);
-};
+    const index = toastList.value.indexOf(toast)
+    if (index !== -1) toastList.value.splice(index, 1)
+  }, 500)
+}
 
 const createToast = () => {
   const toast = {
     id: Date.now(),
-    hide: false,
-  };
-  toastList.value.push(toast);
-  toast.timeoutId = setTimeout(() => removeToast(toast), 500);
-};
+    hide: false
+  }
+  toastList.value.push(toast)
+  toast.timeoutId = setTimeout(() => removeToast(toast), 500)
+}
 
 watch(
   () => useAuthStore().isAuthenticated,
   (newIsLogout) => {
     if (newIsLogout) {
-      createToast();
+      createToast()
     }
     console.log(
-      "isLogout status after logout in logout confirmation:",
+      'isLogout status after logout in logout confirmation:',
       useAuthStore().isAuthenticated
-    );
-  },
-);
+    )
+  }
+)
 </script>
 
 <style scoped>
-
-
 /* Import Google font - Poppins */
 * {
   margin: 0;

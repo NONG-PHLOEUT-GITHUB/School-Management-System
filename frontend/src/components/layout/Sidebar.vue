@@ -5,7 +5,7 @@
     </div>
     <div v-if="isAdmin == true">
       <AdminMenu :menuItems="menuItems"></AdminMenu>
-    </div> 
+    </div>
     <div v-if="isTeacher">
       <TeacherMenu :menuItems="menuItems"></TeacherMenu>
     </div>
@@ -16,52 +16,51 @@
 </template>
 
 <script>
-import AdminMenu from '../menus/AdminMenu.vue';
-import TeacherMenu from '../menus/TeacherMenu.vue';
-import StudentMenu from '../menus/StudentMenu.vue';
+import AdminMenu from '../menus/AdminMenu.vue'
+import TeacherMenu from '../menus/TeacherMenu.vue'
+import StudentMenu from '../menus/StudentMenu.vue'
 
 export default {
-  components:{
+  components: {
     AdminMenu,
     StudentMenu,
     TeacherMenu
   },
   props: {
-    value: Boolean,
+    value: Boolean
   },
 
   data() {
     return {
-      logo: require("@/assets/images/logo.png"),
+      logo: require('@/assets/images/logo.png'),
       isAdmin: false,
       isTeacher: false,
       isStudent: false,
       menuItems: []
-    };
+    }
   },
   methods: {
     drawer() {
-      return this.value;
+      return this.value
     },
     set(val) {
-      this.$emit("input", val);
+      this.$emit('input', val)
     },
     setUserRole(role) {
-      if(role == 1){
-        this.isAdmin = true;
-      }
-      else if(role == 2){
-        this.isTeacher = true;
+      if (role == 1) {
+        this.isAdmin = true
+      } else if (role == 2) {
+        this.isTeacher = true
       } else {
-        this.isStudent = true;
+        this.isStudent = true
       }
-    },
+    }
   },
   mounted() {
-    const userRole = localStorage.getItem("user_role");
-    this.setUserRole(userRole);
-  },
-};
+    const userRole = localStorage.getItem('user_role')
+    this.setUserRole(userRole)
+  }
+}
 </script>
 
 <style>

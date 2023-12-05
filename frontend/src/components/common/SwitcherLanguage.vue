@@ -13,12 +13,12 @@
           <div class="mx-auto">
             <v-btn rounded variant="text" @click="selectLanguage('kh')">
               <img :src="getFlagImage('kh')" alt="Khmer Flag" :width="30" />
-              {{ $t("lang.kh") }}
+              {{ $t('lang.kh') }}
             </v-btn>
-            <br>
+            <br />
             <v-btn rounded variant="text" @click="selectLanguage('en')">
               <img :src="getFlagImage('en')" alt="English Flag" :width="30" />
-              {{ $t("lang.en") }}
+              {{ $t('lang.en') }}
             </v-btn>
           </div>
         </v-card-text>
@@ -28,31 +28,28 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+import { setI18nLanguage } from '../../plugins/i18n'
+import { computed } from 'vue'
 
-import { useI18n } from "vue-i18n";
-import { setI18nLanguage } from "../../plugins/i18n";
-import { computed } from 'vue';
-
-const { locale } = useI18n({ useScope: "global" });
+const { locale } = useI18n({ useScope: 'global' })
 
 const getSelectedFlag = computed(() => {
-  return getFlagImage(locale.value);
-});
-
+  return getFlagImage(locale.value)
+})
 
 const getFlagImage = (language) => {
-  return require(`@/assets/images/${language}.png`);
-};
+  return require(`@/assets/images/${language}.png`)
+}
 
 const selectLanguage = (language) => {
-  setI18nLanguage(language);
-};
+  setI18nLanguage(language)
+}
 </script>
 
 <style scoped>
-img{
+img {
   margin-right: 10px;
   margin-bottom: 10px;
 }
 </style>
-

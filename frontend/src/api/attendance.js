@@ -1,5 +1,5 @@
-import http from "./api";
+import http from './api'
 
 export function fetchUserAttendance() {
-  return http.get("/student/attendances");
+  return http.get('/student/attendances')
 }

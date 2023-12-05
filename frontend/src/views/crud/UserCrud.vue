@@ -56,40 +56,27 @@ export default {
 };
 </script> -->
 
-
-
-
-
 <template>
-    <div>
+  <div>
+    <v-card
+      class="mx-auto pa-12 pb-8"
+      elevation="8"
+      max-width="448"
+      rounded="lg"
+    >
+      <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
-      <v-card
-        class="mx-auto pa-12 pb-8"
-        elevation="8"
-        max-width="448"
-        rounded="lg"
-      >
-        <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-  
-        <v-text-field
-          density="compact"
-          placeholder="Email address"
-          prepend-inner-icon="mdi-email-outline"
-          variant="outlined"
-          v-model="email"
-        ></v-text-field>
-  
-  
-        <v-btn
-          block
-          class="mb-8"
-          color="blue"
-          size="large"
-          variant="tonal"
-        >
-            create
-        </v-btn>
+      <v-text-field
+        density="compact"
+        placeholder="Email address"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+        v-model="email"
+      ></v-text-field>
 
-      </v-card>
-    </div>
-  </template>
+      <v-btn block class="mb-8" color="blue" size="large" variant="tonal">
+        create
+      </v-btn>
+    </v-card>
+  </div>
+</template>

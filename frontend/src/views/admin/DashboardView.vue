@@ -17,21 +17,21 @@
 </template>
 
 <script>
-import CardDashboard from "@/components/dashboard/CardDashboard.vue";
-import ChartJS from "@/components/dashboard/Chart.vue";
-import BarChartJS from "@/components/dashboard/BarChart.vue";
-import PieCharts from "@/components/dashboard/PieCharts.vue";
+import CardDashboard from '@/components/dashboard/CardDashboard.vue'
+import ChartJS from '@/components/dashboard/Chart.vue'
+import BarChartJS from '@/components/dashboard/BarChart.vue'
+import PieCharts from '@/components/dashboard/PieCharts.vue'
 
 export default {
-  name: "AdminDashboard",
+  name: 'AdminDashboard',
 
   components: {
     CardDashboard,
     ChartJS,
     BarChartJS,
     PieCharts
-  },
-};
+  }
+}
 </script>
 
 <style scoped>

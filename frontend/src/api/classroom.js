@@ -1,18 +1,17 @@
-import http from "./api";
+import http from './api'
 
 export function fetchAllClassroom() {
-  return http.get("/classrooms");
+  return http.get('/classrooms')
 }
 
-
 export function fetchClassCoordinator() {
-  return http.get("/class-coordinator");
+  return http.get('/class-coordinator')
 }
 
 export function fetchTotalClass() {
-  return http.get("/classrooms/count");
+  return http.get('/classrooms/count')
 }
 
 export function deleteClassroom(ID) {
-  return http.delete(`/classroom/${ID}`);
+  return http.delete(`/classroom/${ID}`)
 }

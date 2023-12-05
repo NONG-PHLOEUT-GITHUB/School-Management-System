@@ -1,12 +1,12 @@
 <template>
-    <layout-user-detail/>
+  <layout-user-detail />
 </template>
 
 <script>
-import LayoutUserDetail from "@/components/user/LayoutUserDetail.vue"
+import LayoutUserDetail from '@/components/user/LayoutUserDetail.vue'
 export default {
-    components:{
-        LayoutUserDetail
-    }
+  components: {
+    LayoutUserDetail
+  }
 }
 </script>
