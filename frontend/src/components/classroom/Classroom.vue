@@ -4,6 +4,14 @@
     <span class="d-inline-block capitalize-first-letter">Class Management</span>
     <template #right>
       <v-btn
+          class="mr-2"
+          small
+          elevation="0"
+          color="secondary"
+          @click="addClassroom"
+          >add</v-btn
+        >
+      <v-btn
         icon="mdi-filter"
         variant="text"
         class="mr-2 filter-btn"
@@ -140,7 +148,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useClassroomStore } from '@/stores/classroom.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const items = [{ title: 'Edit' }, { title: 'Delete' }]
 const toggleFilter = ref(false)
 const classroomStore = useClassroomStore()
@@ -188,6 +198,10 @@ const clearFilter = async () => {
   searchClassroom.student_count = ''
   await loadDataFromServer()
 };
+
+const addClassroom = async () => {
+ await router.push({ name: 'addClassroom' })
+}
 
 onMounted(async () => {
   await loadDataFromServer()

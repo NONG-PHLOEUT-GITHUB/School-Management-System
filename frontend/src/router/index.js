@@ -86,6 +86,11 @@ const routes = [
         component: () => import('../views/crud/UserCrud.vue')
       },
       {
+        path: '/crud/classroom',
+        name: 'addClassroom',
+        component: () => import('../views/crud/Classroom.vue')
+      },
+      {
         path: '/comment/student',
         name: 'CommentStudent',
         component: () => import('../views/comment/Comment.vue')

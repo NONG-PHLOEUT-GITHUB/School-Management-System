@@ -25,6 +25,7 @@ export const useClassroomStore = defineStore('getClassroom', {
       try {
         const response = await fetchClassCoordinator()
         this.classCoordinator = response.data
+        console.log(this.classCoordinator);
       } catch (error) {
         console.error('Error fetching total class:', error)
       }
