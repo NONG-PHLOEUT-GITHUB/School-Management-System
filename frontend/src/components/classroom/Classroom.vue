@@ -163,7 +163,6 @@ const updateToggle = async () => {
 
 const performSearch = async () => {
   filteredClassrooms.value = classroomStore.classrooms.data.filter((classroom) => {
-    console.log('filler',filteredClassrooms);
     const matchStudentCount = searchClassroom.value.student_count
     ? Number(classroom.student_count) === Number(searchClassroom.value.student_count)
     : true;
@@ -173,19 +172,17 @@ const performSearch = async () => {
   });
 };
 
-// Method to handle the search
 const searchData = () => {
   performSearch();
 };
 
 const loadDataFromServer = async () => {
   await classroomStore.fetchAllClassrooms()
-  console.log(classroomStore.classrooms);
 };
 
 const clearFilter = async () => {
-  searchClassroom.classroom_name = ''
-  searchClassroom.student_count = ''
+  searchClassroom.value.classroom_name = ''
+  searchClassroom.value.student_count = ''
   await loadDataFromServer()
 };
 
