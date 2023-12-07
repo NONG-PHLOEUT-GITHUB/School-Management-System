@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { countAllTeacher } from '@/api/teacher.js' // Import your service
-import { useLoadingStore } from './loading'
+// import { useLoadingStore } from './loading'
 // const loadingStore = useLoadingStore()
 
 export const useTeacherStore = defineStore('totalTeacher', {

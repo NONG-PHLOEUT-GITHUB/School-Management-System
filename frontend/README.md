@@ -28,6 +28,9 @@ VUE_APP_API_URL=http://localhost:8000/api
 - [x] cd .\backend\
 > <code> composer install **or** composer i </code>
 
+### genterate jwt
+php artisan jwt:secret
+
 ### Step 2: Update the Environment Variables
 - [x] copy <code>.env.example </code> file **to** the <code>.env </code> file
 ```

@@ -2,6 +2,16 @@
   <custom-title icon="mdi-table-large">
     <span class="d-inline-block capitalize-first-letter">User Management</span>
     <template #right>
+      <v-btn icon="mdi-plus" variant="text" small></v-btn>
+      <v-btn icon small variant="text" @click="openFileInput">
+        <v-icon>mdi-microsoft-excel</v-icon>
+        <v-file-input
+          ref="fileInput"
+          style="display: none"
+          @change="handleFileChange"
+          variant="outlined"
+        ></v-file-input>
+      </v-btn>
       <v-btn
         icon="mdi-filter"
         variant="text"
@@ -118,35 +128,67 @@ const loadData = async () => {
   await usersStore.fetchAllUsersData()
   usersStore.users.data.forEach((user) => {
     filteredUser.value.push({
-        date: user.date,
-        profile: user.profile,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        role: user.role,
-        id: user.id
-      })
+      date: user.date,
+      profile: user.profile,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      role: user.role,
+      id: user.id
     })
+  })
 }
 
 const performSearch = async () => {
   filteredUser.value = usersStore.users.data.filter((user) => {
-    const matchClassroomName = user.first_name.toLowerCase().includes(searchUser.value.first_name.toLowerCase());
-    return matchClassroomName;
-  });
-};
+    const matchFirstName =
+      user?.first_name
+        ?.toLowerCase()
+        .includes(searchUser.value.first_name.toLowerCase()) || false
+    return matchFirstName
+  })
+}
 
 // Method to handle the search
 const searchData = () => {
-  performSearch();
-};
+  performSearch()
+}
 
 const updateToggle = async () => {
   toggleFilter.value = !toggleFilter.value
 }
 
+const clearFilter = async () => {
+  searchUser.value.email = ''
+  searchUser.value.first_name = ''
+  await loadData()
+}
+
+const fileInputRef = ref(null);
+
+const openFileInput = () => {
+  if (fileInputRef.value) {
+    fileInputRef.value.click();
+  }
+};
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  // Handle the selected file, e.g., read its content or perform other operations
+  console.log('Selected file:', file);
+  // Reset the file input after selection
+  resetFileInput();
+};
+
+const resetFileInput = () => {
+  if (fileInputRef.value) {
+    fileInputRef.value.value = ''; // Reset the input value to allow selecting the same file again
+  }
+};
+
 onMounted(async () => {
   await loadData()
+  await performSearch()
 })
 </script>
 
