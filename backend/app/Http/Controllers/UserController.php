@@ -82,11 +82,11 @@ class UserController extends Controller
     }
 
     public function getClassCoordinator(){
-        $classCoordinator = User::where('role', 2)->select('first_name', 'last_name', 'id')->limit(10)->get();
-        return response()->json(['success' => true, 'data' => $classCoordinator], 200);
-
-        // return $classCoordinator;
-
+        $classCoordinators = User::where('role', 2)->select('first_name', 'last_name', 'id')->get();
+        $classCoordinators->each(function ($coordinator) {
+            $coordinator->full_name = $coordinator->first_name . ' ' . $coordinator->last_name;
+        });
+        return response()->json(['success' => true, 'data' => $classCoordinators], 200);
     }
 
 

@@ -11,6 +11,22 @@ export function fetchClassCoordinator() {
 export function fetchTotalClass() {
   return http.get('/classrooms/count')
 }
+export function createClassroom(classroom_name, description, teacher_id) {
+  const classroom = {
+    classroom_name,
+    description,
+    teacher_id
+  }
+  return http.post('/classroom', classroom)
+}
+
+export function editClassroom(id) {
+  return http.get(`/classroom/edit/${id}`)
+}
+
+export function updateClassroom(id) {
+  return http.put(`/classroom/update/${id}`)
+}
 
 export function deleteClassroom(ID) {
   return http.delete(`/classroom/${ID}`)
