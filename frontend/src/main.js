@@ -8,7 +8,7 @@ import router from './router'
 import CustomTitle from '@/components/global/CustomTitle.vue'
 import SidebarComponent from '@/components/layout/Sidebar.vue'
 import CustomHeader from '@/components/common/CustomHeader.vue'
-import BreadCrumb from '@/components/global/BreadCrumb.vue'
+// import BreadCrumb from '@/components/global/BreadCrumb.vue'
 //store
 import { useAuthStore } from './stores/auth'
 
@@ -19,7 +19,7 @@ const pinia = createPinia()
 app.component('custom-title', CustomTitle)
 app.component('custom-header', CustomHeader)
 app.component('sidebar', SidebarComponent)
-app.component('bread-crumb', BreadCrumb)
+// app.component('bread-crumb', BreadCrumb)
 
 app.use(pinia)
 app.use(i18n())

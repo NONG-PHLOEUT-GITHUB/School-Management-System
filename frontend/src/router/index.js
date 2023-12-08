@@ -26,7 +26,7 @@ const routes = [
         path: '/profile/user',
         name: 'profile-user',
         component: UserProfile,
-        redirect: '/user/about-me',
+        // redirect: '/user/about-me',
         children: [
           {
             path: '/profile/comments/user',

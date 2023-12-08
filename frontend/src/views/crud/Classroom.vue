@@ -1,6 +1,6 @@
 <template>
   <div>
-    <bread-crumb :path-titles="pathTitle" />
+    <bread-crumb :path-titles="pathTitle" /> 
     <custom-title right-icon="mdi-information-outline">
       <v-btn small icon class="white mr-2" @click="goBack" variant="text">
         <v-icon small> mdi-arrow-left </v-icon>
@@ -53,10 +53,14 @@
 </template>
 
 <script setup>
+import BreadCrumb from '@/components/global/BreadCrumb.vue';
 import { useClassroomStore } from '@/stores/classroom.js'
 import { ref, onMounted, computed } from 'vue'
 const selectedTeacher = ref(null)
 const teacherOptions = ref([])
+const pageTitle = ref('Your Page Title'); // Provide an initial value
+const pageSubTitle = ref(''); // Provide an initial value
+
 const classroomStore = useClassroomStore()
 
 const getTeacherOptions = async () => {
@@ -70,9 +74,30 @@ const getTeacherOptions = async () => {
   }
 }
 
+
 const teacherOptionsList = computed(() => {
   return teacherOptions.value.map((item) => item.displayName)
 })
+
+const pathTitle = computed(() => {
+  console.log('page title',pageSubTitle.value);
+  const titles = [
+    {
+      text: pageTitle.value,
+      to: { name: 'ClassManagement' },
+      exact: true,
+    },
+  ];
+
+  if (pageSubTitle.value.trim() !== '') {
+    titles.push({
+      text: pageSubTitle.value,
+    });
+  }
+
+  return titles;
+});
+
 
 const submitForm = () => {
   console.log('Selected Teacher ID:', selectedTeacher.value.value)

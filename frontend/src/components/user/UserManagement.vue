@@ -92,6 +92,7 @@
       </v-col>
     </v-row>
   </v-card>
+
   <v-data-table
     v-model="selected"
     class="elevation-1"
@@ -102,26 +103,40 @@
     return-object
     show-select
   >
+    <template v-slot:item.image="{ item }">
+      <v-avatar>
+        <v-img
+          src="https://cdn.vuetifyjs.com/images/john.jpg"
+          alt="John"
+        ></v-img>
+      </v-avatar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-btn variant="text" small icon="mdi-eye" @click="detail(item.id)"></v-btn>
+      <v-btn variant="text" small icon="mdi-pencil" color="primary"></v-btn>
+      <v-btn variant="text" small icon="mdi-delete" color="red"></v-btn>
+    </template>
   </v-data-table>
 </template>
 <script setup>
 import { useUsersStore } from '@/stores/users'
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const usersStore = useUsersStore()
 const toggleFilter = ref(false)
-// const desserts = ref([])
 const selected = ref([])
 const searchUser = ref({ email: '', first_name: '' })
 let filteredUser = ref([])
 
 const headers = [
-  { title: 'Profile', align: 'center', key: 'profile' },
+  { title: 'Profile', align: 'center', key: 'image' },
   { title: 'First Name', align: 'center', key: 'first_name' },
   { title: 'Last Name', align: 'center', key: 'last_name' },
   { title: 'Email', align: 'center', key: 'email' },
   { title: 'Status', align: 'center', key: 'role' },
-  { title: '', align: 'center', key: 'iron' },
-  { title: '', align: 'center', key: 'Action' }
+  { title: '', key: 'actions', sortable: false }
 ]
 
 const loadData = async () => {
@@ -164,27 +179,32 @@ const clearFilter = async () => {
   await loadData()
 }
 
-const fileInputRef = ref(null);
+const fileInputRef = ref(null)
 
 const openFileInput = () => {
   if (fileInputRef.value) {
-    fileInputRef.value.click();
+    fileInputRef.value.click()
   }
-};
+}
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
+  const file = event.target.files[0]
   // Handle the selected file, e.g., read its content or perform other operations
-  console.log('Selected file:', file);
+  console.log('Selected file:', file)
   // Reset the file input after selection
-  resetFileInput();
-};
+  resetFileInput()
+}
 
 const resetFileInput = () => {
   if (fileInputRef.value) {
-    fileInputRef.value.value = ''; // Reset the input value to allow selecting the same file again
+    fileInputRef.value.value = '' // Reset the input value to allow selecting the same file again
   }
-};
+}
+
+const detail = async (id) => {
+  console.log('user id',id);
+  await router.push({name:'UserDetail'})
+}
 
 onMounted(async () => {
   await loadData()

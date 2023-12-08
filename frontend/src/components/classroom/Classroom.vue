@@ -182,7 +182,7 @@ const performSearch = async () => {
   });
 };
 
-const searchData = () => {
+const searchData = async () => {
   performSearch();
 };
 
@@ -193,7 +193,8 @@ const loadDataFromServer = async () => {
 const clearFilter = async () => {
   searchClassroom.value.classroom_name = ''
   searchClassroom.value.student_count = ''
-  await loadDataFromServer()
+  // await loadDataFromServer()
+  await performSearch();
 };
 
 const addClassroom = async () => {
