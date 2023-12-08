@@ -1,93 +1,91 @@
 <template>
   <div>
-    <bread-crumb :path-titles="pathTitle" />
+    <!-- <bread-crumb :path-titles="pathTitle" /> -->
     <custom-title right-icon="mdi-information-outline">
-      <v-btn small icon class="white mr-2" @click="goBack" variant="text">
+      <!-- <v-btn small icon class="white mr-2" @click="goBack" variant="text">
         <v-icon small> mdi-arrow-left </v-icon>
-      </v-btn>
-      <span class="d-inline-block capitalize-first-letter">{{
+      </v-btn> -->
+      <!-- <span class="d-inline-block capitalize-first-letter">{{
         pageSubTitle
-      }}</span>
+      }}</span> -->
     </custom-title>
-    <v-card>
-      <custom-title icon="mdi-home">
+    <v-card class="pa-4">
+      <custom-title icon="mdi-information-variant-circle-outline">
         <span class="d-inline-block capitalize-first-letter"
           >Classroom infomation</span
         >
       </custom-title>
-
-      <v-card variant="tonal" class="px-5">
-        <v-row class="mt-2">
-          <v-text-field
-            class="me-3"
-            variant="outlined"
-            v-model="classroom_name"
-          ></v-text-field>
-          <v-text-field variant="outlined" v-model="description"></v-text-field>
-        </v-row>
-      </v-card>
-      <custom-title icon="mdi-home">
+      <v-row class="mt-2 px-3">
+        <v-text-field
+          class="me-3"
+          variant="outlined"
+          v-model="classroom_name"
+        ></v-text-field>
+        <v-text-field variant="outlined" v-model="description"></v-text-field>
+      </v-row>
+      <custom-title icon="mdi-clipboard-account">
         <span class="d-inline-block capitalize-first-letter"
           >Classroom assigne</span
         >
       </custom-title>
-      <v-card variant="tonal" class="px-2">
-        <v-row class="mt-2">
-          <v-col>
-            <v-select
-              clearable
-              label="Select"
-              v-model="selectedTeacher"
-              :items="teacherOptionsList"
-              item-value="value"
-              variant="outlined"
-            ></v-select>
-          </v-col>
-        </v-row>
-      </v-card>
+      <v-row class="mt-2">
+        <v-col>
+          <v-select
+            v-model="select"
+            :items="items"
+            item-title="full_name"
+            item-value="id"
+            :hint="
+              select ? `${select.full_name}, ${select.id}` : 'Select an item'
+            "
+            label="Select"
+            persistent-hint
+            return-object
+            single-line
+            variant="outlined"
+          ></v-select>
+        </v-col>
+      </v-row>
+      <custom-title>
+        <template #right>
+          <v-btn @click="submitForm" class="me-5" color="primary">Cancel</v-btn>
+          <v-btn @click="submitForm">Create</v-btn>
+        </template>
+      </custom-title>
     </v-card>
-
-    {{ selectedTeacher }}
-    <button @click="submitForm">Submit</button>
   </div>
+  <!-- {{ editedClassroom.classroom_name }} -->
 </template>
 
 <script setup>
 import { useClassroomStore } from '@/stores/classroom.js'
-import { ref, onMounted, computed } from 'vue'
-const selectedTeacher = ref(null)
-const teacherOptions = ref([])
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
 const classroomStore = useClassroomStore()
+const router = useRouter()
+let description = ref('')
+let classroom_name = ref('')
+let select = ref('')
+let items = ref([])
+const editedClassroom = ref(null)
 
-const getTeacherOptions = async () => {
-  if (classroomStore.classCoordinator && classroomStore.classCoordinator.data) {
-    return classroomStore.classCoordinator.data.map((teacher) => ({
-      displayName: `${teacher.first_name} ${teacher.last_name}`,
-      value: teacher.id
-    }))
-  } else {
-    return []
+const submitForm = async () => {
+  const classroom = {
+    classroom_name: classroom_name.value,
+    description: description.value,
+    teacher_id: select.value.id
   }
-}
-
-const teacherOptionsList = computed(() => {
-  return teacherOptions.value.map((item) => item.displayName)
-})
-
-const submitForm = () => {
-  console.log('Selected Teacher ID:', selectedTeacher.value.value)
+  classroomStore.create(classroom)
+  await router.push({ name: 'ClassManagement' })
 }
 
 onMounted(async () => {
   try {
-    console.log('teacher opiton', teacherOptions.value)
-    classroomStore.fetchClassCoordinators()
-    selectedTeacher.value = await getTeacherOptions()
-    console.log('teacher', selectedTeacher.value)
-    console.log('First displayName:', selectedTeacher.value[0]?.displayName)
-    console.log('log key', Object.keys(selectedTeacher.value))
-    let roles = Object.keys('role', selectedTeacher)
-    console.log(roles)
+    await classroomStore.fetchClassCoordinators()
+    editedClassroom.value = router.currentRoute.value.query.editedClassroom
+    console.log('in form for edite',editedClassroom.value);
+    items.value = classroomStore.classCoordinator.data
   } catch {
     console.log('error fetching classes')
   }

@@ -2,7 +2,7 @@
   <custom-title icon="mdi-table-large">
     <span class="d-inline-block capitalize-first-letter">User Management</span>
     <template #right>
-      <v-btn icon="mdi-plus" variant="text" small></v-btn>
+      <v-btn icon="mdi-plus-circle-outline" variant="text" small></v-btn>
       <v-btn icon small variant="text" @click="openFileInput">
         <v-icon>mdi-microsoft-excel</v-icon>
         <v-file-input

@@ -12,7 +12,7 @@ class Classroom extends Model
     protected $fillable = [
         'classroom_name',
         'description',
-        'is_class_coordinator',
+        // 'is_class_coordinator',
         'teacher_id'
     ];
 
@@ -24,7 +24,7 @@ class Classroom extends Model
         );
         if ($id) {
             $classroom = self::find($id);
-            if (!$classrooms) {
+            if (!$classroom) {
                 return response()->json(['error' => 'Record not found'], 404);
             }
             $classroom->update($classrooms);
@@ -34,18 +34,16 @@ class Classroom extends Model
         }
         // Sync the related teachers
         $teacherIds = $request->input('teacher_id', []);
-        $isClassCoordinator = $request->input('is_class_coordinator');
-        if (empty($teacherIds) || empty($isClassCoordinator)) {
+        // $isClassCoordinator = $request->input('is_class_coordinator');
+        if (empty($teacherIds)) {
             return response()->json(['error' => 'No teachers selected or class coordinator'], 400);
         }
-
-        // Sync the teachers with the pivot table
-
+        
         if (!$classroom->save()) {
             return response()->json(['error' => 'Error saving class room record'], 500);
         }
         $classroom->teachers()->sync($teacherIds);
-        $classroom->teachers()->sync($isClassCoordinator);
+        // $classroom->teachers()->sync($isClassCoordinator);
 
         return response()->json(['success' => true, 'data' => $classroom], 201);
     }

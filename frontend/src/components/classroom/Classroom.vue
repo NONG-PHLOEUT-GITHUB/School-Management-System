@@ -4,13 +4,13 @@
     <span class="d-inline-block capitalize-first-letter">Class Management</span>
     <template #right>
       <v-btn
-          class="mr-2"
-          small
-          elevation="0"
-          color="secondary"
-          @click="addClassroom"
-          >add</v-btn
-        >
+        class="mr-2"
+        small
+        elevation="0"
+        color="secondary"
+        @click="addClassroom"
+        >add</v-btn
+      >
       <v-btn
         icon="mdi-filter"
         variant="text"
@@ -28,7 +28,13 @@
       </v-btn>
     </template>
   </custom-title>
-  <v-card tile elevation="0" v-if="toggleFilter" color="indigo-lighten-5" class="px-3 mb-3">
+  <v-card
+    tile
+    elevation="0"
+    v-if="toggleFilter"
+    color="indigo-lighten-5"
+    class="px-3 mb-3"
+  >
     <v-row>
       <v-col cols="12" md="11">
         <v-row color="transparent" class="mt-4">
@@ -79,7 +85,7 @@
       </v-col>
     </v-row>
   </v-card>
-  <v-container fluid class="pa-2">
+  <v-container fluid class="pa-2" style="height: 80vh;">
     <v-row>
       <!--sm Display 2 cards per row on small screens -->
       <!--md Display 3 cards per row on medium screens -->
@@ -90,8 +96,8 @@
         md="4"
         lg="2"
         :key="index"
-        v-for="(classroom, index) in filteredClassrooms"
-        >
+        v-for="(classroom, index) in paginatedClassrooms"
+      >
         <!-- v-for="(classroom, index) in classroomStore.classrooms.data" -->
         <v-card class="card elevation-2">
           <v-card-title class="card-title">
@@ -132,7 +138,11 @@
                   >
                     {{ item.title }}
                   </v-list-item>
-                  <v-list-item :value="item.title" v-else>
+                  <v-list-item
+                    :value="item.title"
+                    v-else
+                    @click="editClassroom(classroom.id)"
+                  >
                     {{ item.title }}
                   </v-list-item>
                 </v-list-item>
@@ -143,10 +153,16 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-pagination
+    class="mt-4"
+    v-model="page"
+    :length="totalPages"
+    rounded="circle"
+  ></v-pagination>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted ,computed} from 'vue'
 import { useClassroomStore } from '@/stores/classroom.js'
 import { useRouter } from 'vue-router'
 
@@ -156,12 +172,36 @@ const toggleFilter = ref(false)
 const classroomStore = useClassroomStore()
 const searchClassroom = ref({ student_count: null, classroom_name: '' })
 let filteredClassrooms = ref([])
+const itemsPerPage = 24;
+const page = ref(1);
 
+const totalPages = computed(() => Math.ceil(filteredClassrooms.value.length / itemsPerPage));
+
+const paginatedClassrooms = computed(() => {
+  const startIndex = (page.value - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return filteredClassrooms.value.slice(startIndex, endIndex);
+});
 
 const deleteClassroom = async (ID) => {
   try {
     await classroomStore.deleteClassroomByID(ID)
     await loadDataFromServer()
+    await performSearch()
+  } catch (error) {
+    console.error('Error deleting classroom:', error)
+  }
+}
+
+const editClassroom = async (id) => {
+  try {
+    await classroomStore.edit(id)
+    // const editedClassroom = classroomStore.classRoomEdit
+    // console.log('classroom edite in click edit',classroomStore.classRoomEdit.data);
+    await router.push({
+      name: 'addClassroom',
+      query: { id: id }
+    })
   } catch (error) {
     console.error('Error deleting classroom:', error)
   }
@@ -172,38 +212,45 @@ const updateToggle = async () => {
 }
 
 const performSearch = async () => {
-  filteredClassrooms.value = classroomStore.classrooms.data.filter((classroom) => {
-    const matchStudentCount = searchClassroom.value.student_count
-    ? Number(classroom.student_count) === Number(searchClassroom.value.student_count)
-    : true;
+  filteredClassrooms.value = classroomStore.classrooms.data.filter(
+    (classroom) => {
+      const matchStudentCount = searchClassroom.value.student_count
+        ? Number(classroom.student_count) ===
+          Number(searchClassroom.value.student_count)
+        : true
 
-    const matchClassroomName = classroom.classroom_name.toLowerCase().includes(searchClassroom.value.classroom_name.toLowerCase());
-    return matchStudentCount && matchClassroomName;
-  });
-};
+      const matchClassroomName =
+        classroom?.classroom_name
+          ?.toLowerCase()
+          .includes(searchClassroom.value.classroom_name.toLowerCase()) || false
+      return matchStudentCount && matchClassroomName
+    }
+  )
+}
 
 const searchData = () => {
-  performSearch();
-};
+  performSearch()
+}
 
 const loadDataFromServer = async () => {
   await classroomStore.fetchAllClassrooms()
-};
+}
 
 const clearFilter = async () => {
   searchClassroom.value.classroom_name = ''
   searchClassroom.value.student_count = ''
   await loadDataFromServer()
-};
+  await performSearch()
+}
 
 const addClassroom = async () => {
- await router.push({ name: 'addClassroom' })
+  await router.push({ name: 'addClassroom' })
 }
 
 onMounted(async () => {
   await loadDataFromServer()
   await performSearch()
-});
+})
 </script>
 
 <style scoped>

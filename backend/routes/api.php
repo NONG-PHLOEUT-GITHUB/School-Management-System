@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::get('/getComments', [CommentController::class, 'index']);
 Route::post('/comments', [CommentController::class, 'store']);
-// Route::put("/comments", [CommentController::class, 'update']);
+Route::put("/comments", [CommentController::class, 'update']);
 Route::get("/get-comments-student/{user_id}/{teacher_id}", [UserController::class, "getCommentForStudent"]);
 
 
@@ -44,6 +44,8 @@ Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
 // Route::post('login',[AuthController::class,'login']);
 
 Route::post('/classroom',[ClassroomController::class,'store']);
+Route::put('/classroom/update/{id}',[ClassroomController::class,'update']);
+Route::get('/classroom/edit/{id}',[ClassroomController::class,'show']);
 // Route::get('/classrooms',[ClassroomController::class,'index']);
 Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
 Route::get('/classrooms/count',[ClassroomController::class,'countTotalClass']);
