@@ -103,7 +103,7 @@
     return-object
     show-select
   >
-    <template v-slot:item.image="{ item }">
+    <template v-slot:[`item.image`]="{}">
       <v-avatar>
         <v-img
           src="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -111,8 +111,26 @@
         ></v-img>
       </v-avatar>
     </template>
-    <template v-slot:item.actions="{ item }">
-      <v-btn variant="text" small icon="mdi-eye" @click="detail(item.id)"></v-btn>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-select
+        label="Status"
+        items="[
+          'Present',
+          'Absent',
+          'Early',
+          'Excused',
+          'Unexcused',
+          'On leave',
+          'No show'
+        ]"
+        variant="outlined"
+      ></v-select>
+      <v-btn
+        variant="text"
+        small
+        icon="mdi-eye"
+        @click="detail(item.id)"
+      ></v-btn>
       <v-btn variant="text" small icon="mdi-pencil" color="primary"></v-btn>
       <v-btn variant="text" small icon="mdi-delete" color="red"></v-btn>
     </template>
@@ -202,8 +220,8 @@ const resetFileInput = () => {
 }
 
 const detail = async (id) => {
-  console.log('user id',id);
-  await router.push({name:'UserDetail'})
+  console.log('user id', id)
+  await router.push({ name: 'UserDetail' })
 }
 
 onMounted(async () => {

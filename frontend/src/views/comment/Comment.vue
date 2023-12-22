@@ -1,5 +1,5 @@
 <template>
-  <custom-title icon="mdi-reply">
+  <custom-title icon="mdi-comment-eye-outline">
     <span class="d-inline-block capitalize-first-letter">My Comment</span>
   </custom-title>
   <v-container fluid class="px-0">
