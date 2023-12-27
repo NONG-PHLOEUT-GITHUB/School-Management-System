@@ -38,8 +38,10 @@ const getSelectedFlag = computed(() => {
   return getFlagImage(locale.value)
 })
 
-const getFlagImage = (language) => {
-  return require(`@/assets/images/${language}.png`)
+const getFlagImage = async (language) => {
+  console.log(language);
+  const { default: image } = await import(`@/assets/images/${language}.png`);
+  return image;
 }
 
 const selectLanguage = (language) => {

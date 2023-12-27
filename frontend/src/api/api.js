@@ -1,6 +1,6 @@
 import axios from 'axios'
 const api = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL, //get for env.local
+  baseURL: import.meta.env.VUE_APP_API_BASE_URL, //get for env.local
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-type': 'application/json'

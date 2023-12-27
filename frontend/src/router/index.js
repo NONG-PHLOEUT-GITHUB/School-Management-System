@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '@/views/auth/LoginPage'
+import LoginPage from '../views/auth/LoginPage.vue'
 import UserProfile from '@/views/userInfo/UserProfile.vue'
 import MainLayout from '@/components/layout/Layout.vue'
 // import Comment from "@/views/comment/Comment.vue";
@@ -164,7 +164,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {

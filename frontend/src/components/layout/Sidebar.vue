@@ -1,7 +1,8 @@
 <template>
   <v-navigation-drawer v-model="drawer">
     <div class="logo">
-      <img :src="logo" alt="" :width="130" />
+      <!-- <img :src="logo" alt="" :width="130" /> -->
+      <v-icon size="100" color="primary">mdi-school-outline</v-icon>
     </div>
     <div v-if="isAdmin == true">
       <AdminMenu :menuItems="menuItems"></AdminMenu>
@@ -32,7 +33,7 @@ export default {
 
   data() {
     return {
-      logo: require('@/assets/images/logo.png'),
+      // logo: require('../../assets/images/logo.png'),
       isAdmin: false,
       isTeacher: false,
       isStudent: false,
@@ -68,6 +69,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background: #755151; */
 }
 v-list-item {
   font-size: 30px;
