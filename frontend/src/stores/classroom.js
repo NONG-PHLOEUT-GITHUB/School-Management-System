@@ -5,7 +5,8 @@ import {
   fetchTotalClass,
   deleteClassroom,
   createClassroom,
-  editClassroom
+  editClassroom,
+  getStudentInClassroom
 } from '@/api/classroom.js' // Import your service
 import { useLoadingStore } from './loading'
 
@@ -15,7 +16,8 @@ export const useClassroomStore = defineStore('getClassroom', {
     classCoordinator: [], // to call to store
     totalClassrooms: 0,
     classroomStore: null,
-    classRoomEdit:[]
+    classRoomEdit:[],
+    studentsInclassroom: [],
   }),
   getters: {
     classroom: (state) => state.classroomStore
@@ -93,12 +95,30 @@ export const useClassroomStore = defineStore('getClassroom', {
       try {
         loadingStore.setLoading(true)
         await deleteClassroom(ID)
-        const response = await fetchClassCoordinator()
         loadingStore.setLoading(false)
-        this.classCoordinator = response.data
       } catch (error) {
         console.error('Error fetching total class:', error)
       }
-    }
+    },
+
+    async getStudentsInClassroom(id) {
+      const loadingStore = useLoadingStore()
+      try {
+        loadingStore.setLoading(true)
+        const response = await getStudentInClassroom(id)
+        this.studentsInclassroom = response.data.data
+        loadingStore.setLoading(false)
+      } catch (error) {
+        console.error('Error fetching total class:', error)
+      }
+    },
+
+    // async classroomDetail(id) {
+    //   console.log('class id', id);
+    //   this.selectedClassId = id; // Set the selected class ID in the store
+    //   await router.push({ name: 'studentsClassroom' });
+    //   // Optionally, you can call the method to fetch student details here
+    //   await this.getStudentsInClassroom(id);
+    // },
   }
 })

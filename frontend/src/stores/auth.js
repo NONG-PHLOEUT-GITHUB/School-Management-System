@@ -12,6 +12,7 @@ import { useLoadingStore } from './loading'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     authUser: null,
+    token: null,
     isAuthenticated: false,
     userRole: null,
     isResetPassword: false,
@@ -35,6 +36,7 @@ export const useAuthStore = defineStore('auth', {
           this.authUser = response.data.user
           localStorage.setItem('access_token', response.data.access_token)
           const userRole = response.data.user.role
+          this.token = response.data.access_token
           console.log('user id in stat', userRole)
           const loadingStore = useLoadingStore()
           loadingStore.setLoading(true)
@@ -52,6 +54,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const data = await fetchUserLoged()
         this.authUser = data.data
+        console.log('class teaching', data.data)
         console.log('user login', this.authUser)
       } catch (error) {
         console.error('Error fetching user:', error)

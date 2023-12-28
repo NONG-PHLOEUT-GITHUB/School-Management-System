@@ -38,6 +38,7 @@ Route::get("/get-comments-student/{user_id}/{teacher_id}", [UserController::clas
 // user routes //
 Route::post('/user', [UserController::class,'store']);
 Route::get('/users', [UserController::class,'index']);
+Route::delete('/user/delete/{id}', [UserController::class,'destroy']);
 Route::get('/class-coordinator', [UserController::class,'getClassCoordinator']);
 Route::get('count', [UserController::class,'getTotalStudent']);
 Route::get('count/teacher', [UserController::class,'getTotalTeacher']);
@@ -50,6 +51,7 @@ Route::get('/classroom/edit/{id}',[ClassroomController::class,'show']);
 Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
 Route::get('/classrooms/count',[ClassroomController::class,'countTotalClass']);
 Route::delete('/classroom/{id}',[ClassroomController::class,'destroy']);
+Route::get('student/classroom/{id}',[ClassroomController::class,'getStudentsInClass']);
 
 
 Route::post('/change-password', [VerificationController::class,'changePassword']);

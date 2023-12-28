@@ -23,23 +23,35 @@ export default {
           to: { name: 'dashboard' }
         },
         {
-          icon: 'mdi-account-group-outline',
-          title: 'menu.userMg',
-          value: 'account',
-          to: { name: 'user-management' }
-        },
-        {
-          icon: 'mdi-chair-school',
-          title: 'menu.classMg',
-          value: 'users',
-          to: { name: 'ClassManagement' }
+          icon: 'mdi-human-male-board-poll',
+          title: 'Classroom teaching',
+          value: 'classroom teaching',
+          to: { name: 'teacherClassroom' }
         },
         // {
         //   icon: 'mdi-book-open',
-        //   title: 'Academic Records',
-        //   value: 'academic',
-        //   to: { name: 'UserDetail' }
-        // }
+        //   title: 'Classroom teaching',
+        //   value: 'classroom teaching',
+        //   to: { name: 'teacherClassroom' }
+        // },
+        // {
+        //   icon: 'mdi-account-group-outline',
+        //   title: 'menu.userMg',
+        //   value: 'account',
+        //   to: { name: 'user-management' }
+        // },
+        // {
+        //   icon: 'mdi-chair-school',
+        //   title: 'menu.classMg',
+        //   value: 'users',
+        //   to: { name: 'ClassManagement' }
+        // },
+        {
+          icon: 'mdi-comment-quote',
+          title: 'Class Feedback',
+          value: 'academic',
+          to: { name: 'feedback' }
+        }
       ]
     }
   }

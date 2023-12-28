@@ -2,16 +2,16 @@
   <custom-title icon="mdi-table-large">
     <span class="d-inline-block capitalize-first-letter">User Management</span>
     <template #right>
-      <v-btn icon="mdi-plus-circle-outline" variant="text" small @click="addUser"></v-btn>
-      <v-btn icon small variant="text" @click="openFileInput">
-        <v-icon>mdi-microsoft-excel</v-icon>
-        <v-file-input
-          ref="fileInput"
-          style="display: none"
-          @change="handleFileChange"
-          variant="outlined"
-        ></v-file-input>
-      </v-btn>
+      <!-- <v-btn icon="mdi-plus-circle-outline" variant="text" small @click="addUser"></v-btn> -->
+      <!-- <v-btn icon small variant="text" @click="openFileInput">
+          <v-icon>mdi-microsoft-excel</v-icon>
+          <v-file-input
+            ref="fileInput"
+            style="display: none"
+            @change="handleFileChange"
+            variant="outlined"
+          ></v-file-input>
+        </v-btn> -->
       <v-btn
         icon="mdi-filter"
         variant="text"
@@ -92,7 +92,7 @@
       </v-col>
     </v-row>
   </v-card>
-
+  <bread-crumb></bread-crumb>
   <v-data-table
     v-model="selected"
     class="elevation-1"
@@ -105,28 +105,25 @@
   >
     <template v-slot:[`item.profile`]="{ item }">
       <v-avatar>
-        <v-img
-          :src="item.profile"
-        ></v-img>
+        <v-img :src="item.profile"></v-img>
       </v-avatar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn variant="text" small icon="mdi-eye" @click="detail(item.id)"></v-btn>
-      <v-btn variant="text" small icon="mdi-pencil" color="primary"></v-btn>
-      <v-btn variant="text" small icon="mdi-delete" color="red" @click="deleteUser(item.id)"></v-btn>
+      <v-btn
+        variant="text"
+        small
+        icon="mdi-eye"
+        @click="detail(item.id)"
+      ></v-btn>
     </template>
   </v-data-table>
 </template>
 <script setup>
-import { useUsersStore } from '@/stores/users'
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useClassroomStore } from '@/stores/classroom.js'
 
-const router = useRouter()
-const usersStore = useUsersStore()
+const classroomStore = useClassroomStore()
 const toggleFilter = ref(false)
-const selected = ref([])
-const searchUser = ref({ email: '', first_name: '' })
 let filteredUser = ref([])
 
 const headers = [
@@ -137,33 +134,34 @@ const headers = [
   { title: 'Status', align: 'center', key: 'role' },
   { title: '', key: 'actions', sortable: false }
 ]
-
 const loadData = async () => {
-  await usersStore.fetchAllUsersData()
-  usersStore.users.data.forEach((user) => {
-    filteredUser.value.push({
-      date: user.date,
-      profile: user.profile,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-      id: user.id
-    })
-  })
-}
+  const studentsInClassroom = classroomStore.studentsInclassroom;
+
+  studentsInClassroom.forEach((classroom) => {
+    const students = classroom.students;
+    students.forEach((user) => {
+      filteredUser.value.push({
+        profile: user.profile,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        role: user.role,
+        id: user.id
+      });
+    });
+  });
+};
 
 const performSearch = async () => {
-  filteredUser.value = usersStore.users.data.filter((user) => {
-    const matchFirstName =
-      user?.first_name
-        ?.toLowerCase()
-        .includes(searchUser.value.first_name.toLowerCase()) || false
-    return matchFirstName
-  })
+  // filteredUser.value = studentsInClassroom.data.filter((user) => {
+  //   const matchFirstName =
+  //     user?.first_name
+  //       ?.toLowerCase()
+  //       .includes(searchUser.value.first_name.toLowerCase()) || false
+  //   return matchFirstName
+  // })
 }
 
-// Method to handle the search
 const searchData = () => {
   performSearch()
 }
@@ -173,60 +171,22 @@ const updateToggle = async () => {
 }
 
 const clearFilter = async () => {
-  searchUser.value.email = ''
-  searchUser.value.first_name = ''
+  // searchUser.value.email = ''
+  // searchUser.value.first_name = ''
   await loadData()
 }
 
-const fileInputRef = ref(null)
-
-const openFileInput = () => {
-  if (fileInputRef.value) {
-    fileInputRef.value.click()
-  }
-}
-
-const handleFileChange = (event) => {
-  const file = event.target.files[0]
-  // Handle the selected file, e.g., read its content or perform other operations
-  console.log('Selected file:', file)
-  // Reset the file input after selection
-  resetFileInput()
-}
-
-const resetFileInput = () => {
-  if (fileInputRef.value) {
-    fileInputRef.value.value = '' // Reset the input value to allow selecting the same file again
-  }
-}
-
-const detail = async (id) => {
-  console.log('user id',id);
-  await router.push({name:'UserDetail'})
-}
-
-const addUser = async (id) => {
-  console.log('user id',id);
-  await router.push({name:'crudUser'})
-}
-
-const deleteUser = async (id) => {
-  await usersStore.deleteUserData(id)
-  await loadData()
-  await performSearch()
-}
-
-onMounted(async () => {
-  await loadData()
-  await performSearch()
+onMounted(async () => {  
+  const id = this.$route.params.id;
+  await loadData(id)
 })
 </script>
 
 <style scoped>
 .v-data-table-footer {
-  background: #dfcece;
-}
-thead {
-  background: #d4c0c0;
-}
+    background: #dfcece;
+  }
+  thead {
+    background: #d4c0c0;
+  }
 </style>

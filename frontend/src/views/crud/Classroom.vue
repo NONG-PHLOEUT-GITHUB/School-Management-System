@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import BreadCrumb from '@/components/global/BreadCrumb.vue';
+//import BreadCrumb from '@/components/global/BreadCrumb.vue';
 import { useClassroomStore } from '@/stores/classroom.js'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'

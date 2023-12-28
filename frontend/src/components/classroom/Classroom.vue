@@ -85,7 +85,7 @@
       </v-col>
     </v-row>
   </v-card>
-  <v-container fluid class="pa-2" style="height: 80vh;">
+  <v-container fluid class="pa-2" style="height: 80vh">
     <v-row>
       <!--sm Display 2 cards per row on small screens -->
       <!--md Display 3 cards per row on medium screens -->
@@ -162,7 +162,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted ,computed} from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useClassroomStore } from '@/stores/classroom.js'
 import { useRouter } from 'vue-router'
 
@@ -172,20 +172,26 @@ const toggleFilter = ref(false)
 const classroomStore = useClassroomStore()
 const searchClassroom = ref({ student_count: null, classroom_name: '' })
 let filteredClassrooms = ref([])
-const itemsPerPage = 24;
-const page = ref(1);
+const itemsPerPage = 24
+const page = ref(1)
 
-const totalPages = computed(() => Math.ceil(filteredClassrooms.value.length / itemsPerPage));
+const totalPages = computed(() =>
+  Math.ceil(filteredClassrooms.value.length / itemsPerPage)
+)
 
 const paginatedClassrooms = computed(() => {
-  const startIndex = (page.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return filteredClassrooms.value.slice(startIndex, endIndex);
-});
+  const startIndex = (page.value - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  return filteredClassrooms.value.slice(startIndex, endIndex)
+})
 
 const deleteClassroom = async (ID) => {
   try {
     await classroomStore.deleteClassroomByID(ID)
+    // this.$root.$notif(this.$t('crud.deletedSuccessMsg'), {
+    //   type: 'success',
+    //   color: 'primary'
+    // })
     await loadDataFromServer()
     await performSearch()
   } catch (error) {

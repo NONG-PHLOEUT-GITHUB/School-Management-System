@@ -31,3 +31,7 @@ export function updateClassroom(id) {
 export function deleteClassroom(ID) {
   return http.delete(`/classroom/${ID}`)
 }
+
+export function getStudentInClassroom(id) {
+  return http.get(`/student/classroom/${id}`)
+}

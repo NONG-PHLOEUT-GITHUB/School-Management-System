@@ -13,6 +13,17 @@ import LaunchApp from './components/global/LaunchApp.vue'
 import AlertNotification from './components/global/AlertNotification.vue'
 import Notif from './components/common/Notification.vue'
 import LogoutConfirmation from './components/global/LogoutConfirmation.vue'
+
+// import { onMounted } from 'vue'
+
+// onMounted(async () => {
+//   try {
+//     this.$root.$notif = this.$refs.notif.newAlert
+//   } catch (error) {
+//     console.error('Error fetching total students or teachers:', error)
+//   }
+// })
+
 </script>
 
 <!-- <style lang="scss" src="./sass/app.scss">

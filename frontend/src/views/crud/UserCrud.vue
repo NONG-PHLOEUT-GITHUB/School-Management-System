@@ -1,82 +1,71 @@
-<!-- <template>
+<template>
   <custom-title icon="mdi-lightbulb-on">
     <span class="d-inline-block capitalize-first-letter">Create user</span>
   </custom-title>
   <div>
-    <v-card v-for="section in sections" :key="section.title">
-      <custom-title :icon="section.icon">
-        <span class="d-inline-block capitalize-first-letter">{{
-          section.title
-        }}</span>
+    <v-card class="px-4">
+      <custom-title icont="mdi-information-outline">
+        <span class="d-inline-block capitalize-first-letter"
+          >User information</span
+        >
       </custom-title>
-
-      <v-card variant="tonal" class="px-5">
-        <v-row class="mt-2">
-          <v-col v-for="field in section.fields" :key="field.label" cols="3">
-            <v-text-field label="Label" variant="outlined"></v-text-field>
-          </v-col>
-        </v-row>
-        <v-divider class="border-opacity-50"></v-divider>
-        <v-row class="mt-2">
-          <v-col v-for="field in section.fields" :key="field.label" cols="3">
-            <v-text-field label="Label" variant="outlined"></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card>
+      <v-row class="mt-2">
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-divider class="border-opacity-50"></v-divider>
+      <v-row class="mt-2">
+        <v-col cols="3">
+          <v-text-field
+            label="Label"
+            variant="outlined"
+            type="date"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field label="Label" variant="outlined"></v-text-field>
+        </v-col>
+      </v-row>
+      <custom-title>
+        <template #right>
+          <v-btn @click="submitForm" class="me-5" color="primary">Cancel</v-btn>
+          <v-btn @click="submitForm">Create</v-btn>
+        </template>
+      </custom-title>
+      <DatePicker v-model="selectedDate" label="Select Date" :placeholder="placeholder" :rules="rules" :required="true"></DatePicker>
     </v-card>
   </div>
 </template>
 
 <script>
+import DatePicker from '@/components/global/BaseDatePicker.vue';
+
 export default {
+  components: {
+    DatePicker,
+  },
   data() {
     return {
-      sections: [
-        {
-          title: "Personal Information",
-          icon: "mdi-home",
-          fields: [
-            { label: "Field 1" },
-            { label: "Field 2" },
-            { label: "Field 3" },
-          ],
-        },
-        {
-          title: "Contact Information",
-          icon: "mdi-web",
-          fields: [
-            { label: "Field 4" },
-            { label: "Field 5" },
-            { label: "Field 6" },
-          ],
-        },
-      ],
+      selectedDate: null,
+      placeholder: 'YYYY-MM-DD',
+      rules: [],
     };
   },
 };
-</script> -->
-
-<template>
-  <div>
-    <v-card
-      class="mx-auto pa-12 pb-8"
-      elevation="8"
-      max-width="448"
-      rounded="lg"
-    >
-      <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-
-      <v-text-field
-        density="compact"
-        placeholder="Email address"
-        prepend-inner-icon="mdi-email-outline"
-        variant="outlined"
-        v-model="email"
-      ></v-text-field>
-
-      <v-btn block class="mb-8" color="blue" size="large" variant="tonal">
-        create
-      </v-btn>
-    </v-card>
-  </div>
-</template>
+</script>

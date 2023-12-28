@@ -4,7 +4,8 @@
       >My Classroom Management</span
     >
   </custom-title>
-  <v-container fluid class="pa-2">
+  <span class="mb-5">Total Classroom asign {{ classTeacher.length }}</span>
+  <v-container fluid class="pa-2 mt-4">
     <v-row>
       <v-col
         class="pa-1"
@@ -36,11 +37,16 @@
                 classroom.student_count
               }}</span>
             </v-card-actions>
+            <v-btn
+              @click="detail(classroom.id)"
+              class="ms-5"
+              variant="text"
+              small
+              icon="mdi-database-eye"
+            ></v-btn>
             <v-menu>
               <template v-slot:activator="{ props }">
-                <v-btn size="small" v-bind="props">
-                  <v-icon size="x-large">mdi-dots-vertical</v-icon>
-                </v-btn>
+                <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
               </template>
 
               <v-list>
@@ -67,10 +73,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted ,inject} from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useClassroomStore } from '@/stores/classroom.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const items = [{ title: 'Edit' }, { title: 'Delete' }]
 const authStore = useAuthStore()
 const classroomStore = useClassroomStore()
@@ -85,10 +93,30 @@ const deleteClassroom = async (ID) => {
   }
 }
 
+const detail = async (id) => {
+  console.log('class id', id)
+  await classroomStore.getStudentsInClassroom(id)
+  console.log('student in l', classroomStore.studentsInclassroom)
+  await router.push({ path: `/students/classroom/${id}/details` })
+}
+
+const $route = inject('$route');
+
 onMounted(async () => {
   try {
     await authStore.fetchUser()
+    classroomStore.studentsInclassroom
     classTeacher.value = authStore.user.data.class_teacher
+
+    const classroomId = $route.params.classroomId
+    console.log('party id',classroomId);
+
+    if (classroomId) {
+      // Call the detail function with the appropriate id
+      await detail(classroomId)
+    } else {
+      console.error('Classroom ID not found in route parameters.')
+    }
   } catch (error) {
     console.error('Error fetching total students or teachers:', error)
   }

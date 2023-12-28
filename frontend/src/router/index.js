@@ -26,7 +26,7 @@ const routes = [
         path: '/profile/user',
         name: 'profile-user',
         component: UserProfile,
-        // redirect: '/user/about-me',
+        redirect: '/user/about-me',
         children: [
           {
             path: '/profile/comments/user',
@@ -66,9 +66,29 @@ const routes = [
         component: () => import('../views/admin/ClassManagement.vue')
       },
       {
+        path: '/crud/classroom',
+        name: 'addClassroom',
+        component: () => import('../views/crud/Classroom.vue')
+      },
+      {
+        path: '/teacher/classroom',
+        name: 'teacherClassroom',
+        component: () => import('../views/classroom/MyClassroom.vue')
+      },
+      {
+        path: '/students/classroom/:classroomId/details',
+        name: 'studentsClassroom',
+        component: () => import('../views/classroom/StudentInClassroom.vue')
+      },
+      {
         path: '/comment',
         name: 'comment',
         component: () => import('../views/comment/Comment.vue')
+      },
+      {
+        path: '/feedback/teacher',
+        name: 'feedback',
+        component: () => import('../views/comment/Feedback.vue')
       },
       {
         path: '/attendance-tracking',
@@ -82,13 +102,8 @@ const routes = [
       },
       {
         path: '/crud/user',
-        name: 'CrudUser',
+        name: 'crudUser',
         component: () => import('../views/crud/UserCrud.vue')
-      },
-      {
-        path: '/crud/classroom',
-        name: 'addClassroom',
-        component: () => import('../views/crud/Classroom.vue')
       },
       {
         path: '/comment/student',
