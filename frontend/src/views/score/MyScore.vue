@@ -30,6 +30,31 @@
               label="Date"
               variant="outlined"
             ></v-text-field>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :v-model:returnValue="date"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  label="Picker in menu"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="date"
+                no-title
+                scrollable
+                @change="menu = false"
+              ></v-date-picker>
+            </v-menu>
           </v-col>
           <v-col cols="3" :md="3" color="transparent">
             <!-- v-model="searchUser.name" -->
@@ -106,6 +131,8 @@ const desserts = ref([
   }
 ])
 const toggleFilter = ref(false)
+const menu = ref(false)
+const date = new Date()
 const headers = [
   { title: 'Suject', align: 'center', key: 'suject' },
   { title: 'Score', align: 'center', key: 'score' },
@@ -131,6 +158,25 @@ onMounted(async () => {
 })
 const updateToggle = async () => {
   toggleFilter.value = !toggleFilter.value
+}
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+      datePickerOpenBook: false,
+      formData: {
+        dateEffetOpenBook: new Date() // or initialize with your desired default date
+      }
+    }
+  }
+  // computed: {
+  //   computedDateOpenBookFormatted() {
+  //     // Implement the formatting logic for your date
+  //     return this.$date(this.formData.dateEffetOpenBook).format('yyyy-MM-dd')
+  //   }
+  // }
 }
 </script>
 <style>

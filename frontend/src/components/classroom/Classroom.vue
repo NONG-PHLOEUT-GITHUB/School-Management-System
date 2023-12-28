@@ -1,6 +1,6 @@
 <template>
   <!-- <v-btn>Create Class</v-btn> -->
-  <custom-title icon="mdi-table-large">
+  <custom-title icon="mdi-google-classroom">
     <span class="d-inline-block capitalize-first-letter">Class Management</span>
     <template #right>
       <v-btn

@@ -201,8 +201,8 @@ const resetFileInput = () => {
 }
 
 const detail = async (id) => {
-  console.log('user id',id);
-  await router.push({name:'UserDetail'})
+  console.log('user id', id)
+  await router.push({ name: 'UserDetail' })
 }
 
 const addUser = async (id) => {
