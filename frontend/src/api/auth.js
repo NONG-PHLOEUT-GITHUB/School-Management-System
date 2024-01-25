@@ -16,8 +16,11 @@ export function userLogin(email, password) {
   return http.post('/v2/auth/login', user)
 }
 export function fetchUserLoged() {
-  return http.get('/v2/auth/user')
+  return http.get('/user')
 }
+// export function fetchUserLoged() {
+//   return http.get('/v2/auth/user')
+// }
 
 export function forgotPassword(email) {
   const user = {

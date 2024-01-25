@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\UserResource;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,8 +38,9 @@ class UserController extends Controller
         if (!$user) {
             return response()->json(['message' => 'The record with ID ' . $id . ' was not found.'], 404);
         }
+        return new UserResource($user);
 
-        return response()->json(['success' => true, 'data' => $user], 200);
+        // return response()->json(['success' => true, 'data' => $user], 200);
     }
 
     /**
@@ -69,20 +71,23 @@ class UserController extends Controller
     /**
      * get total student.
      */
-    public function getTotalStudent(){
+    public function getTotalStudent()
+    {
         $totalStudents = User::where('role', 3)->count();
         return $totalStudents;
     }
-     /**
+    /**
      * get total teacher.
      */
-    public function getTotalTeacher(){
+    public function getTotalTeacher()
+    {
         $totalTeachers = User::where('role', 2)->count();
         return $totalTeachers;
     }
 
-    public function getClassCoordinator(){
-        $classCoordinators = User::where('role', 2)->select('first_name', 'last_name', 'id')->get();
+    public function getClassCoordinator()
+    {
+        $classCoordinators = User::where('role', 2)->where('is_class_coordinator', 0)->select('first_name', 'last_name', 'id')->get();
         $classCoordinators->each(function ($coordinator) {
             $coordinator->full_name = $coordinator->first_name . ' ' . $coordinator->last_name;
         });
@@ -90,14 +95,26 @@ class UserController extends Controller
     }
 
 
-     // ----------------------get comment for student------------------------
-    
-     public function getCommentForStudent($user_id, $teacher_id)
-     {
-         $comments = Comment::where('user_id', $user_id)
-                     ->where('teacher_id', $teacher_id)
-                     ->get();
-         $comment = CommentResource::collection($comments);
-         return response()->json(['comments' => $comment]);
-     }
+    // ----------------------get comment for student------------------------
+
+    public function getCommentForStudent($user_id, $teacher_id)
+    {
+        $users = Comment::where('user_id', $user_id)
+            ->where('teacher_id', $teacher_id)
+            ->get();
+        $comment = CommentResource::collection($users);
+        return response()->json(['comments' => $comment]);
+    }
+
+    // ----------------------------------------------------------------
+
+    public function getAllStudents($classroom_id)
+    {
+        $users = User::where('role', 3)
+        ->where('classroom_id' ,"=", $classroom_id)
+            ->select('id','profile','first_name', 'last_name')
+            ->get();
+        //  $comment = CommentResource::collection($users);
+        return response()->json(['users' => $users]);
+    }
 }

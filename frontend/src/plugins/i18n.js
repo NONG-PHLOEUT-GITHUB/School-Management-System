@@ -37,8 +37,8 @@ export default function setupI18n() {
     i18n = createI18n({
       globalInjection: true,
       legacy: false,
-      locale: locale,
-      fallbackLocale: 'en'
+      locale: process.env.VUE_APP_I18N || "en",
+      fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
     })
 
     setI18nLanguage(locale)

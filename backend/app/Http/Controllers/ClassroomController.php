@@ -78,17 +78,37 @@ class ClassroomController extends Controller
     // public function getAllClassrooms()
     // {
     //     $classrooms = Classroom::withCount('students')
-    //         ->select('classrooms.id', 'classrooms.classroom_name')->get();
-
+    //         ->select('classrooms.id', 'classrooms.classroom_name','classrooms.is_class_coordinator')
+    //         ->with(['teachers.user'])
+    //         ->get();
     //     $classroomCount = $classrooms->count();
 
     //     return response()->json(['success' => true, 'data' => $classrooms, 'count' => $classroomCount], 200);
     // }
+    public function getAllClassrooms()
+    {
+        $classrooms = Classroom::with('teachers:id,first_name,last_name')
+            ->select('classrooms.id', 'classrooms.classroom_name')
+            ->get();
+
+        $classroomCount = $classrooms->count();
+
+        $transformedClassrooms = $classrooms->map(function ($classroom) {
+            $classroom->is_class_coordinator = null;
+            $classroom->first_name = $classroom->teachers->first()->first_name ?? null;
+            $classroom->last_name = $classroom->teachers->first()->last_name ?? null;
+            unset($classroom->teachers);
+            return $classroom;
+        });
+
+        return response()->json(['success' => true, 'data' => $transformedClassrooms, 'count' => $classroomCount], 200);
+    }
+
     // public function getAllClassrooms()
     // {
     //     $classrooms = Classroom::withCount('students')
     //         ->select('classrooms.id', 'classrooms.classroom_name', 'teachers.first_name as teacher_first_name', 'teachers.last_name as teacher_last_name')
-    //         ->leftJoin('users as teachers')
+    //         ->leftJoin('users as teachers', 'classrooms.teacher_id', '=', 'teachers.id') // Add the missing join condition
     //         ->where('teachers.role', 2)
     //         ->get();
 
@@ -96,19 +116,6 @@ class ClassroomController extends Controller
 
     //     return response()->json(['success' => true, 'data' => $classrooms, 'count' => $classroomCount], 200);
     // }
-
-    public function getAllClassrooms()
-    {
-        $classrooms = Classroom::withCount('students')
-            ->select('classrooms.id', 'classrooms.classroom_name', 'teachers.first_name as teacher_first_name', 'teachers.last_name as teacher_last_name')
-            ->leftJoin('users as teachers', 'classrooms.teacher_id', '=', 'teachers.id') // Add the missing join condition
-            ->where('teachers.role', 2)
-            ->get();
-
-        $classroomCount = $classrooms->count();
-
-        return response()->json(['success' => true, 'data' => $classrooms, 'count' => $classroomCount], 200);
-    }
 
 
     public function countTotalClass()
@@ -120,6 +127,7 @@ class ClassroomController extends Controller
 
     public function getStudentsInClass(string $id)
     {
+        // return $id;
         $classRooms = ClassRoom::where('id', $id)
             ->whereHas('students', function ($query) {
                 $query->where('role', 3);
@@ -138,7 +146,7 @@ class ClassroomController extends Controller
             ->get();
 
         if ($classRooms->isEmpty()) {
-            return response()->json(['success' => true, 'data'=>'record not found'], 404);
+            return response()->json(['success' => false, 'data' => 'record not found'], 404);
         } else {
             return response()->json(['success' => true, 'data' => $classRooms], 200);
         }

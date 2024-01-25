@@ -38,12 +38,13 @@
               }}</span>
             </v-card-actions>
             <v-btn
-              @click="detail(classroom.id)"
+              :to="{ path: `/classroom/${classroom.id}/details` }"
               class="ms-5"
               variant="text"
               small
               icon="mdi-database-eye"
             ></v-btn>
+            
             <v-menu>
               <template v-slot:activator="{ props }">
                 <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
@@ -73,12 +74,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted ,inject} from 'vue'
+import { ref, onMounted} from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useClassroomStore } from '@/stores/classroom.js'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 const items = [{ title: 'Edit' }, { title: 'Delete' }]
 const authStore = useAuthStore()
 const classroomStore = useClassroomStore()
@@ -93,30 +91,13 @@ const deleteClassroom = async (ID) => {
   }
 }
 
-const detail = async (id) => {
-  console.log('class id', id)
-  await classroomStore.getStudentsInClassroom(id)
-  console.log('student in l', classroomStore.studentsInclassroom)
-  await router.push({ path: `/students/classroom/${id}/details` })
-}
 
-const $route = inject('$route');
 
 onMounted(async () => {
   try {
     await authStore.fetchUser()
     classroomStore.studentsInclassroom
     classTeacher.value = authStore.user.data.class_teacher
-
-    const classroomId = $route.params.classroomId
-    console.log('party id',classroomId);
-
-    if (classroomId) {
-      // Call the detail function with the appropriate id
-      await detail(classroomId)
-    } else {
-      console.error('Classroom ID not found in route parameters.')
-    }
   } catch (error) {
     console.error('Error fetching total students or teachers:', error)
   }

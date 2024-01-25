@@ -10,7 +10,7 @@
       @passwordChanged="dialogVisible = false"
     />
   </v-dialog>
-  <v-app-bar ref="appBar" app color="white">
+  <v-app-bar ref="appBar" app color="white" scroll-behavior>
     <v-app-bar-nav-icon @click="togglerDrawer">
       <v-icon>mdi-menu</v-icon>
     </v-app-bar-nav-icon>
@@ -82,6 +82,7 @@
               :key="i"
               :value="item"
               color="primary"
+              @click="onMenuClick(item.action)"
             >
               <template v-slot:prepend>
                 <v-icon
@@ -92,7 +93,6 @@
                 <v-list-item-title
                   v-text="item.title"
                   :to="item.path"
-                  @click="onMenuClick(item.action)"
                 ></v-list-item-title>
               </template>
             </v-list-item>
@@ -109,7 +109,6 @@ import Language from '../common/SwitcherLanguage.vue'
 import Notification from '@/components/common/InBoxNotification.vue'
 import ChangePasswordDailog from '@/views/auth/ChangePassword.vue'
 import { useAuthStore } from '@/stores/auth.js'
-
 export default {
   emits: ['toggle'],
   name: 'AppBar',
@@ -162,11 +161,6 @@ export default {
     //   this.dialogVisible = true
     // },
 
-    async logoutUser() {
-      const authStore = useAuthStore()
-      await authStore.logout()
-      console.log('isLogout status after logout:', authStore.isLogout)
-    },
     onMenuClick(action) {
       switch (action) {
         case 'logout':
@@ -184,10 +178,41 @@ export default {
 </script>
 
 <script setup>
-import { onMounted } from 'vue'
+import { getCurrentInstance, onMounted } from 'vue'
 
 const authStore = useAuthStore()
+const app = getCurrentInstance()
 
+const logoutUser = async () => {
+  console.log('hello');
+  try {
+    app.appContext.config.globalProperties.$logutconfirm({
+      title: 'Are you sure you want to logout?',
+      options: {
+        type: 'cuccess',
+        width: 360
+      }
+    })
+    const authStore = useAuthStore()
+    await authStore.logout()
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const onMenuClick = async (action) => {
+  switch (action) {
+    case 'logout':
+      logoutUser() // Use the function directly without "this."
+      break
+    case 'changePassword':
+      // Assuming you have a dialogVisible variable in your component state
+      app.proxy.dialogVisible = true
+      break
+    default:
+      break
+  }
+}
 onMounted(async () => {
   try {
     await authStore.fetchUser()

@@ -37,7 +37,9 @@ Route::get("/get-comments-student/{user_id}/{teacher_id}", [UserController::clas
 
 // user routes //
 Route::post('/user', [UserController::class,'store']);
+Route::get('/user/{id}/details', [UserController::class,'show']);
 Route::get('/users', [UserController::class,'index']);
+Route::get('/users/students/{classroom_id}', [UserController::class,'getAllStudents']);
 Route::delete('/user/delete/{id}', [UserController::class,'destroy']);
 Route::get('/class-coordinator', [UserController::class,'getClassCoordinator']);
 Route::get('count', [UserController::class,'getTotalStudent']);
@@ -51,12 +53,14 @@ Route::get('/classroom/edit/{id}',[ClassroomController::class,'show']);
 Route::get('/classrooms',[ClassroomController::class,'getAllClassrooms']);
 Route::get('/classrooms/count',[ClassroomController::class,'countTotalClass']);
 Route::delete('/classroom/{id}',[ClassroomController::class,'destroy']);
-Route::get('student/classroom/{id}',[ClassroomController::class,'getStudentsInClass']);
+Route::get('/student/classroom/{id}',[ClassroomController::class,'getStudentsInClass']);
 
 
 Route::post('/change-password', [VerificationController::class,'changePassword']);
 Route::post('/forgot-password', [ForgotPasswordController::class,'SendEmailResetPassword']);
 Route::post('/reset-new-password/{token}', [ForgotPasswordController::class,'resetNewPassword']);
+Route::get('user', [AuthController::class,'user']);
+Route::post('v2/auth/login',[AuthController::class,'login']);
 
 ///telegram bot
 Route::post('/telegram/send-message', [TelegramController::class,'sendMessage']);
@@ -65,7 +69,7 @@ Route::prefix('v2')->group(function () {
     Route::prefix('auth')->group(function () {
 
         // Login User
-        Route::post('login',[AuthController::class,'login']);
+        // Route::post('v2/auth/login',[AuthController::class,'login']);
         
         // Refresh the JWT Token
         Route::get('refresh-token', [AuthController::class,'refresh']);
@@ -73,7 +77,7 @@ Route::prefix('v2')->group(function () {
         // Below mention routes are available only for the authenticated users.
         Route::middleware('auth:api')->group(function () {
             // Get user info
-            Route::get('user', [AuthController::class,'user']);
+            // Route::get('user', [AuthController::class,'user']);
 
             // Logout user from application
             Route::post('logout', [AuthController::class,'logout']);

@@ -35,6 +35,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'classroom_id',
         'guardian_id',
+        'is_class_coordinator'
     ];
 
     /**
@@ -94,7 +95,8 @@ class User extends Authenticatable implements JWTSubject
             'email',
             'password',
             'classroom_id',
-            // 'guardian_id',
+            'guardian_id',
+            'is_class_coordinator'
         );
         if($request->file('profile')){
             $file= $request->file('profile');
@@ -129,7 +131,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function classrooms()
     {
-        return $this->belongsToMany(Classroom::class, 'teacher_classroom', 'user_id', 'classroom_id');
+        return $this->belongsToMany(Classroom::class, 'classroom_teachers', 'teacher_id', 'classroom_id');
     }
 
     public function comments()

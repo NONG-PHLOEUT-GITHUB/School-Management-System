@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 import SwitcherLanguage from '@/components/common/SwitcherLanguage.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useRouter } from 'vue-router'
@@ -92,7 +92,7 @@ const email = ref('phloeutnong@gmail.com')
 const password = ref('123456789')
 const isPasswordVisible = ref(false)
 const errorText = ref('') // Create a ref for error messages
-
+const app = getCurrentInstance()
 const toggleVisible = () => {
   isPasswordVisible.value = !isPasswordVisible.value
 }
@@ -130,7 +130,10 @@ const login = async () => {
     if (authStore.isAuthenticated) {
       let userRole = authStore.user.role
       localStorage.setItem('user_role', userRole)
-
+      app.appContext.config.globalProperties.$notif('Login cucesscefully', {
+        type: 'success',
+        color: 'primary'
+      })
       if (userRole === 1) {
         await router.push({ path: '/dashboard/user' })
       } else if (userRole === 2) {

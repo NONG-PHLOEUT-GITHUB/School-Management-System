@@ -45,6 +45,31 @@
       </v-avatar>
     </v-card-text>
   </v-card>
+  <v-card
+    class="pa-5 py-10"
+    :title="userFirstName + userFirstName"
+    subtitle="prepend and append"
+    image="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+  >
+    <template v-slot:prepend>
+      <v-avatar color="blue-darken-2" size="200">
+        <v-img
+          src="https://cdn.vuetifyjs.com/images/john.png"
+          alt="John"
+        ></v-img>
+      </v-avatar>
+    </template>
+    <template v-slot:append>
+      <v-btn icon="mdi-camera"> </v-btn>
+    </template>
+    <!-- <v-card-text
+      >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod.</v-card-text
+    > -->
+    <v-card-actions>
+      <v-btn>Click me</v-btn>
+    </v-card-actions>
+  </v-card>
   <v-container class="px-0" fluid>
     <router-view />
   </v-container>

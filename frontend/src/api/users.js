@@ -6,3 +6,6 @@ export function fetchAllUsers() {
 export function deleteUsers(id) {
   return http.delete(`/user/delete/${id}`)
 }
+export function userDetail(id) {
+  return http.get(`/user/${id}/details`)
+}

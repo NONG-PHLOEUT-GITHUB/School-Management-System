@@ -26,7 +26,10 @@
     "kh": "Khner"
   },
   "btn": {
-    "resetPassword": "Reset Password"
+    "resetPassword": "Reset Password",
+    "chagePassword": "Chage Password",
+    "yes": "Yes",
+    "cancel": "Cancel"
   },
   "alert": {
     "resetPassword": "Reset Password",
@@ -57,5 +60,8 @@
     "filterStatuse":"Search statuse",
     "filterSubject":"Search subject",
     "filterTeacher":"Search teacher"
+  },
+  "classroom":{
+    "Classroomteaching":"Classroom teaching"
   }
 }

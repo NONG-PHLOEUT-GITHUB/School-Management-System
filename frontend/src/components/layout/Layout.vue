@@ -7,7 +7,7 @@
 
     <!-- main body -->
     <v-main ref="vMain">
-      <v-container class="px-6" fluid>
+      <v-container class="v-container px-6" fluid>
         <router-view :key="$route.fullPath" />
       </v-container>
     </v-main>
@@ -40,5 +40,8 @@ export default {
 </script>
 
 <style scoped>
-
+.v-container{
+  background-color: #ECEFF1;
+  height: 100%;
+}
 </style>

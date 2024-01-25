@@ -21,9 +21,7 @@ class AuthController extends Controller
                 'status' => 'success',
                 'user' => $user,
                 'access_token' => $token,
-            ], 200)
-                ->header('Authorization', $token)
-                ->header('X-Auth-Login-Time', now()->toDateTimeString());
+            ], 200);
         }
         return response()->json(['error' => 'login_error'], 401);
     }
@@ -41,30 +39,53 @@ class AuthController extends Controller
     /**
      * Get authenticated user
      */
+    // public function user(Request $request)
+    // {
+    //     $user = User::with([
+    //         'attendances' => function ($query) {
+    //             $query->orderBy('created_at', 'desc');
+    //         },
+    //         'classTeacher',
+    //         'scores',
+    //         'comments' => function ($query) {
+    //             $query->join('users', 'comments.teacher_id', '=', 'users.id')
+    //                 ->select('comments.*', 'users.first_name', 'users.last_name', 'users.profile')
+    //                 ->orderBy('comments.created_at', 'desc');
+    //         }
+    //     ])->find(Auth::user()->id);
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'data' => $user
+    //     ]);
+    // }
     public function user(Request $request)
     {
-        // $user = User::find(Auth::user()->id);
-        // 'comments' => function ($query) {
-        //     $query->join('users', 'comments.teacher_id', '=', 'users.id')
-        //     ->select('comments.*', 'users.first_name', 'users.last_name');
-        // }
-        $user = User::with([
-            'attendances' => function ($query) {
-                $query->orderBy('created_at', 'desc');
-            },
-            'classTeacher',
-            'scores',
-            'comments' => function ($query) {
-                $query->join('users', 'comments.teacher_id', '=', 'users.id')
-                    ->select('comments.*', 'users.first_name', 'users.last_name', 'users.profile')
-                    ->orderBy('comments.created_at', 'desc');
-            }
-        ])->find(Auth::user()->id);
+        if (auth()->check()) {
+            $user = User::with([
+                'attendances' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
+                'classTeacher',
+                'scores',
+                'comments' => function ($query) {
+                    $query->join('users', 'comments.teacher_id', '=', 'users.id')
+                        ->select('comments.*', 'users.first_name', 'users.last_name', 'users.profile')
+                        ->orderBy('comments.created_at', 'desc');
+                }
+            ])->find(auth()->user()->id);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $user
+            ]);
+        }
+
         return response()->json([
-            'status' => 'success',
-            'data' => $user
-        ]);
+            'status' => 'error',
+            'message' => 'User not authenticated',
+        ], 401);
     }
+
     /**
      * Refresh JWT token
      */

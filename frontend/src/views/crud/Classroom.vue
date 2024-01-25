@@ -21,7 +21,6 @@
           variant="outlined"
           v-model="classroom_name"
         ></v-text-field>
-        <v-text-field variant="outlined" v-model="description"></v-text-field>
       </v-row>
       <custom-title icon="mdi-clipboard-account">
         <span class="d-inline-block capitalize-first-letter"
@@ -60,9 +59,10 @@
 <script setup>
 //import BreadCrumb from '@/components/global/BreadCrumb.vue';
 import { useClassroomStore } from '@/stores/classroom.js'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted ,getCurrentInstance} from 'vue'
 import { useRouter } from 'vue-router'
 
+const app = getCurrentInstance()
 const classroomStore = useClassroomStore()
 const router = useRouter()
 let description = ref('')
@@ -78,6 +78,10 @@ const submitForm = async () => {
     teacher_id: select.value.id
   }
   classroomStore.create(classroom)
+  app.appContext.config.globalProperties.$notif('Create cucesscefully', {
+    type: 'success',
+    color: 'primary'
+  })
   await router.push({ name: 'ClassManagement' })
 }
 

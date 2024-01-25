@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
-import { fetchAllUsers, deleteUsers } from '@/api/users.js'
+import { fetchAllUsers, deleteUsers ,userDetail} from '@/api/users.js'
 import { useLoadingStore } from './loading'
 
 export const useUsersStore = defineStore('users', {
   state: () => ({
-    users: null
+    users: null,
+    usersDetail: null,
   }),
   actions: {
     async fetchAllUsersData() {
@@ -20,6 +21,17 @@ export const useUsersStore = defineStore('users', {
       try {
         loadingStore.setLoading(true)
         await deleteUsers(id)
+        loadingStore.setLoading(false)
+      } catch (error) {
+        console.error('Error fetching total class:', error)
+      }
+    },
+    async getUserDetails(id) {
+      const loadingStore = useLoadingStore()
+      try {
+        loadingStore.setLoading(true)
+        const res = await userDetail(id)
+        this.usersDetail = res.data
         loadingStore.setLoading(false)
       } catch (error) {
         console.error('Error fetching total class:', error)

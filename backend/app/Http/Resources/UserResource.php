@@ -24,6 +24,9 @@ class UserResource extends JsonResource
             // 'phone_number'=>$this->phone_number,
             // 'address'=>$this->address,
             // 'classroomId'=>$this->classroomId,
+            'attendacnes' => AttendanceResource::collection($this->attendances),
+            'comments' => CommentResource::collection($this->comments),
+            'scores' => CommentResource::collection($this->scores),
         ];
     }
 }

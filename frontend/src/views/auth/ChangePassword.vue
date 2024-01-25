@@ -101,7 +101,7 @@
 import { ref, getCurrentInstance, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 const authStore = useAuthStore()
-
+const app = getCurrentInstance()
 const currentPassword = ref('123456789')
 const newPassword = ref('123456789')
 const newPasswordConfirmation = ref('123456789')
@@ -171,6 +171,10 @@ const onChangeNewPassword = async () => {
       newPassword.value
     )
     if (authStore.isChanged) {
+      app.appContext.config.globalProperties.$notif('Login cucesscefully', {
+        type: 'success',
+        color: 'primary'
+      })
       emit('passwordChanged')
       console.log('change new password')
     }

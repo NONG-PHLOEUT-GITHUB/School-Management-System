@@ -11,10 +11,9 @@ export function fetchClassCoordinator() {
 export function fetchTotalClass() {
   return http.get('/classrooms/count')
 }
-export function createClassroom(classroom_name, description, teacher_id) {
+export function createClassroom(classroom_name, teacher_id) {
   const classroom = {
     classroom_name,
-    description,
     teacher_id
   }
   return http.post('/classroom', classroom)

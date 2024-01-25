@@ -1,142 +1,130 @@
 <template>
-  <div>
-    <ul class="notifications">
-      <v-card
-        v-for="toast in toastList"
-        :key="toast.id"
-        :class="['toast', { hide: toast.hide }]"
-      >
-        <div class="column">
-          <v-icon color="white" size="40">mdi-robot</v-icon>
-          <span>Are your sure you want to log out?</span>
-        </div>
-        <div class="action">
-          <v-btn color="red" @click="confirmAction(toast)">Yes</v-btn>
-          <v-btn class="me-3 ms-4" @click="cancelAction(toast)">Cancel</v-btn>
-        </div>
-      </v-card>
-    </ul>
-  </div>
+  <v-dialog v-model="dialog" :max-width="options.width" @keydown.esc="cancel">
+    <v-card tile>
+      <v-card-title class="pa-0">
+        <v-toolbar color="#FFC107">
+          <v-toolbar-title>
+            {{ title }}
+          </v-toolbar-title>
+        </v-toolbar>
+      </v-card-title>
+      <v-card-actions class="pa-4">
+        <v-spacer />
+        <v-btn
+          elevation="4"
+          variant="outlined"
+          :color="primary"
+          class="d-block"
+          dark
+          @click="agree"
+        >
+          {{ options.agreeBtnText }}
+        </v-btn>
+        <v-btn
+          elevation="4"
+          variant="outlined"
+          ref="btnNo"
+          color="red"
+          @click="cancel"
+        >
+          {{ options.denyBtnText }}
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
-<script setup>
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth.js'
-// const authStore = useAuthStore();
-const router = useRouter()
-const toastList = ref([])
-const isCancelled = ref(false)
-const removeToast = (toast) => {
-  toast.hide = true
-  if (toast.timeoutId) clearTimeout(toast.timeoutId)
-  setTimeout(() => {
-    const index = toastList.value.indexOf(toast)
-    if (index !== -1) toastList.value.splice(index, 1)
-  }, 500)
-}
+<script>
+export default {
+  name: 'ConfirmDialog',
+  data() {
+    return {
+      dialog: false,
+      agreeCallback: null,
+      cancelCallback: null,
+      message: null,
+      title: null,
+      options: {
+        type: 'error',
+        width: 290,
+        agreeBtnText: this.$t('btn.yes'),
+        denyBtnText: this.$t('btn.cancel')
+      }
+    }
+  },
+  computed: {
+    bgColor() {
+      const colors = {
+        info: '#233F740F',
+        error: '#FF52520F',
+        warning: '#FFC1070F'
+      }
 
-const createToast = () => {
-  const toast = {
-    id: Date.now(),
-    hide: false
-  }
-  toastList.value.push(toast)
-}
+      return colors[this.options.type || 'info']
+    },
+    textColor() {
+      const colors = {
+        info: 'primary--text',
+        error: 'error--text',
+        warning: 'warning--text'
+      }
 
-const confirmAction = (toast) => {
-  console.log('You have been logged out')
-  localStorage.removeItem('access_token')
-  localStorage.removeItem('user_role')
-  removeToast(toast)
-  router.push({ name: 'login' })
-}
+      return colors[this.options.type || 'info']
+    },
+    btnColor() {
+      const colors = {
+        info: 'var(--v-primary-base)',
+        error: 'var(--v-error-base)',
+        warning: 'var(--v-warning-base)'
+      }
 
-const cancelAction = (toast) => {
-  console.log('cancel action', toast.hide)
-  isCancelled.value = true
-  removeToast(toast)
-}
-
-// const toastDetails = {
-//   success: {
-//     type: "success",
-//     text: "Are you sure you want to log out?",
-//   },
-// };
-
-watch(
-  () => useAuthStore().isLogout,
-  (newIsLogout) => {
-    if (newIsLogout) {
-      createToast()
+      return colors[this.options.type || 'info']
+    }
+  },
+  methods: {
+    open({ title, message, options, agree = () => {}, cancel = () => {} }) {
+      this.dialog = true
+      this.title = title
+      this.message = message
+      this.options = Object.assign(this.options, options)
+      this.agreeCallback = agree
+      this.cancelCallback = cancel
+    },
+    async agree() {
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('user_role')
+      await this.agreeCallback()
+      this.dialog = false
+      // app.appContext.config.globalProperties.$notif(
+      //   'Logout cuccessfully',
+      //   {
+      //     type: 'cuccess',
+      //     color: 'info'
+      //   }
+      // )
+      this.$router.push({ name: 'Login' })
+    },
+    async cancel() {
+      await this.cancelCallback()
+      this.dialog = false
     }
   }
-)
+}
 </script>
 
 <style scoped>
-:root {
-  --error: #e24d4c;
-  --warning: #e9bd0c;
-  --info: #3498db;
+.title {
+  font-size: 1rem !important;
 }
-.notifications {
-  position: absolute;
-  position: fixed;
-  top: 30px;
-  right: 20px;
-  z-index: 1000;
+.cancel-btn {
+  background: transparent !important;
 }
-.notifications .toast {
-  width: 400px;
-  list-style: none;
-  border-radius: 4px;
-  padding: 16px 17px;
-  background: #e9bd0c;
-  animation: show_toast 0.3s ease forwards;
+.cancel-btn.btn-info {
+  border: 1px solid var(--v-primary-base);
+  color: var(--v-primary-base);
 }
-.action {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 15px;
-}
-@keyframes show_toast {
-  0% {
-    transform: translateX(100%);
-  }
-  40% {
-    transform: translateX(-5%);
-  }
-  80% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-10px);
-  }
-}
-.notifications .toast.hide {
-  animation: hide_toast 0.3s ease forwards;
-}
-@keyframes hide_toast {
-  0% {
-    transform: translateX(-10px);
-  }
-  40% {
-    transform: translateX(0%);
-  }
-  80% {
-    transform: translateX(-5%);
-  }
-  100% {
-    transform: translateX(calc(100% + 20px));
-  }
-}
-.toast .column span {
-  font-size: 1.1rem;
-  margin-left: 12px;
-}
-span {
-  color: white;
+.cancel-btn.btn-error {
+  border: 1px solid var(--v-error-base);
+  color: var(--v-error-base);
 }
 </style>

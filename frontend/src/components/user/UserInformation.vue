@@ -1,12 +1,12 @@
 <template>
-  <v-card class="mt-1">
+  <v-card class="mt-1 px-2">
     <v-row class="mt-2">
       <v-col v-for="property in userProperties" :key="property.key" cols="4">
-        <v-icon>{{ property.icon }}</v-icon> {{ property.label }}
         <v-text-field
           v-model="property.value"
           variant="outlined"
           readonly
+          :prepend-inner-icon="property.icon"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -34,7 +34,7 @@ const userProperties = computed(() => [
   {
     key: 'gender',
     label: 'Gender',
-    icon: 'mdi-cake-variant',
+    icon: 'mdi-gender-male-female',
     value: authStore.user?.data?.gender
   },
   {
@@ -52,7 +52,7 @@ const userProperties = computed(() => [
   {
     key: 'age',
     label: 'Age',
-    icon: 'mdi-cake-variant',
+    icon: 'mdi-face-agent',
     value: authStore.user?.data?.age
   }
 ])

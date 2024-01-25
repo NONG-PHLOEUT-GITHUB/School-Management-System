@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import LoginPage from '@/views/auth/LoginPage'
 import UserProfile from '@/views/userInfo/UserProfile.vue'
 import MainLayout from '@/components/layout/Layout.vue'
@@ -9,12 +10,8 @@ import ClassRecord from '@/components/classroom/ClassRecord.vue'
 import ClassRecordView from '@/views/classroom/ClassRecord.vue'
 const routes = [
   {
-    path: '/',
-    redirect: '/login' // Redirect to the login route by default
-  },
-  {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: LoginPage
   },
   {
@@ -76,10 +73,15 @@ const routes = [
         component: () => import('../views/classroom/MyClassroom.vue')
       },
       {
-        path: '/students/classroom/:classroomId/details',
+        path: '/classroom/:id/details',
         name: 'studentsClassroom',
         component: () => import('../views/classroom/StudentInClassroom.vue')
       },
+      // {
+      //   path: '/user/:id/details',
+      //   name: 'UserDetail',
+      //   component: () => import('../views/userInfo/UserInfoDetails.vue')
+      // },
       {
         path: '/comment',
         name: 'comment',
@@ -146,11 +148,11 @@ const routes = [
             name: 'detailAttendance',
             component: () => import('@/views/attendance/AttendanceRecord.vue')
           },
-          {
-            path: '/user/detail',
-            name: 'UserDetail',
-            component: () => import('../views/userInfo/UserInfoDetails.vue')
-          }
+          // {
+          //   path: '/user/details',
+          //   name: 'UserDetail',
+          //   component: () => import('../views/userInfo/UserInfoDetails.vue')
+          // }
         ]
       }
     ]
@@ -189,15 +191,25 @@ const router = createRouter({
     } else {
       return { x: 0, y: 0, behavior: 'smooth' }
     }
+  },
+})
+
+// router.beforeEach((to, from, next) => {
+//   const userStore = useAuthStore()
+//   const isAuthenticated = userStore.isAuthenticated
+//   if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+//   else next()
+// })
+router.beforeEach((to, from, next) => {
+  const userStore = useAuthStore()
+  const isAuthenticated = userStore.isAuthenticated
+  const token = localStorage.getItem('access_token')
+
+  if (to.name !== 'Login' && !isAuthenticated && !token) {
+    next({ name: 'Login' })
+  } else {
+    next()
   }
-  // routes : [
-  //   {
-  //     path: '/',
-  //     name: 'layout',
-  //     component: MainLayout,
-  //     childrens:routes,
-  //   }
-  // ]
 })
 
 export default router

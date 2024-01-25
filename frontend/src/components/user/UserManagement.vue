@@ -102,6 +102,7 @@
     item-value="name"
     return-object
     show-select
+    hover
   >
     <template v-slot:[`item.profile`]="{ item }">
       <v-avatar>
@@ -111,7 +112,7 @@
       </v-avatar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn variant="text" small icon="mdi-eye" @click="detail(item.id)"></v-btn>
+      <v-btn  :to="{ path: `/user/${item.id}/details` }" variant="text" small icon="mdi-eye"></v-btn>
       <v-btn variant="text" small icon="mdi-pencil" color="primary"></v-btn>
       <v-btn variant="text" small icon="mdi-delete" color="red" @click="deleteUser(item.id)"></v-btn>
     </template>
@@ -119,10 +120,10 @@
 </template>
 <script setup>
 import { useUsersStore } from '@/stores/users'
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
+import { ref, onMounted,getCurrentInstance } from 'vue'
+// import { useRouter } from 'vue-router'
+const app = getCurrentInstance();
+// const router = useRouter()
 const usersStore = useUsersStore()
 const toggleFilter = ref(false)
 const selected = ref([])
@@ -130,6 +131,7 @@ const searchUser = ref({ email: '', first_name: '' })
 let filteredUser = ref([])
 
 const headers = [
+  { title: 'id', align: 'center', key: 'id' },
   { title: 'Profile', align: 'center', key: 'image' },
   { title: 'First Name', align: 'center', key: 'first_name' },
   { title: 'Last Name', align: 'center', key: 'last_name' },
@@ -200,17 +202,21 @@ const resetFileInput = () => {
   }
 }
 
-const detail = async (id) => {
-  console.log('user id', id)
-  await router.push({ name: 'UserDetail' })
-}
+// const detail = async (id) => {
+//   console.log('user id', id)
+//   await router.push({ name: 'UserDetail' })
+// }
 
-const addUser = async (id) => {
-  console.log('user id',id);
-  await router.push({name:'crudUser'})
-}
+// const addUser = async (id) => {
+//   console.log('user id',id);
+//   await router.push({name:'crudUser'})
+// }
 
 const deleteUser = async (id) => {
+  app.appContext.config.globalProperties.$notif('Delete users cucesscefully', {
+    type: 'success',
+    color: 'primary'
+  })
   await usersStore.deleteUserData(id)
   await loadData()
   await performSearch()

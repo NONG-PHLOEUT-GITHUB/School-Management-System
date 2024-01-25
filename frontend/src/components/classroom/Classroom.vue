@@ -96,7 +96,7 @@
         md="4"
         lg="2"
         :key="index"
-        v-for="(classroom, index) in paginatedClassrooms"
+        v-for="(classroom, index) in filteredClassrooms"
       >
         <!-- v-for="(classroom, index) in classroomStore.classrooms.data" -->
         <v-card class="card elevation-2">
@@ -110,8 +110,12 @@
           <v-card-text class="font-weight-bold mt-1">
             <v-icon class="mb-1">mdi-account-tie</v-icon>
             <span class="ms-2"
-              >{{ classroom.teacher_first_name }}
-              {{ classroom.teacher_last_name }}</span
+              >
+              <!-- {{ classroom.first_name }}
+              {{ classroom.last_name }} -->
+              {{ classroom.first_name.slice(0, 10) }}
+              {{ classroom.last_name.slice(0, 5) }}
+              </span
             >
           </v-card-text>
           <v-card-actions class="card-action">
@@ -153,16 +157,17 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-pagination
+  <!-- <v-pagination
     class="mt-4"
     v-model="page"
     :length="totalPages"
     rounded="circle"
   ></v-pagination>
+  {{ searchClassroom }} -->
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted,getCurrentInstance } from 'vue'
 import { useClassroomStore } from '@/stores/classroom.js'
 import { useRouter } from 'vue-router'
 
@@ -172,26 +177,28 @@ const toggleFilter = ref(false)
 const classroomStore = useClassroomStore()
 const searchClassroom = ref({ student_count: null, classroom_name: '' })
 let filteredClassrooms = ref([])
-const itemsPerPage = 24
-const page = ref(1)
+// const itemsPerPage = 24
+// const page = ref(1)
+const app = getCurrentInstance()
 
-const totalPages = computed(() =>
-  Math.ceil(filteredClassrooms.value.length / itemsPerPage)
-)
+// const totalPages = computed(() =>
+//   Math.ceil(filteredClassrooms.value.length / itemsPerPage)
+// )
 
-const paginatedClassrooms = computed(() => {
-  const startIndex = (page.value - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  return filteredClassrooms.value.slice(startIndex, endIndex)
-})
+// const paginatedClassrooms = computed(() => {
+//   const startIndex = (page.value - 1) * itemsPerPage
+//   const endIndex = startIndex + itemsPerPage
+//   return filteredClassrooms.value.slice(startIndex, endIndex)
+// })
 
-const deleteClassroom = async (ID) => {
+const deleteClassroom = async () => {
   try {
-    await classroomStore.deleteClassroomByID(ID)
-    // this.$root.$notif(this.$t('crud.deletedSuccessMsg'), {
-    //   type: 'success',
-    //   color: 'primary'
-    // })
+    // await classroomStore.deleteClassroomByID(ID)
+    app.appContext.config.globalProperties.$confirm(
+      ('button.delete'),
+      ('session.sureDelete'),
+      { color: 'error' }
+    )
     await loadDataFromServer()
     await performSearch()
   } catch (error) {
@@ -218,6 +225,7 @@ const updateToggle = async () => {
 }
 
 const performSearch = async () => {
+  console.log('classfiler', classroomStore.classrooms)
   filteredClassrooms.value = classroomStore.classrooms.data.filter(
     (classroom) => {
       const matchStudentCount = searchClassroom.value.student_count

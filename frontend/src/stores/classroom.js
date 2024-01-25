@@ -27,6 +27,7 @@ export const useClassroomStore = defineStore('getClassroom', {
       try {
         const response = await fetchAllClassroom()
         this.classrooms = response.data
+        console.log('class room in store',this.classrooms);
       } catch (error) {
         console.error('Error fetching total class:', error)
       }
@@ -50,13 +51,12 @@ export const useClassroomStore = defineStore('getClassroom', {
       }
     },
 
-    async create({ classroom_name, description, teacher_id }) {
+    async create({ classroom_name, teacher_id }) {
       const loadingStore = useLoadingStore()
       loadingStore.setLoading(true)
       try {
         const response = await createClassroom(
           classroom_name,
-          description,
           teacher_id
         )
         this.classroomStore = response.data.classroom
@@ -102,11 +102,13 @@ export const useClassroomStore = defineStore('getClassroom', {
     },
 
     async getStudentsInClassroom(id) {
+      console.log('id in store',id);
       const loadingStore = useLoadingStore()
       try {
         loadingStore.setLoading(true)
         const response = await getStudentInClassroom(id)
         this.studentsInclassroom = response.data.data
+        console.log('data respost',response.data.data.length);
         loadingStore.setLoading(false)
       } catch (error) {
         console.error('Error fetching total class:', error)

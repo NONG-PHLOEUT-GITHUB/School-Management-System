@@ -93,6 +93,22 @@
     </v-row>
   </v-card>
   <bread-crumb></bread-crumb>
+  <v-card class="mb-4 px-2">
+    <custom-title>
+      <v-btn variant="text" small icon="mdi-calendar-range"></v-btn>
+      <p>Today: {{ today }}</p>
+      <template #right>
+        <v-btn
+        @click="enterSend"
+          color="primary"
+          variant="text"
+          append-icon="mdi-send-check-outline"
+        >
+          Send
+        </v-btn>
+      </template>
+    </custom-title>
+  </v-card>
   <v-data-table
     v-model="selected"
     class="elevation-1"
@@ -116,50 +132,105 @@
         @click="detail(item.id)"
       ></v-btn>
     </template>
+    <template v-slot:[`item.status`]="{ item }">
+      <v-select
+        style="margin-top: 16px"
+        v-model="item.status"
+        :items="[
+          'Present',
+          'Absent',
+          'Early',
+          'Excused',
+          'Unexcused',
+          'On leave',
+          'No show'
+        ]"
+        variant="outlined"
+        density="compact"
+      ></v-select>
+    </template>
+    <template v-slot:[`item.message`]="{ item }">
+      <v-btn
+        variant="text"
+        small
+        icon="mdi-message-alert-outline"
+        @click="detail(item.id)"
+      ></v-btn>
+    </template>
   </v-data-table>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useClassroomStore } from '@/stores/classroom.js'
+import { useTelegramBotStore } from '@/stores/telegram-bot.js'
 
+const router = useRouter()
 const classroomStore = useClassroomStore()
+const telegramStore = useTelegramBotStore()
 const toggleFilter = ref(false)
 let filteredUser = ref([])
+let searchUser = ref([])
+let text = ref([])
+let chat_id = ref([])
 
 const headers = [
   { title: 'Profile', align: 'center', key: 'image' },
   { title: 'First Name', align: 'center', key: 'first_name' },
   { title: 'Last Name', align: 'center', key: 'last_name' },
   { title: 'Email', align: 'center', key: 'email' },
-  { title: 'Status', align: 'center', key: 'role' },
+  // { title: 'Status', align: 'center', key: 'role' },
+  { title: 'Status', key: 'status', sortable: false },
+  { title: 'Message', key: 'message', sortable: false },
   { title: '', key: 'actions', sortable: false }
 ]
-const loadData = async () => {
-  const studentsInClassroom = classroomStore.studentsInclassroom;
-
-  studentsInClassroom.forEach((classroom) => {
-    const students = classroom.students;
-    students.forEach((user) => {
-      filteredUser.value.push({
-        profile: user.profile,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        role: user.role,
-        id: user.id
-      });
-    });
-  });
-};
-
+const enterSend = async () => {
+  console.log('send message');
+  const message = {
+    text: text.value,
+    chat_id: chat_id.value,
+  }
+  console.log(telegramStore.sendMessage);
+  console.log(message);
+  telegramStore.sendMessage(message)
+}
 const performSearch = async () => {
-  // filteredUser.value = studentsInClassroom.data.filter((user) => {
-  //   const matchFirstName =
-  //     user?.first_name
-  //       ?.toLowerCase()
-  //       .includes(searchUser.value.first_name.toLowerCase()) || false
-  //   return matchFirstName
-  // })
+  filteredUser.value = classroomStore.data.filter((user) => {
+    const matchFirstName =
+      user?.first_name
+        ?.toLowerCase()
+        .includes(searchUser.value.first_name.toLowerCase()) || false
+    return matchFirstName
+  })
+}
+
+const classrroomDetails = async (id) => {
+  try {
+    await classroomStore.getStudentsInClassroom(id)
+    const studentsList = classroomStore.studentsInclassroom
+    console.log('classroom detail', studentsList)
+    // studentsList.forEach((student)=>{
+    //   console.log(student);
+    // })
+    studentsList.forEach((student) => {
+      console.log(student.students)
+      const array = student.students
+      array.forEach((student) => {
+        console.log(student)
+        filteredUser.value.push({
+          profile: student.profile,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          email: student.email,
+          role: student.role,
+          id: student.id
+        })
+      })
+    })
+    // Now you can use studentsList.studentsInclassroom
+  } catch (error) {
+    console.error('Error fetching classroom details:', error)
+  }
 }
 
 const searchData = () => {
@@ -171,14 +242,42 @@ const updateToggle = async () => {
 }
 
 const clearFilter = async () => {
-  // searchUser.value.email = ''
-  // searchUser.value.first_name = ''
-  await loadData()
+  searchUser.value.email = ''
+  searchUser.value.first_name = ''
+  // await loadData()
 }
+const currentDate = async () => {
+  const current = new Date()
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+  const monthIndex = current.getMonth()
+  const monthName = monthNames[monthIndex]
+  const date = `${current.getDate()}/${monthName}/${current.getFullYear()} => ${current.getHours()}h:${current.getMinutes()}mn:${current.getSeconds()}s`
+  console.log('date', date)
+  return date
+}
+const today = ref(null)
 
-onMounted(async () => {  
-  const id = this.$route.params.id;
-  await loadData(id)
+currentDate().then((date) => {
+  today.value = date
+})
+onMounted(async () => {
+  // await loadData()
+  const id = router.currentRoute.value.params.id
+  console.log(id)
+  await classrroomDetails(id)
 })
 </script>
 

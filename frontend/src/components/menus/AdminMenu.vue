@@ -34,12 +34,12 @@ export default {
           value: 'users',
           to: { name: 'ClassManagement' }
         },
-        {
-          icon: 'mdi-book-open',
-          title: 'Academic Records',
-          value: 'academic',
-          to: { name: 'UserDetail' }
-        },
+        // {
+        //   icon: 'mdi-book-open',
+        //   title: 'Academic Records',
+        //   value: 'academic',
+        //   to: { name: 'UserDetail' }
+        // },
         {
           icon: 'mdi-clipboard-check',
           title: 'Attendance Tracking',
