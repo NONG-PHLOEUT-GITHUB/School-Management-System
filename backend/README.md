@@ -67,3 +67,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 # change this port follow xampp if xampp config to use port 3307 
 DB_PORT=3307 
+# env set up email for password when create user 
